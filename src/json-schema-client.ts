@@ -1,8 +1,9 @@
 import { fetch } from 'cross-fetch'
 import { Json } from '@blackglory/types'
-import { password, checkHTTPStatus, toJSON } from './utils'
+import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname, json } from 'extra-request/lib/es2018/transformers'
+import { ok, toJSON } from 'extra-response'
 
 export interface JsonSchemaClientOptions {
   server: string
@@ -20,7 +21,7 @@ export class JsonSchemaClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as string[]
   }
 
@@ -32,7 +33,7 @@ export class JsonSchemaClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON)
   }
 
@@ -44,8 +45,7 @@ export class JsonSchemaClient {
     , json(schema)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async remove(id: string): Promise<void> {
@@ -55,7 +55,6 @@ export class JsonSchemaClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 }

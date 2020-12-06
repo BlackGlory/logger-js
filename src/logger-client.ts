@@ -1,7 +1,7 @@
 import { fetch } from 'cross-fetch'
 import { post, get, del } from 'extra-request'
 import { url, pathname, text, searchParam } from 'extra-request/lib/es2018/transformers'
-import { checkHTTPStatus, toJSON } from './utils'
+import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import EventSource = require('eventsource')
 
@@ -38,8 +38,7 @@ export class LoggerClient {
     , text(val)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   follow(id: string, options: { token?: string } = {}): Observable<Log> {
@@ -76,7 +75,7 @@ export class LoggerClient {
     )
 
     yield* await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as AsyncIterable<Log>
   }
 
@@ -96,7 +95,6 @@ export class LoggerClient {
     , token && searchParam('token', token)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 }

@@ -1,7 +1,8 @@
 import { fetch } from 'cross-fetch'
-import { password, checkHTTPStatus, toJSON } from './utils'
+import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname } from 'extra-request/lib/es2018/transformers'
+import { ok, toJSON } from 'extra-response'
 
 export interface BlacklistClientOptions {
   server: string
@@ -19,7 +20,7 @@ export class BlacklistClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as string[]
   }
 
@@ -30,8 +31,7 @@ export class BlacklistClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async remove(id: string): Promise<void> {
@@ -41,7 +41,6 @@ export class BlacklistClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 }

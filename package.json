@@ -50,6 +50,7 @@
     "husky": "^4.3.0",
     "jest": "^26.6.3",
     "jest-extended": "^0.11.5",
+    "mocksse": "^1.0.2",
     "msw": "^0.24.0",
     "rollup": "^2.34.1",
     "rollup-plugin-terser": "^7.0.2",
@@ -59,16 +60,12 @@
     "typescript": "^4.1.2"
   },
   "dependencies": {
-    "@blackglory/http-status": "^0.1.1",
     "@blackglory/types": "^0.1.8",
-    "@stardazed/streams": "^3.0.0",
-    "@stardazed/streams-text-encoding": "^1.0.2",
     "cross-fetch": "^3.0.6",
     "eventsource": "^1.0.7",
     "extra-request": "^0.2.0",
+    "extra-response": "^0.1.0",
     "iterable-operator": "^0.12.2",
-    "mocksse": "^1.0.2",
-    "rxjs": "^7.0.0-beta.8",
-    "text-encoding": "^0.7.0"
+    "rxjs": "^7.0.0-beta.8"
   }
 }

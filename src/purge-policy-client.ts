@@ -1,7 +1,8 @@
 import { fetch } from 'cross-fetch'
-import { password, checkHTTPStatus, toJSON } from './utils'
+import { password } from './utils'
 import { get, put, del, post } from 'extra-request'
 import { url, pathname, json } from 'extra-request/lib/es2018/transformers'
+import { ok, toJSON } from 'extra-response'
 
 interface PurgePolicy {
   timeToLive: number | null
@@ -24,7 +25,7 @@ export class PurgePolicyClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as string[]
   }
 
@@ -36,7 +37,7 @@ export class PurgePolicyClient {
     )
 
     return await fetch(req)
-      .then(checkHTTPStatus)
+      .then(ok)
       .then(toJSON) as PurgePolicy
   }
 
@@ -48,8 +49,7 @@ export class PurgePolicyClient {
     , json(val)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async removeTimeToLive(id: string): Promise<void> {
@@ -59,8 +59,7 @@ export class PurgePolicyClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async setLimit(id: string, val: number): Promise<void> {
@@ -71,8 +70,7 @@ export class PurgePolicyClient {
     , json(val)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async removeLimit(id: string): Promise<void> {
@@ -82,8 +80,7 @@ export class PurgePolicyClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 
   async purge(id: string): Promise<void> {
@@ -93,7 +90,6 @@ export class PurgePolicyClient {
     , password(this.options.adminPassword)
     )
 
-    await fetch(req)
-      .then(checkHTTPStatus)
+    await fetch(req).then(ok)
   }
 }
