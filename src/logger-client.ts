@@ -3,7 +3,10 @@ import { post, get, del } from 'extra-request'
 import { url, pathname, text, searchParam } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
 import EventSource = require('eventsource')
+import { Json } from '@blackglory/types'
+import { AsyncIterableOperator } from 'iterable-operator/lib/es2018/style/chaining'
 
 interface Query {
   from?: string
@@ -12,9 +15,14 @@ interface Query {
   tail?: number
 }
 
-interface Log {
+export interface Log {
   id: string
   payload: string
+}
+
+export interface JsonLog {
+  id: string
+  payload: Json
 }
 
 export interface LoggerClientOptions {
@@ -41,6 +49,14 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
+  async writeJSON(
+    id: string
+  , val: Json
+  , options?: { token?: string }
+  ): Promise<void> {
+    return await this.write(id, JSON.stringify(val), options)
+  }
+
   follow(id: string, options: { token?: string } = {}): Observable<Log> {
     return new Observable(observer => {
       const token = options.token ?? this.options.token
@@ -56,6 +72,17 @@ export class LoggerClient {
 
       return () => es.close()
     })
+  }
+
+  followJSON(id: string, options?: { token?: string }): Observable<JsonLog> {
+    return this.follow(id, options).pipe(
+      map(x => {
+        return {
+          id: x.id
+        , payload: JSON.parse(x.payload)
+        }
+      })
+    )
   }
 
   async* query(
@@ -77,6 +104,20 @@ export class LoggerClient {
     yield* await fetch(req)
       .then(ok)
       .then(toJSON) as AsyncIterable<Log>
+  }
+
+  queryJSON(
+    id: string
+  , query: Query
+  , options?: { token?: string }
+  ): AsyncIterable<JsonLog> {
+    return new AsyncIterableOperator(this.query(id, query, options))
+      .mapAsync<JsonLog>(x => {
+        return {
+          id: x.id
+        , payload: JSON.parse(x.payload)
+        }
+      })
   }
 
   async del(

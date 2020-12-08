@@ -13,9 +13,21 @@ describe('LoggerClient', () => {
   it('write(id: string, val: string, options?: { token?: string }): Promise<void>', async () => {
     const client = createClient()
     const id = 'id'
-    const val = 'message'
+    const val = 'null'
 
     const result = client.write(id, val)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toBeUndefined()
+  })
+
+  it('writeJSON(id: string, val: Json, options?: { token?: string }): Promise<void>', async () => {
+    const client = createClient()
+    const id = 'id'
+    const val = null
+
+    const result = client.writeJSON(id, val)
     const proResult = await result
 
     expect(result).toBePromise()
@@ -31,8 +43,20 @@ describe('LoggerClient', () => {
 
     expect(result).toBeAsyncIterable()
     expect(proResult).toStrictEqual([
-      { id: 'id-1', payload: 'payload-1' }
-    , { id: 'id-2', payload: 'payload-2' }
+      { id: 'id', payload: 'null' }
+    ])
+  })
+
+  it('queryJSON(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): AsyncIterable<JsonLog>', async () => {
+    const client = createClient()
+    const id = 'id'
+
+    const result = client.queryJSON(id, {})
+    const proResult = await toArrayAsync(result)
+
+    expect(result).toBeAsyncIterable()
+    expect(proResult).toStrictEqual([
+      { id: 'id', payload: null }
     ])
   })
 

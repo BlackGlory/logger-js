@@ -14,8 +14,7 @@ export const server = setupServer(
     if (badToken(req)) return res(ctx.status(401))
 
     const result = [
-      { id: 'id-1', payload: 'payload-1' }
-    , { id: 'id-2', payload: 'payload-2' }
+      { id: 'id', payload: 'null' }
     ]
     if (req.headers.get('Accept') === 'application/x-ndjson') {
       return res(

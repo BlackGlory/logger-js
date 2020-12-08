@@ -5,6 +5,6 @@ const id = 'id'
 new MockEvent({
   url: `http://localhost/logger/${id}?token=${TOKEN}`
 , responses: [
-    { type: 'message', data: JSON.stringify({ id: 'id', payload: 'payload' }) }
+    { type: 'message', data: JSON.stringify({ id: 'id', payload: 'null' }) }
   ]
 })

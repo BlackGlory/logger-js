@@ -17,6 +17,13 @@ interface Log {
 }
 ```
 
+```ts
+interface JsonLog {
+  id: string
+  payload: Json
+}
+```
+
 ### LoggerClient
 
 ```ts
@@ -32,10 +39,22 @@ new LoggerClient({
 LoggerClient#write(id: string, val: string, options?: { token?: string }): Promise<void>
 ```
 
+#### writeJSON
+
+```ts
+LoggerClient#writeJSON(id: string, val: Json, options?: { token?: string }): Promise<void>
+```
+
 #### follow
 
 ```ts
 LoggerClient#follow(id: string, options?: { token?: string }): Observable<Log>
+```
+
+#### followJSON
+
+```ts
+LoggerClient#followJSON(id: string, options?: { token?: string }): Observable<JsonLog>
 ```
 
 #### query
@@ -51,6 +70,21 @@ LoggerClient#query(
   }
 , options?: { token?: string }
 ): AsyncIterable<Log>
+```
+
+#### queryJSON
+
+```ts
+LoggerClient#queryJSON(
+  id: string
+, query: {
+    from?: string
+    to?: string
+    head?: number
+    tail?: number
+  }
+, options?: { token?: string }
+): AsyncIterable<JsonLog>
 ```
 
 #### del
