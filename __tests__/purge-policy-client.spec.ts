@@ -77,6 +77,17 @@ describe('PurgePolicyClient', () => {
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
+
+  it('purge(id: string): Promise<void>', async () => {
+    const client = createClient()
+    const id = 'id'
+
+    const result = client.purge(id)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toBeUndefined()
+  })
 })
 
 function createClient() {

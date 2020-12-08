@@ -50,4 +50,17 @@ export const server = setupServer(
 
     return res(ctx.status(204))
   })
+
+, rest.put('/api/logger/:id/token-policies/delete-token-required', (req, res, ctx) => {
+    if (badAuth(req)) return res(ctx.status(401))
+    if (badJson(req)) return res(ctx.status(400))
+
+    return res(ctx.status(204))
+  })
+
+, rest.delete('/api/logger/:id/token-policies/delete-token-required', (req, res, ctx) => {
+    if (badAuth(req)) return res(ctx.status(401))
+
+    return res(ctx.status(204))
+  })
 )

@@ -51,4 +51,16 @@ export const server = setupServer(
 
     return res(ctx.status(204))
   })
+
+, rest.put('/api/logger/:id/tokens/:token/delete', (req, res, ctx) => {
+    if (badAuth(req)) return res(ctx.status(401))
+
+    return res(ctx.status(204))
+  })
+
+, rest.delete('/api/logger/:id/tokens/:token/delete', (req, res, ctx) => {
+    if (badAuth(req)) return res(ctx.status(401))
+
+    return res(ctx.status(204))
+  })
 )
