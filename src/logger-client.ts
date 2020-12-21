@@ -1,6 +1,6 @@
 import { fetch } from 'cross-fetch'
 import { post, get, del } from 'extra-request'
-import { url, pathname, text, searchParam } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, text, searchParam, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -30,13 +30,22 @@ export interface LoggerClientOptions {
   token?: string
 }
 
+export interface LoggerClientRequestOptions {
+  signal?: AbortSignal
+  token?: string
+}
+
+export interface LoggerClientObserveOptions {
+  token?: string
+}
+
 export class LoggerClient {
   constructor(private options: LoggerClientOptions) {}
 
   async write(
     id: string
   , val: string
-  , options: { token?: string } = {}
+  , options: LoggerClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = post(
@@ -44,6 +53,7 @@ export class LoggerClient {
     , pathname(`/logger/${id}`)
     , token && searchParam('token', token)
     , text(val)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
@@ -52,12 +62,12 @@ export class LoggerClient {
   async writeJSON(
     id: string
   , val: Json
-  , options?: { token?: string }
+  , options?: LoggerClientRequestOptions
   ): Promise<void> {
     return await this.write(id, JSON.stringify(val), options)
   }
 
-  follow(id: string, options: { token?: string } = {}): Observable<Log> {
+  follow(id: string, options: LoggerClientObserveOptions = {}): Observable<Log> {
     return new Observable(observer => {
       const token = options.token ?? this.options.token
       const url = new URL(`/logger/${id}`, this.options.server)
@@ -74,7 +84,7 @@ export class LoggerClient {
     })
   }
 
-  followJSON(id: string, options?: { token?: string }): Observable<JsonLog> {
+  followJSON(id: string, options?: LoggerClientObserveOptions): Observable<JsonLog> {
     return this.follow(id, options).pipe(
       map(x => {
         return {
@@ -88,7 +98,7 @@ export class LoggerClient {
   async* query(
     id: string
   , query: Query
-  , options: { token?: string } = {}
+  , options: LoggerClientRequestOptions = {}
   ): AsyncIterable<Log> {
     const token = options.token ?? this.options.token
     const req = get(
@@ -99,6 +109,7 @@ export class LoggerClient {
     , query.head && searchParam('head', query.head.toString())
     , query.tail && searchParam('tail', query.tail.toString())
     , token && searchParam('token', token)
+    , options.signal && signal(options.signal)
     )
 
     yield* await fetch(req)
@@ -109,7 +120,7 @@ export class LoggerClient {
   queryJSON(
     id: string
   , query: Query
-  , options?: { token?: string }
+  , options?: LoggerClientRequestOptions
   ): AsyncIterable<JsonLog> {
     return new AsyncIterableOperator(this.query(id, query, options))
       .mapAsync<JsonLog>(x => {
@@ -123,7 +134,7 @@ export class LoggerClient {
   async del(
     id: string
   , query: Query
-  , options: { token?: string } = {}
+  , options: LoggerClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = del(

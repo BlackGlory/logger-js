@@ -1,27 +1,25 @@
 import { fetch } from 'cross-fetch'
 import { password } from './utils'
 import { get, put, del, post } from 'extra-request'
-import { url, pathname, json } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
+import type { LoggerManagerOptions } from './logger-manager'
+import { LoggerManagerRequestOptions } from './types'
 
 interface PurgePolicy {
   timeToLive: number | null
   limit: number | null
 }
 
-export interface PurgePolicyClientOptions {
-  server: string
-  adminPassword: string
-}
-
 export class PurgePolicyClient {
-  constructor(private options: PurgePolicyClientOptions) {}
+  constructor(private options: LoggerManagerOptions) {}
 
-  async getIds(): Promise<string[]> {
+  async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/api/logger-with-purge-policies')
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -29,11 +27,12 @@ export class PurgePolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string): Promise<PurgePolicy> {
+  async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<PurgePolicy> {
     const req = get(
       url(this.options.server)
     , pathname(`/api/logger/${id}/purge-policies`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -41,53 +40,58 @@ export class PurgePolicyClient {
       .then(toJSON) as PurgePolicy
   }
 
-  async setTimeToLive(id: string, val: number): Promise<void> {
+  async setTimeToLive(id: string, val: number, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/api/logger/${id}/purge-policies/time-to-live`)
     , password(this.options.adminPassword)
     , json(val)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async removeTimeToLive(id: string): Promise<void> {
+  async removeTimeToLive(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/api/logger/${id}/purge-policies/time-to-live`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async setLimit(id: string, val: number): Promise<void> {
+  async setLimit(id: string, val: number, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/api/logger/${id}/purge-policies/limit`)
     , password(this.options.adminPassword)
     , json(val)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async removeLimit(id: string): Promise<void> {
+  async removeLimit(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/api/logger/${id}/purge-policies/limit`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async purge(id: string): Promise<void> {
+  async purge(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
       url(this.options.server)
     , pathname(`/api/logger/${id}/purge-policies`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)

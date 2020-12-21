@@ -1,8 +1,10 @@
 import { fetch } from 'cross-fetch'
 import { password } from './utils'
 import { get, put, del } from 'extra-request'
-import { url, pathname, json } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
+import type { LoggerManagerOptions } from './logger-manager'
+import { LoggerManagerRequestOptions } from './types'
 
 interface TokenPolicy {
   writeTokenRequired: boolean | null
@@ -10,19 +12,15 @@ interface TokenPolicy {
   deleteTokenRequired: boolean | null
 }
 
-export interface TokenPolicyClientOptions {
-  server: string
-  adminPassword: string
-}
-
 export class TokenPolicyClient {
-  constructor(private options: TokenPolicyClientOptions) {}
+  constructor(private options: LoggerManagerOptions) {}
 
-  async getIds(): Promise<string[]> {
+  async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/api/logger-with-token-policies')
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -30,11 +28,12 @@ export class TokenPolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string): Promise<TokenPolicy> {
+  async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<TokenPolicy> {
     const req = get(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -42,64 +41,70 @@ export class TokenPolicyClient {
       .then(toJSON) as TokenPolicy
   }
 
-  async setWriteTokenRequired(id: string, val: boolean): Promise<void> {
+  async setWriteTokenRequired(id: string, val: boolean, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies/write-token-required`)
     , password(this.options.adminPassword)
     , json(val)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async removeWriteTokenRequired(id: string): Promise<void> {
+  async removeWriteTokenRequired(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies/write-token-required`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async setReadTokenRequired(id: string, val: boolean): Promise<void> {
+  async setReadTokenRequired(id: string, val: boolean, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies/read-token-required`)
     , password(this.options.adminPassword)
     , json(val)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async removeReadTokenRequired(id: string): Promise<void> {
+  async removeReadTokenRequired(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies/read-token-required`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async setDeleteTokenRequired(id: string, val: boolean): Promise<void> {
+  async setDeleteTokenRequired(id: string, val: boolean, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies/delete-token-required`)
     , password(this.options.adminPassword)
     , json(val)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
   }
 
-  async removeDeleteTokenRequired(id: string): Promise<void> {
+  async removeDeleteTokenRequired(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/api/logger/${id}/token-policies/delete-token-required`)
     , password(this.options.adminPassword)
+    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
