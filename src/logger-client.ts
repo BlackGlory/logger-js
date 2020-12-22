@@ -5,7 +5,6 @@ import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import EventSource = require('eventsource')
-import { Json } from '@blackglory/types'
 import { AsyncIterableOperator } from 'iterable-operator/lib/es2018/style/chaining'
 
 interface Query {
@@ -20,9 +19,9 @@ export interface Log {
   payload: string
 }
 
-export interface JsonLog {
+export interface JsonLog<T> {
   id: string
-  payload: Json
+  payload: T
 }
 
 export interface LoggerClientOptions {
@@ -59,9 +58,9 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
-  async writeJSON(
+  async writeJSON<T>(
     id: string
-  , val: Json
+  , val: T
   , options?: LoggerClientRequestOptions
   ): Promise<void> {
     return await this.write(id, JSON.stringify(val), options)
@@ -84,7 +83,7 @@ export class LoggerClient {
     })
   }
 
-  followJSON(id: string, options?: LoggerClientObserveOptions): Observable<JsonLog> {
+  followJSON<T>(id: string, options?: LoggerClientObserveOptions): Observable<JsonLog<T>> {
     return this.follow(id, options).pipe(
       map(x => {
         return {
@@ -117,13 +116,13 @@ export class LoggerClient {
       .then(toJSON) as AsyncIterable<Log>
   }
 
-  queryJSON(
+  queryJSON<T>(
     id: string
   , query: Query
   , options?: LoggerClientRequestOptions
-  ): AsyncIterable<JsonLog> {
+  ): AsyncIterable<JsonLog<T>> {
     return new AsyncIterableOperator(this.query(id, query, options))
-      .mapAsync<JsonLog>(x => {
+      .mapAsync<JsonLog<T>>(x => {
         return {
           id: x.id
         , payload: JSON.parse(x.payload)

@@ -33,7 +33,7 @@ export class JsonSchemaClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON)
+      .then(toJSON) as Json
   }
 
   async set(id: string, schema: Json, options: LoggerManagerRequestOptions = {}): Promise<void> {
