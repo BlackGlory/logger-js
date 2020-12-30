@@ -23,7 +23,7 @@ export class JsonSchemaClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<Json> {
+  async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<unknown> {
     const req = get(
       url(this.options.server)
     , pathname(`/api/logger/${id}/json-schema`)
@@ -33,7 +33,7 @@ export class JsonSchemaClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as Json
+      .then(toJSON)
   }
 
   async set(id: string, schema: Json, options: LoggerManagerRequestOptions = {}): Promise<void> {
