@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript'
+import json from '@rollup/plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
@@ -12,6 +13,7 @@ function createOptions({ directory, target }) {
     , output: createOutput('index')
     , plugins: [
         typescript({ target })
+      , json()
       , resolve()
       , commonjs()
       ]
@@ -21,6 +23,7 @@ function createOptions({ directory, target }) {
     , output: createMinification('index')
     , plugins: [
         typescript({ target })
+      , json()
       , resolve()
       , commonjs()
       , terser()
