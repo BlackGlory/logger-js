@@ -278,17 +278,17 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@blackglory/errors@^0.1.0":
+"@blackglory/errors@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-0.1.2.tgz#45c3670c075e1e928f7bede05a5b8095d2f43112"
   integrity sha512-OwgxggAWYhLNo2TYs1c7GBWLdjiJMz03UsGTQv/BlIYMg5hq0ABLGfFw7G/PO0Htgbgs+Yi44ftknwUX5/t6RA==
 
-"@blackglory/http-status@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@blackglory/http-status/-/http-status-0.1.2.tgz#2504fefe32c8c0282302c2caa5d8afbbace9961b"
-  integrity sha512-j/Wdk3BluvBM4Rk4OhIOiCxXNctnmA+UVFzoFkBU6QWU462womGE1f6/Mr8BnL+q2VQiUZUMEkf+P+F6nG853Q==
+"@blackglory/http-status@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@blackglory/http-status/-/http-status-0.1.4.tgz#9e7169ebf5248c8d5376e76336a57ac69578ed39"
+  integrity sha512-6YCQV6JLLyxSd6LiOyRqa98sjvlVb3mrdQ4I+RA4l2JTe8CbztrYteJkgQFpLh80TRmcsxmK9X66pp+yD5FJ4Q==
   dependencies:
-    "@blackglory/errors" "^0.1.0"
+    "@blackglory/errors" "^0.1.2"
 
 "@blackglory/jest-matchers@^0.1.7":
   version "0.1.7"
@@ -2420,12 +2420,12 @@ extra-request@^0.2.3:
     "@blackglory/types" "^0.1.11"
     cross-fetch "^3.0.6"
 
-extra-response@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.1.2.tgz#d0a891daaec7742acbcb5801dcb5fcc64ed785e6"
-  integrity sha512-sbf8JJcRuqBr50inPg+5GG8ccnmEIl2FqkSGH9vWRclJ1kYyepB9KexUYeE41e6PQIBj1p3tF6jz7m3/g4oP8w==
+extra-response@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.2.0.tgz#761b2f478097ad0ca01e6d2c6a563b00bd1f1ba3"
+  integrity sha512-Z+XX0RhRQ5eGjWIzw3eSsQpe08xn31bt3NTnVnVu0wZ5ihaXB3sAhA6aUxcLq3ufPNQ05Yx4TEtsicyDYdUDgw==
   dependencies:
-    "@blackglory/http-status" "^0.1.2"
+    "@blackglory/http-status" "^0.1.4"
     iterable-operator "^0.12.4"
 
 extsprintf@1.3.0:
