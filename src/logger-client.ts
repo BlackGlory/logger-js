@@ -4,8 +4,8 @@ import { url, pathname, text, searchParam, signal } from 'extra-request/lib/es20
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import EventSource = require('eventsource')
 import { AsyncIterableOperator } from 'iterable-operator/lib/es2018/style/chaining'
+import 'eventsource/lib/eventsource-polyfill'
 
 interface Query {
   from?: string

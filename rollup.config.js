@@ -3,6 +3,8 @@ import json from '@rollup/plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
+import nodePolyfills from 'rollup-plugin-node-polyfills'
+import analyze from 'rollup-plugin-analyzer'
 
 const UMD_NAME = 'Logger'
 
@@ -12,19 +14,22 @@ function createOptions({ directory, target }) {
       input: 'src/index.ts'
     , output: createOutput('index')
     , plugins: [
-        typescript({ target })
+        nodePolyfills()
+      , typescript({ target })
       , json()
-      , resolve()
+      , resolve({ browser: true })
       , commonjs()
+      , analyze({ summaryOnly: true })
       ]
     }
   , {
       input: 'src/index.ts'
     , output: createMinification('index')
     , plugins: [
-        typescript({ target })
+        nodePolyfills()
+      , typescript({ target })
       , json()
-      , resolve()
+      , resolve({ browser: true })
       , commonjs()
       , terser()
       ]
