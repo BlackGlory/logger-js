@@ -44,8 +44,7 @@ interface LoggerClientRequestOptions {
 interface LoggerClientObserveOptions {
   token?: string
 }
-
-
+```
 
 #### write
 
