@@ -8,17 +8,32 @@ import analyze from 'rollup-plugin-analyzer'
 
 const UMD_NAME = 'Logger'
 
+export default [
+  ...createOptions({
+    directory: 'es2015'
+  , target: 'ES2015'
+  })
+, ...createOptions({
+    directory: 'es2018'
+  , target: 'ES2018'
+  })
+]
+
 function createOptions({ directory, target }) {
+  const commonPlugins = [
+    nodePolyfills()
+  , typescript({ target })
+  , json()
+  , resolve({ browser: true })
+  , commonjs()
+  ]
+
   return [
     {
       input: 'src/index.ts'
     , output: createOutput('index')
     , plugins: [
-        nodePolyfills()
-      , typescript({ target })
-      , json()
-      , resolve({ browser: true })
-      , commonjs()
+        ...commonPlugins
       , analyze({ summaryOnly: true })
       ]
     }
@@ -26,11 +41,7 @@ function createOptions({ directory, target }) {
       input: 'src/index.ts'
     , output: createMinification('index')
     , plugins: [
-        nodePolyfills()
-      , typescript({ target })
-      , json()
-      , resolve({ browser: true })
-      , commonjs()
+        ...commonPlugins
       , terser()
       ]
     }
@@ -68,14 +79,3 @@ function createOptions({ directory, target }) {
     ]
   }
 }
-
-export default [
-  ...createOptions({
-    directory: 'es2015'
-  , target: 'ES2015'
-  })
-, ...createOptions({
-    directory: 'es2018'
-  , target: 'ES2018'
-  })
-]
