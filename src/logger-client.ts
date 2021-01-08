@@ -1,4 +1,4 @@
-import { fetch } from 'cross-fetch'
+import { fetch } from 'extra-fetch'
 import { post, get, del } from 'extra-request'
 import { url, pathname, text, searchParam, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'

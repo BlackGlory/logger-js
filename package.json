@@ -62,9 +62,9 @@
   },
   "dependencies": {
     "@blackglory/types": "^0.2.4",
-    "cross-fetch": "^3.0.6",
     "eventsource": "^1.0.7",
-    "extra-request": "^0.2.8",
+    "extra-fetch": "^0.1.6",
+    "extra-request": "^0.3.0",
     "extra-response": "^0.2.2",
     "iterable-operator": "^0.12.6",
     "rxjs": "^7.0.0-beta.9"

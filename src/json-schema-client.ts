@@ -1,4 +1,4 @@
-import { fetch } from 'cross-fetch'
+import { fetch } from 'extra-fetch'
 import { Json } from '@blackglory/types'
 import { password } from './utils'
 import { get, put, del } from 'extra-request'
