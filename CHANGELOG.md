@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.13](https://github.com/BlackGlory/logger-js/compare/v0.1.12...v0.1.13) (2021-01-15)
+
+
+### Bug Fixes
+
+* esm bundle ([c0c0521](https://github.com/BlackGlory/logger-js/commit/c0c05214f3e91ca70a25538565b19094156f7c51))
+
 ### [0.1.12](https://github.com/BlackGlory/logger-js/compare/v0.1.11...v0.1.12) (2021-01-08)
 
 ### [0.1.11](https://github.com/BlackGlory/logger-js/compare/v0.1.10...v0.1.11) (2021-01-07)
