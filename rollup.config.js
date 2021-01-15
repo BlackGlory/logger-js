@@ -5,6 +5,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 import nodePolyfills from 'rollup-plugin-node-polyfills'
 import analyze from 'rollup-plugin-analyzer'
+import replace from '@rollup/plugin-replace'
 
 const UMD_NAME = 'Logger'
 
@@ -21,7 +22,11 @@ export default [
 
 function createOptions({ directory, target }) {
   const commonPlugins = [
-    nodePolyfills()
+    replace({
+      'Object.defineProperty(exports, "__esModule", { value: true });': ''
+    , delimiters: ['\n', '\n']
+    })
+  , nodePolyfills()
   , typescript({ target })
   , json()
   , resolve({ browser: true })
