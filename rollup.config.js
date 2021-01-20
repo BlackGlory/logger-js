@@ -27,10 +27,10 @@ function createOptions({ directory, target }) {
     , delimiters: ['\n', '\n']
     })
   , nodePolyfills()
-  , typescript({ target })
-  , json()
   , resolve({ browser: true })
   , commonjs()
+  , json()
+  , typescript({ target })
   ]
 
   return [
