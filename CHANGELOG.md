@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.15](https://github.com/BlackGlory/logger-js/compare/v0.1.14...v0.1.15) (2021-01-26)
+
+
+### Features
+
+* add LoggerClient#list ([9c7d5c3](https://github.com/BlackGlory/logger-js/commit/9c7d5c33b357d30161d1f51c48d2781094d55f0d))
+
 ### [0.1.14](https://github.com/BlackGlory/logger-js/compare/v0.1.13...v0.1.14) (2021-01-20)
 
 ### [0.1.13](https://github.com/BlackGlory/logger-js/compare/v0.1.12...v0.1.13) (2021-01-15)
