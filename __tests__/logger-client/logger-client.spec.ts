@@ -70,6 +70,16 @@ describe('LoggerClient', () => {
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
+
+  it('list(): Promise<string[]>', async () => {
+    const client = createClient()
+
+    const result = client.list()
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toStrictEqual(['id'])
+  })
 })
 
 function createClient() {

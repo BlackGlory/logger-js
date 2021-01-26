@@ -35,4 +35,11 @@ export const server = setupServer(
 
     return res(ctx.status(204))
   })
+
+, rest.get('/logger', (req, res, ctx) => {
+    return res(
+      ctx.status(200)
+    , ctx.json(['id'])
+    )
+  })
 )

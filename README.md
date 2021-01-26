@@ -41,6 +41,12 @@ interface LoggerClientRequestOptions {
 ```
 
 ```ts
+interface LoggerClientRequestOptionsWithoutToken {
+  signal?: AbortSignal
+}
+```
+
+```ts
 interface LoggerClientObserveOptions {
   token?: string
 }
@@ -113,6 +119,12 @@ LoggerClient#del(
   }
 , options?: LoggerClientRequestOptions
 ): Promise<void>
+```
+
+#### list
+
+```ts
+LoggerClient#list(options?: LoggerClientRequestOptionsWithoutToken): Promise<string[]>
 ```
 
 ### LoggerManager

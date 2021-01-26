@@ -34,6 +34,10 @@ export interface LoggerClientRequestOptions {
   token?: string
 }
 
+export interface LoggerClientRequestOptionsWithoutToken {
+  signal?: AbortSignal
+}
+
 export interface LoggerClientObserveOptions {
   token?: string
 }
@@ -147,5 +151,17 @@ export class LoggerClient {
     )
 
     await fetch(req).then(ok)
+  }
+
+  async list(options: LoggerClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+    const req = get(
+      url(this.options.server)
+    , pathname('/logger')
+    , options.signal && signal(options.signal)
+    )
+
+    return await fetch(req)
+      .then(ok)
+      .then(toJSON) as string[]
   }
 }
