@@ -69,11 +69,10 @@
   },
   "dependencies": {
     "@blackglory/types": "^0.2.9",
-    "eventsource": "^1.0.7",
+    "eventsource": "https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a",
     "extra-fetch": "^0.1.9",
     "extra-request": "^0.3.5",
     "extra-response": "^0.2.8",
-    "iterable-operator": "^0.12.11",
-    "rxjs": "^7.0.0-beta.9"
+    "rxjs": "^7.0.0-beta.10"
   }
 }

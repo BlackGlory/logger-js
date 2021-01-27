@@ -88,7 +88,7 @@ LoggerClient#query(
     tail?: number
   }
 , options?: LoggerClientRequestOptions
-): AsyncIterable<Log>
+): Promise<Log[]>
 ```
 
 #### queryJSON
@@ -103,7 +103,7 @@ LoggerClient#queryJSON(
     tail?: number
   }
 , options?: LoggerClientRequestOptions
-): AsyncIterable<JsonLog>
+): Promise<Array<JsonLog>>
 ```
 
 #### del

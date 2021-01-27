@@ -1,7 +1,6 @@
 import { server } from './logger.mock'
 import { LoggerClient } from '@src/logger-client'
 import { TOKEN } from '@test/utils'
-import { toArrayAsync } from 'iterable-operator'
 import '@blackglory/jest-matchers'
 import 'jest-extended'
 
@@ -34,27 +33,25 @@ describe('LoggerClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('query(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): AsyncIterable<Log>', async () => {
+  it('query(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): Promise<Log[]>', async () => {
     const client = createClient()
     const id = 'id'
 
     const result = client.query(id, {})
-    const proResult = await toArrayAsync(result)
+    const proResult = await result
 
-    expect(result).toBeAsyncIterable()
     expect(proResult).toStrictEqual([
       { id: 'id', payload: 'null' }
     ])
   })
 
-  it('queryJSON(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): AsyncIterable<JsonLog>', async () => {
+  it('queryJSON(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): Promise<Array<JsonLog>>', async () => {
     const client = createClient()
     const id = 'id'
 
     const result = client.queryJSON(id, {})
-    const proResult = await toArrayAsync(result)
+    const proResult = await result
 
-    expect(result).toBeAsyncIterable()
     expect(proResult).toStrictEqual([
       { id: 'id', payload: null }
     ])

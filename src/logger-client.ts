@@ -4,7 +4,6 @@ import { url, pathname, text, searchParam, signal } from 'extra-request/lib/es20
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { AsyncIterableOperator } from 'iterable-operator/lib/es2018/style/chaining'
 import 'eventsource/lib/eventsource-polyfill'
 
 interface Query {
@@ -98,11 +97,11 @@ export class LoggerClient {
     )
   }
 
-  async* query(
+  async query(
     id: string
   , query: Query
   , options: LoggerClientRequestOptions = {}
-  ): AsyncIterable<Log> {
+  ): Promise<Log[]> {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
@@ -115,23 +114,21 @@ export class LoggerClient {
     , options.signal && signal(options.signal)
     )
 
-    yield* await fetch(req)
+    return await fetch(req)
       .then(ok)
-      .then(toJSON) as AsyncIterable<Log>
+      .then(toJSON) as Log[]
   }
 
-  queryJSON<T>(
+  async queryJSON<T>(
     id: string
   , query: Query
   , options?: LoggerClientRequestOptions
-  ): AsyncIterable<JsonLog<T>> {
-    return new AsyncIterableOperator(this.query(id, query, options))
-      .mapAsync<JsonLog<T>>(x => {
-        return {
-          id: x.id
-        , payload: JSON.parse(x.payload)
-        }
-      })
+  ): Promise<Array<JsonLog<T>>> {
+    const logs = await this.query(id, query, options)
+    return logs.map<JsonLog<T>>(x => ({
+      id: x.id
+    , payload: JSON.parse(x.payload)
+    }))
   }
 
   async del(
