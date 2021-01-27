@@ -3,7 +3,6 @@ import json from '@rollup/plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
-import nodePolyfills from 'rollup-plugin-node-polyfills'
 import analyze from 'rollup-plugin-analyzer'
 import replace from '@rollup/plugin-replace'
 
@@ -26,7 +25,6 @@ function createOptions({ directory, target }) {
       'Object.defineProperty(exports, "__esModule", { value: true });': ''
     , delimiters: ['\n', '\n']
     })
-  , nodePolyfills()
   , resolve({ browser: true })
   , commonjs()
   , json()
