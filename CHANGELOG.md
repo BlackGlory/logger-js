@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/BlackGlory/logger-js/compare/v0.1.16...v0.2.0) (2021-01-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* query, queryJSON now return Promise
+
+### Features
+
+* modify the result types of query, queryJSON ([7b9ba5c](https://github.com/BlackGlory/logger-js/commit/7b9ba5c13d1343d4a05fb9ea03fc67cc07b614b5))
+
 ### [0.1.16](https://github.com/BlackGlory/logger-js/compare/v0.1.15...v0.1.16) (2021-01-26)
 
 ### [0.1.15](https://github.com/BlackGlory/logger-js/compare/v0.1.14...v0.1.15) (2021-01-26)
