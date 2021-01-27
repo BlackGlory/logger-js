@@ -853,11 +853,6 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
 
-"@types/eventsource@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@types/eventsource/-/eventsource-1.1.5.tgz#408e9b45efb176c8bea672ab58c81e7ab00d24bc"
-  integrity sha512-BA9q9uC2PAMkUS7DunHTxWZZaVpeNzDG8lkBxcKwzKJClfDQ4Z59/Csx7HSH/SIqFN2JWh0tAKAM6k/wRR0OZg==
-
 "@types/glob@^7.1.1":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.1.3.tgz#e6ba80f36b7daad2c685acd9266382e68985c183"
@@ -964,11 +959,6 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-2.0.0.tgz#7036640b4e21cc2f259ae826ce843d277dad8cff"
   integrity sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==
-
-"@types/text-encoding@^0.0.35":
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/@types/text-encoding/-/text-encoding-0.0.35.tgz#6f14474e0b232bc70c59677aadc65dcc5a99c3a9"
-  integrity sha512-jfo/A88XIiAweUa8np+1mPbm3h2w0s425YrI8t3wk5QxhH6UI7w517MboNVnGDeMSuoFwA8Rwmklno+FicvV4g==
 
 "@types/yargs-parser@*":
   version "15.0.0"
@@ -2356,9 +2346,9 @@ event-target-shim@^5.0.0:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-"eventsource@https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a":
+"eventsource@git+https://github.com/EventSource/eventsource.git#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a":
   version "1.0.7"
-  resolved "https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a"
+  resolved "git+https://github.com/EventSource/eventsource.git#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a"
   dependencies:
     original "^1.0.0"
 
@@ -2470,6 +2460,18 @@ extglob@^2.0.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+extra-fetch@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-0.1.10.tgz#12c4caea93a495af027bb7f7e9dd84d7163c3596"
+  integrity sha512-zhyhzLN2K7cyEXWMC3ZswArE7bZo1csukB5p+xp0YlxvOsd0H0DfnUILNl0x/xQXHKNUhvXgl7Ne9507xdCaSA==
+  dependencies:
+    abort-controller "^3.0.0"
+    domexception "^2.0.1"
+    eventsource "https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a"
+    fetch-blob "^2.1.1"
+    formdata-node "^2.4.0"
+    node-fetch "3.0.0-beta.9"
 
 extra-fetch@^0.1.9:
   version "0.1.9"
@@ -4450,10 +4452,10 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-msw@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.yarnpkg.com/msw/-/msw-0.25.0.tgz#a743cd2c11e7aec28b2597cb133afa8dc7044acc"
-  integrity sha512-KWW9Qwf4ecw7lgf7KM0gRfFLvfmUPw0ljCvii2IluhObZggoN/dBMFe5YJf1utnW7q9qHBc4oMNLrd8zFE6BfQ==
+msw@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/msw/-/msw-0.26.0.tgz#10a61e0ecf6cd9bbb6583f45d5532bee54649a50"
+  integrity sha512-VdLPMwmQ5xUUlrBh7SzCr7GsJ9wDNQ+Kid9kTox6HVzSc+XrVSxblOhIkB1eg9H6S+nXC1abiSddn7/AAO0bsw==
   dependencies:
     "@open-draft/until" "^1.0.3"
     "@types/cookie" "^0.4.0"
@@ -4463,7 +4465,7 @@ msw@^0.25.0:
     graphql "^15.4.0"
     headers-utils "^1.2.0"
     node-fetch "^2.6.1"
-    node-match-path "^0.6.0"
+    node-match-path "^0.6.1"
     node-request-interceptor "^0.6.3"
     statuses "^2.0.0"
     strict-event-emitter "^0.1.0"
@@ -4519,10 +4521,10 @@ node-int64@^0.4.0:
   resolved "https://registry.yarnpkg.com/node-int64/-/node-int64-0.4.0.tgz#87a9065cdb355d3182d8f94ce11188b825c68a3b"
   integrity sha1-h6kGXNs1XTGC2PlM4RGIuCXGijs=
 
-node-match-path@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/node-match-path/-/node-match-path-0.6.0.tgz#4674742f4e15854045198ebc40d8b9b2d64aa2f6"
-  integrity sha512-mld1LbiLaufULAYFPAWgNEG4P0ccL49otlL/nbF5VBQLATuzfS1BGYV1rjRMsxbc0vcnasikFqGHoKDFMQylMw==
+node-match-path@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/node-match-path/-/node-match-path-0.6.1.tgz#63570f8e60f726e75d6d9f016d08cbac609ec7d5"
+  integrity sha512-5KjUxG0fUqiIB4HXVatTYGNXf0fD/ZIC88P2w5izFrk6jz45hgavoVuIERsTqb+lMPMuvvL3rxvFWwpnJzN/wQ==
 
 node-modules-regexp@^1.0.0:
   version "1.0.0"

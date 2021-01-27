@@ -1,10 +1,9 @@
-import { fetch } from 'extra-fetch'
+import { fetch, EventSource } from 'extra-fetch'
 import { post, get, del } from 'extra-request'
 import { url, pathname, text, searchParam, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import 'eventsource/lib/eventsource-polyfill'
 
 interface Query {
   from?: string
