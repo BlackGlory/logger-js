@@ -149,7 +149,7 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
-  async list(options: LoggerClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+  async getAllLoggerIds(options: LoggerClientRequestOptionsWithoutToken = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/logger')

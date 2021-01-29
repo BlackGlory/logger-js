@@ -121,10 +121,10 @@ LoggerClient#del(
 ): Promise<void>
 ```
 
-#### list
+#### getAllLoggerIds
 
 ```ts
-LoggerClient#list(options?: LoggerClientRequestOptionsWithoutToken): Promise<string[]>
+LoggerClient#getAllLoggerIds(options?: LoggerClientRequestOptionsWithoutToken): Promise<string[]>
 ```
 
 ### LoggerManager

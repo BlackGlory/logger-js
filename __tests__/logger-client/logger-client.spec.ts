@@ -68,10 +68,10 @@ describe('LoggerClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('list(): Promise<string[]>', async () => {
+  it('getAllLoggerIds(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.list()
+    const result = client.getAllLoggerIds()
     const proResult = await result
 
     expect(result).toBePromise()
