@@ -1,7 +1,7 @@
 dependencies:
   '@blackglory/types': 0.2.11
-  extra-fetch: 0.1.11
-  extra-request: 0.3.5
+  extra-fetch: 1.0.1
+  extra-request: 1.0.1_extra-fetch@1.0.1
   extra-response: 0.2.11
   rxjs: 7.0.0-beta.10
 devDependencies:
@@ -2642,7 +2642,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-bqSjWP3b3qPGuV7vt5N1OeJ/jaKfzQJj4lCpiTNZEp6cmZDL9/gi8+vCu8PbEXFzci576egs9LiZy5awxifHfg==
-  /extra-fetch/0.1.11:
+  /extra-fetch/1.0.1:
     dependencies:
       abort-controller: 3.0.0
       domexception: 2.0.1
@@ -2652,18 +2652,20 @@ packages:
       node-fetch: 3.0.0-beta.9_domexception@2.0.1
     dev: false
     resolution:
-      integrity: sha512-cD3eXlOlmcAvtH68ly5CPiffUgh+7Wluw++Ik7rrH9e3sjl1skgHPMAcFLYAl4bGSIBzhT+9rPWn3UZWmMM8yg==
-  /extra-request/0.3.5:
+      integrity: sha512-kuJDMysXh/u6XX9CI64HNIIftvLtym7QwOCkTF5jfYZr7reVnJM9xN/ele/6TX5lrXQqyh5gCazskqGVyfPGtQ==
+  /extra-request/1.0.1_extra-fetch@1.0.1:
     dependencies:
       '@blackglory/types': 0.2.11
       '@types/node': 14.14.22
-      extra-fetch: 0.1.11
+      extra-fetch: 1.0.1
       js-base64: 3.6.0
       papaparse: 5.3.0
-      typed-assert: 1.0.7
     dev: false
+    peerDependencies:
+      '@blackglory/errors': ^1.1.0
+      extra-fetch: ^1.0.1
     resolution:
-      integrity: sha512-WMqmUVpmM+anx69BKs1/rZ1FXetJ2DqGV4bObd9o67f33WhKcaRuIhJmxex5oMOLGnj/il6dK5edrP1J/1Imjg==
+      integrity: sha512-hAtsmorPAcOu2+hMjJzKbJKHryghg8v3tHAL4LKjJL7ABKojNfrDey79Ru790DZaCCdWoTWAUpUbzZDUfI0jwg==
   /extra-response/0.2.11:
     dependencies:
       '@blackglory/http-status': 0.1.8
@@ -6581,10 +6583,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
-  /typed-assert/1.0.7:
-    dev: false
-    resolution:
-      integrity: sha512-TiBedJnGT3nNss19TyQ/JLwXy57pNDYBAja1gC0uLCKN4ps7FF3sSh71oImHDiKk8i5EuQ1G0CEOPeeA+ClWXQ==
   /typedarray-to-buffer/3.1.5:
     dependencies:
       is-typedarray: 1.0.0
@@ -6935,8 +6933,8 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^4.14.1
   '@typescript-eslint/parser': ^4.14.1
   eslint: ^7.18.0
-  extra-fetch: ^0.1.10
-  extra-request: ^0.3.5
+  extra-fetch: ^1.0.1
+  extra-request: ^1.0.1
   extra-response: ^0.2.9
   husky: ^4.3.8
   jest: ^26.6.3
