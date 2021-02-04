@@ -66,6 +66,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
+    "@blackglory/http-status": "^0.1.9",
     "@blackglory/types": "^0.2.9",
     "extra-fetch": "^1.0.1",
     "extra-request": "^1.0.1",
