@@ -289,10 +289,10 @@
   resolved "https://registry.yarnpkg.com/@blackglory/errors/-/errors-1.1.2.tgz#0577f01ca13850049efa0dd729e1a26e77e1dc3a"
   integrity sha512-THXSkTUB5eXSn7Yj01TgizNqw2rRnkNj0t6drNtmGQNJRoh4qLdSD0WUiM6ClGgKTdaBJbAarRqG/6Gn/NjLig==
 
-"@blackglory/http-status@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@blackglory/http-status/-/http-status-0.2.0.tgz#a3706818c957ee27aea771c7b68c9e76463d40c7"
-  integrity sha512-YSNvdwu7LONAE1XMB9MPJv/dONA0kmz0eAMECIdupjXuiDkBu8K95wCndtsg7o1l2nVN3WV8GdLXIuugXouVwA==
+"@blackglory/http-status@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@blackglory/http-status/-/http-status-1.0.0.tgz#c5075811464a76b8cca3a6ec31ddd4b34e72f709"
+  integrity sha512-I6o/ovu0bWA8oYFFOmKhAV7VCInBbEcvcZ60nOg3+g+Tid7VD9Tj9eV0Yt0Mdq/5CEamy/gvUxZz02u5IQ634w==
   dependencies:
     "@blackglory/errors" "^1.1.2"
 
@@ -2499,10 +2499,10 @@ extra-request@^1.0.1:
     js-base64 "^3.6.0"
     papaparse "^5.3.0"
 
-extra-response@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.3.0.tgz#7ce55e5f4ac2b373f50046f05f796df4739caacb"
-  integrity sha512-yDWoP5LAbZlg9ZqI0sZJOUFVoqU6/t/HZ6A2F+T5kVilz3ZtN7xHv/Fw8lHtgdhGMx82w19MJiwb2xq4J9bimw==
+extra-response@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/extra-response/-/extra-response-0.3.1.tgz#fce891b086b49d24a6014ee2b06d85a78ec7335b"
+  integrity sha512-OJpM3ptiH6FZ4qTiiju5aZniRMAHw0ZGUMJ9ZZOAkvWjFkjVL63xeSKZRuBWK1RKRTg4Q5apBry2ecKx3qT67Q==
   dependencies:
     iterable-operator "^0.13.2"
     papaparse "^5.3.0"
