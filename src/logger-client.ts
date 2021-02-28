@@ -22,7 +22,7 @@ export interface IJsonLog<T> {
   payload: T
 }
 
-export interface LoggerClientOptions {
+export interface ILoggerClientOptions {
   server: string
   token?: string
 }
@@ -41,7 +41,7 @@ export interface ILoggerClientObserveOptions {
 }
 
 export class LoggerClient {
-  constructor(private options: LoggerClientOptions) {}
+  constructor(private options: ILoggerClientOptions) {}
 
   async write(
     id: string
