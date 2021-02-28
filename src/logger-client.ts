@@ -12,12 +12,12 @@ interface Query {
   tail?: number
 }
 
-export interface Log {
+export interface ILog {
   id: string
   payload: string
 }
 
-export interface JsonLog<T> {
+export interface IJsonLog<T> {
   id: string
   payload: T
 }
@@ -27,16 +27,16 @@ export interface LoggerClientOptions {
   token?: string
 }
 
-export interface LoggerClientRequestOptions {
+export interface ILoggerClientRequestOptions {
   signal?: AbortSignal
   token?: string
 }
 
-export interface LoggerClientRequestOptionsWithoutToken {
+export interface ILoggerClientRequestOptionsWithoutToken {
   signal?: AbortSignal
 }
 
-export interface LoggerClientObserveOptions {
+export interface ILoggerClientObserveOptions {
   token?: string
 }
 
@@ -46,7 +46,7 @@ export class LoggerClient {
   async write(
     id: string
   , val: string
-  , options: LoggerClientRequestOptions = {}
+  , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = post(
@@ -63,12 +63,12 @@ export class LoggerClient {
   async writeJSON<T>(
     id: string
   , val: T
-  , options?: LoggerClientRequestOptions
+  , options?: ILoggerClientRequestOptions
   ): Promise<void> {
     return await this.write(id, JSON.stringify(val), options)
   }
 
-  follow(id: string, options: LoggerClientObserveOptions = {}): Observable<Log> {
+  follow(id: string, options: ILoggerClientObserveOptions = {}): Observable<ILog> {
     return new Observable(observer => {
       const token = options.token ?? this.options.token
       const url = new URL(`/logger/${id}`, this.options.server)
@@ -85,7 +85,7 @@ export class LoggerClient {
     })
   }
 
-  followJSON<T>(id: string, options?: LoggerClientObserveOptions): Observable<JsonLog<T>> {
+  followJSON<T>(id: string, options?: ILoggerClientObserveOptions): Observable<IJsonLog<T>> {
     return this.follow(id, options).pipe(
       map(x => {
         return {
@@ -99,8 +99,8 @@ export class LoggerClient {
   async query(
     id: string
   , query: Query
-  , options: LoggerClientRequestOptions = {}
-  ): Promise<Log[]> {
+  , options: ILoggerClientRequestOptions = {}
+  ): Promise<ILog[]> {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
@@ -115,16 +115,16 @@ export class LoggerClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as Log[]
+      .then(toJSON) as ILog[]
   }
 
   async queryJSON<T>(
     id: string
   , query: Query
-  , options?: LoggerClientRequestOptions
-  ): Promise<Array<JsonLog<T>>> {
+  , options?: ILoggerClientRequestOptions
+  ): Promise<Array<IJsonLog<T>>> {
     const logs = await this.query(id, query, options)
-    return logs.map<JsonLog<T>>(x => ({
+    return logs.map<IJsonLog<T>>(x => ({
       id: x.id
     , payload: JSON.parse(x.payload)
     }))
@@ -133,7 +133,7 @@ export class LoggerClient {
   async del(
     id: string
   , query: Query
-  , options: LoggerClientRequestOptions = {}
+  , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = del(
@@ -149,7 +149,7 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
-  async getAllLoggerIds(options: LoggerClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+  async getAllLoggerIds(options: ILoggerClientRequestOptionsWithoutToken = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/logger')

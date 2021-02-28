@@ -5,13 +5,13 @@ import { TokenPolicyClient } from './token-policy-client'
 import { TokenClient } from './token-client'
 import { PurgePolicyClient } from './purge-policy-client'
 
-export interface LoggerManagerOptions {
+export interface ILoggerManagerOptions {
   server: string
   adminPassword: string
 }
 
 export class LoggerManager {
-  constructor(private options: LoggerManagerOptions) {}
+  constructor(private options: ILoggerManagerOptions) {}
 
   JsonSchema = new JsonSchemaClient(this.options)
   Blacklist = new BlacklistClient(this.options)

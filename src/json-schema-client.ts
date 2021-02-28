@@ -4,11 +4,11 @@ import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
-import type { LoggerManagerOptions } from './logger-manager'
+import type { ILoggerManagerOptions } from './logger-manager'
 import { LoggerManagerRequestOptions } from './types'
 
 export class JsonSchemaClient {
-  constructor(private options: LoggerManagerOptions) {}
+  constructor(private options: ILoggerManagerOptions) {}
 
   async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
