@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.11](https://github.com/BlackGlory/logger-js/compare/v0.3.10...v0.3.11) (2021-03-03)
+
+
+### Features
+
+* export HTTPClientError ([a814539](https://github.com/BlackGlory/logger-js/commit/a814539c157aaa7049c92fe883a697368e10b641))
+
 ### [0.3.10](https://github.com/BlackGlory/logger-js/compare/v0.3.9...v0.3.10) (2021-02-28)
 
 ### [0.3.9](https://github.com/BlackGlory/logger-js/compare/v0.3.8...v0.3.9) (2021-02-28)
