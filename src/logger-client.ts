@@ -5,6 +5,8 @@ import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
+export { HTTPClientError } from '@blackglory/http-status'
+
 interface Query {
   from?: string
   to?: string
