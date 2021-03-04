@@ -929,7 +929,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.x":
+"@types/jest@^26.0.20":
   version "26.0.20"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.20.tgz#cd2f2702ecf69e86b586e1f5223a60e454056307"
   integrity sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
@@ -2537,10 +2537,10 @@ extra-dom@^0.2.12, extra-dom@^0.2.9:
     "@blackglory/types" "^0.2.17"
     iterable-operator "^0.13.2"
 
-extra-fetch@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-1.0.2.tgz#9c3fab030ef71fd428021ab4c978866330723b7c"
-  integrity sha512-ijLcGHH3XgKMnyHRu4HFPw8tmVW/4oClgkm+uMIRmPcrUKQcfw+QOcm6qm9d0xYpl/Amwe9zloX6w0/WUhbWPA==
+extra-fetch@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-1.1.0.tgz#3e8fc08f8af9ac09562f79c6c646292a3c509f02"
+  integrity sha512-1h4ANRTT1PYZAKL3aWHvccaiyfxRyqDsbbV5n2W6AgYdVLjr5YfXnGUgl5Lh2nfR6VqOb2PcABjymUFyCMPGfg==
   dependencies:
     abort-controller "^3.0.0"
     domexception "^2.0.1"
@@ -2549,13 +2549,13 @@ extra-fetch@^1.0.1:
     formdata-node "^2.4.0"
     node-fetch "3.0.0-beta.9"
 
-extra-request@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/extra-request/-/extra-request-1.1.1.tgz#c88c2ed78718b29fb00f22a83c6dc7beb78a7a8d"
-  integrity sha512-f1o7UQUyDPgpDgOxLwOfapAgF5M/HoKWz+7HKo1T6Y7TBBvirNDqOMKhzVpiy9U+Anx2+XZdGXJD1vYTnhZuYQ==
+extra-request@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/extra-request/-/extra-request-1.1.2.tgz#9965fc5c802d3a7730bda2c36f755e3210b8a5ed"
+  integrity sha512-rhT/fQV076drq0kUTKtnKFL7Y/7BcrMcoIhaqtI155/pWGKH122qodCl0leknxmpUdu4lh6x68EUp/DtAsybVw==
   dependencies:
     "@blackglory/errors" "^1.1.2"
-    "@blackglory/types" "^0.2.17"
+    "@blackglory/types" "^0.2.23"
     js-base64 "^3.6.0"
     papaparse "^5.3.0"
 
@@ -6127,12 +6127,11 @@ trim-off-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
-ts-jest@^26.5.2:
-  version "26.5.2"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.2.tgz#5281d6b44c2f94f71205728a389edc3d7995b0c4"
-  integrity sha512-bwyJ2zJieSugf7RB+o8fgkMeoMVMM2KPDE0UklRLuACxjwJsOrZNo6chrcScmK33YavPSwhARffy8dZx5LJdUQ==
+ts-jest@^26.5.3:
+  version "26.5.3"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.3.tgz#a6ee00ba547be3b09877550df40a1465d0295554"
+  integrity sha512-nBiiFGNvtujdLryU7MiMQh1iPmnZ/QvOskBbD2kURiI1MwqvxlxNnaAB/z9TbslMqCsSbu5BXvSSQPc5tvHGeA==
   dependencies:
-    "@types/jest" "26.x"
     bs-logger "0.x"
     buffer-from "1.x"
     fast-json-stable-stringify "2.x"
