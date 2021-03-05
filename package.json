@@ -47,7 +47,6 @@
     "@rollup/plugin-replace": "^2.4.1",
     "@rollup/plugin-typescript": "^8.2.0",
     "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.31",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.21.0",
@@ -70,8 +69,9 @@
   "dependencies": {
     "@blackglory/http-status": "^1.0.0",
     "@blackglory/types": "^0.2.25",
+    "@types/node": "^14.14.31",
     "extra-fetch": "^1.2.0",
-    "extra-request": "^1.1.5",
+    "extra-request": "^1.1.6",
     "extra-response": "^0.3.2",
     "rxjs": "^7.0.0-beta.11"
   }
