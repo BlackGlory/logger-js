@@ -60,7 +60,7 @@ export class LoggerClient {
     , token && searchParam('token', token)
     , text(val)
     , options.signal && signal(options.signal)
-    , keepalive(this.options.keepalive ?? options.keepalive)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -117,7 +117,7 @@ export class LoggerClient {
     , query.tail && searchParam('tail', query.tail.toString())
     , token && searchParam('token', token)
     , options.signal && signal(options.signal)
-    , keepalive(this.options.keepalive ?? options.keepalive)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)
@@ -151,7 +151,7 @@ export class LoggerClient {
     , query.head && searchParam('head', query.head.toString())
     , query.tail && searchParam('tail', query.tail.toString())
     , token && searchParam('token', token)
-    , keepalive(this.options.keepalive ?? options.keepalive)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -162,7 +162,7 @@ export class LoggerClient {
       url(this.options.server)
     , pathname('/logger')
     , options.signal && signal(options.signal)
-    , keepalive(this.options.keepalive ?? options.keepalive)
+    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)
