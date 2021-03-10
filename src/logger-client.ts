@@ -1,6 +1,6 @@
 import { fetch, EventSource } from 'extra-fetch'
 import { post, get, del } from 'extra-request'
-import { url, pathname, text, searchParam, signal } from 'extra-request/lib/es2018/transformers'
+import { url, pathname, text, searchParam, signal, keepalive } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -27,15 +27,18 @@ export interface IJsonLog<T> {
 export interface ILoggerClientOptions {
   server: string
   token?: string
+  keepalive?: boolean
 }
 
 export interface ILoggerClientRequestOptions {
   signal?: AbortSignal
   token?: string
+  keepalive?: boolean
 }
 
 export interface ILoggerClientRequestOptionsWithoutToken {
   signal?: AbortSignal
+  keepalive?: boolean
 }
 
 export interface ILoggerClientObserveOptions {
@@ -57,6 +60,7 @@ export class LoggerClient {
     , token && searchParam('token', token)
     , text(val)
     , options.signal && signal(options.signal)
+    , keepalive(this.options.keepalive ?? options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -113,6 +117,7 @@ export class LoggerClient {
     , query.tail && searchParam('tail', query.tail.toString())
     , token && searchParam('token', token)
     , options.signal && signal(options.signal)
+    , keepalive(this.options.keepalive ?? options.keepalive)
     )
 
     return await fetch(req)
@@ -146,6 +151,7 @@ export class LoggerClient {
     , query.head && searchParam('head', query.head.toString())
     , query.tail && searchParam('tail', query.tail.toString())
     , token && searchParam('token', token)
+    , keepalive(this.options.keepalive ?? options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -156,6 +162,7 @@ export class LoggerClient {
       url(this.options.server)
     , pathname('/logger')
     , options.signal && signal(options.signal)
+    , keepalive(this.options.keepalive ?? options.keepalive)
     )
 
     return await fetch(req)

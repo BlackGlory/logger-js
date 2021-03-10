@@ -30,6 +30,7 @@ interface IJsonLog {
 new LoggerClient({
   server: string
 , token?: string
+, keepalive?: boolean
 })
 ```
 
@@ -37,12 +38,14 @@ new LoggerClient({
 interface ILoggerClientRequestOptions {
   signal?: AbortSignal
   token?: string
+  keepalive?: boolean
 }
 ```
 
 ```ts
 interface ILoggerClientRequestOptionsWithoutToken {
   signal?: AbortSignal
+  keepalive?: booolean
 }
 ```
 
