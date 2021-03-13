@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.19](https://github.com/BlackGlory/logger-js/compare/v0.3.18...v0.3.19) (2021-03-13)
+
+
+### Features
+
+* support sse heartbeat ([93064c5](https://github.com/BlackGlory/logger-js/commit/93064c57ede72054c71c95d5c6fa5ea54d5846b2))
+
 ### [0.3.18](https://github.com/BlackGlory/logger-js/compare/v0.3.17...v0.3.18) (2021-03-10)
 
 
