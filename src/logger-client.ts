@@ -4,10 +4,11 @@ import { url, pathname, text, searchParam, signal, keepalive } from 'extra-reque
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { assert, CustomError } from '@blackglory/errors'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
-interface Query {
+interface IQuery {
   from?: string
   to?: string
   head?: number
@@ -28,6 +29,7 @@ export interface ILoggerClientOptions {
   server: string
   token?: string
   keepalive?: boolean
+  heartbeat?: IHeartbeatOptions
 }
 
 export interface ILoggerClientRequestOptions {
@@ -43,6 +45,12 @@ export interface ILoggerClientRequestOptionsWithoutToken {
 
 export interface ILoggerClientObserveOptions {
   token?: string
+  heartbeat?: IHeartbeatOptions
+}
+
+export interface IHeartbeatOptions {
+  timeout: number
+  probes: number // probe count
 }
 
 export class LoggerClient {
@@ -85,9 +93,36 @@ export class LoggerClient {
         const log = JSON.parse(evt.data)
         observer.next(log)
       })
-      es.addEventListener('error', (evt: MessageEvent) => observer.error(evt))
+      es.addEventListener('error', evt => {
+        close()
+        observer.error(evt)
+      })
 
-      return () => es.close()
+      let heartbeatTimer: ReturnType<typeof setInterval> | null = null
+      if (options.heartbeat ?? this.options.heartbeat) {
+        const timeout = options.heartbeat.timeout ?? this.options.heartbeat.timeout
+        assert(Number.isInteger(timeout), 'timeout must be an integer')
+        assert(timeout > 0, 'timeout must greater than zero')
+        const probes = options.heartbeat.probes ?? this.options.heartbeat.probes
+        assert(Number.isInteger(probes), 'probes must be an integer')
+        assert(probes >= 0, 'probes must greater than or equal to zero')
+
+        let lastHeartbeat = Date.now()
+        heartbeatTimer = setInterval(() => {
+          if (Date.now() - lastHeartbeat > timeout * (probes + 1)) {
+            close()
+            observer.error(new HeartbeatTimeoutError())
+          }
+        }, options.heartbeat.timeout)
+
+        es.addEventListener('heartbeat', () => lastHeartbeat = Date.now())
+      }
+
+      return close
+      function close() {
+        if (heartbeatTimer) clearInterval(heartbeatTimer)
+        es.close()
+      }
     })
   }
 
@@ -104,7 +139,7 @@ export class LoggerClient {
 
   async query(
     id: string
-  , query: Query
+  , query: IQuery
   , options: ILoggerClientRequestOptions = {}
   ): Promise<ILog[]> {
     const token = options.token ?? this.options.token
@@ -127,7 +162,7 @@ export class LoggerClient {
 
   async queryJSON<T>(
     id: string
-  , query: Query
+  , query: IQuery
   , options?: ILoggerClientRequestOptions
   ): Promise<Array<IJsonLog<T>>> {
     const logs = await this.query(id, query, options)
@@ -139,7 +174,7 @@ export class LoggerClient {
 
   async del(
     id: string
-  , query: Query
+  , query: IQuery
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
@@ -170,3 +205,5 @@ export class LoggerClient {
       .then(toJSON) as string[]
   }
 }
+
+export class HeartbeatTimeoutError extends CustomError {}

@@ -31,6 +31,7 @@ new LoggerClient({
   server: string
 , token?: string
 , keepalive?: boolean
+, heartbeat?: IHeartbeatOptions
 })
 ```
 
@@ -52,6 +53,14 @@ interface ILoggerClientRequestOptionsWithoutToken {
 ```ts
 interface ILoggerClientObserveOptions {
   token?: string
+  heartbeat?: IHeartbeatOptions
+}
+```
+
+```ts
+interface IHeartbeatOptions {
+  timeout: number
+  probes: number
 }
 ```
 
