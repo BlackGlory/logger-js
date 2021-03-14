@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/BlackGlory/logger-js/compare/v0.3.19...v0.4.0) (2021-03-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename /api to /admin
+
+### Features
+
+* rename /api to /admin ([f500a4a](https://github.com/BlackGlory/logger-js/commit/f500a4a2b18b1d70e8cd53351cec784f1025bb51))
+
 ### [0.3.19](https://github.com/BlackGlory/logger-js/compare/v0.3.18...v0.3.19) (2021-03-13)
 
 
