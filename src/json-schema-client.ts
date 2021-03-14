@@ -13,7 +13,7 @@ export class JsonSchemaClient {
   async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
-    , pathname('/api/logger-with-json-schema')
+    , pathname('/admin/logger-with-json-schema')
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -26,7 +26,7 @@ export class JsonSchemaClient {
   async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<unknown> {
     const req = get(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/json-schema`)
+    , pathname(`/admin/logger/${id}/json-schema`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -39,7 +39,7 @@ export class JsonSchemaClient {
   async set(id: string, schema: Json, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/json-schema`)
+    , pathname(`/admin/logger/${id}/json-schema`)
     , password(this.options.adminPassword)
     , json(schema)
     , options.signal && signal(options.signal)
@@ -51,7 +51,7 @@ export class JsonSchemaClient {
   async remove(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/json-schema`)
+    , pathname(`/admin/logger/${id}/json-schema`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

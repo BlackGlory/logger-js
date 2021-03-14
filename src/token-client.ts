@@ -19,7 +19,7 @@ export class TokenClient {
   async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
-    , pathname('/api/logger-with-tokens')
+    , pathname('/admin/logger-with-tokens')
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -32,7 +32,7 @@ export class TokenClient {
   async getTokens(id: string, options: LoggerManagerRequestOptions = {}): Promise<TokenInfo[]> {
     const req = get(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens`)
+    , pathname(`/admin/logger/${id}/tokens`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -45,7 +45,7 @@ export class TokenClient {
   async addWriteToken(id: string, token: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens/${token}/write`)
+    , pathname(`/admin/logger/${id}/tokens/${token}/write`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -56,7 +56,7 @@ export class TokenClient {
   async removeWriteToken(id: string, token: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens/${token}/write`)
+    , pathname(`/admin/logger/${id}/tokens/${token}/write`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -67,7 +67,7 @@ export class TokenClient {
   async addReadToken(id: string, token: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens/${token}/read`)
+    , pathname(`/admin/logger/${id}/tokens/${token}/read`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -78,7 +78,7 @@ export class TokenClient {
   async removeReadToken(id: string, token: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens/${token}/read`)
+    , pathname(`/admin/logger/${id}/tokens/${token}/read`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -89,7 +89,7 @@ export class TokenClient {
   async addDeleteToken(id: string, token: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens/${token}/delete`)
+    , pathname(`/admin/logger/${id}/tokens/${token}/delete`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -100,7 +100,7 @@ export class TokenClient {
   async removeDeleteToken(id: string, token: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/tokens/${token}/delete`)
+    , pathname(`/admin/logger/${id}/tokens/${token}/delete`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

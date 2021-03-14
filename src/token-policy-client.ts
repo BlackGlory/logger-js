@@ -18,7 +18,7 @@ export class TokenPolicyClient {
   async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
-    , pathname('/api/logger-with-token-policies')
+    , pathname('/admin/logger-with-token-policies')
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -31,7 +31,7 @@ export class TokenPolicyClient {
   async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<TokenPolicy> {
     const req = get(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies`)
+    , pathname(`/admin/logger/${id}/token-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -44,7 +44,7 @@ export class TokenPolicyClient {
   async setWriteTokenRequired(id: string, val: boolean, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies/write-token-required`)
+    , pathname(`/admin/logger/${id}/token-policies/write-token-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -56,7 +56,7 @@ export class TokenPolicyClient {
   async removeWriteTokenRequired(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies/write-token-required`)
+    , pathname(`/admin/logger/${id}/token-policies/write-token-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -67,7 +67,7 @@ export class TokenPolicyClient {
   async setReadTokenRequired(id: string, val: boolean, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies/read-token-required`)
+    , pathname(`/admin/logger/${id}/token-policies/read-token-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -79,7 +79,7 @@ export class TokenPolicyClient {
   async removeReadTokenRequired(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies/read-token-required`)
+    , pathname(`/admin/logger/${id}/token-policies/read-token-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -90,7 +90,7 @@ export class TokenPolicyClient {
   async setDeleteTokenRequired(id: string, val: boolean, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies/delete-token-required`)
+    , pathname(`/admin/logger/${id}/token-policies/delete-token-required`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -102,7 +102,7 @@ export class TokenPolicyClient {
   async removeDeleteTokenRequired(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/token-policies/delete-token-required`)
+    , pathname(`/admin/logger/${id}/token-policies/delete-token-required`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

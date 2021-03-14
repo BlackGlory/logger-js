@@ -12,7 +12,7 @@ export class WhitelistClient {
   async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
-    , pathname('/api/whitelist')
+    , pathname('/admin/whitelist')
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -25,7 +25,7 @@ export class WhitelistClient {
   async add(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/whitelist/${id}`)
+    , pathname(`/admin/whitelist/${id}`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -36,7 +36,7 @@ export class WhitelistClient {
   async remove(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/whitelist/${id}`)
+    , pathname(`/admin/whitelist/${id}`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

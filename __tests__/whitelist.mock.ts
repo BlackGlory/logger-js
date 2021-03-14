@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { badAuth } from '@test/utils'
 
 export const server = setupServer(
-  rest.get('/api/whitelist', (req, res, ctx) => {
+  rest.get('/admin/whitelist', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -12,13 +12,13 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/api/whitelist/:id', (req, res, ctx) => {
+, rest.put('/admin/whitelist/:id', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/whitelist/:id', (req, res, ctx) => {
+, rest.delete('/admin/whitelist/:id', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))

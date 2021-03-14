@@ -17,7 +17,7 @@ export class PurgePolicyClient {
   async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
-    , pathname('/api/logger-with-purge-policies')
+    , pathname('/admin/logger-with-purge-policies')
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -30,7 +30,7 @@ export class PurgePolicyClient {
   async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<PurgePolicy> {
     const req = get(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/purge-policies`)
+    , pathname(`/admin/logger/${id}/purge-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -43,7 +43,7 @@ export class PurgePolicyClient {
   async setTimeToLive(id: string, val: number, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/purge-policies/time-to-live`)
+    , pathname(`/admin/logger/${id}/purge-policies/time-to-live`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -55,7 +55,7 @@ export class PurgePolicyClient {
   async removeTimeToLive(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/purge-policies/time-to-live`)
+    , pathname(`/admin/logger/${id}/purge-policies/time-to-live`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -66,7 +66,7 @@ export class PurgePolicyClient {
   async setLimit(id: string, val: number, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/purge-policies/limit`)
+    , pathname(`/admin/logger/${id}/purge-policies/limit`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -78,7 +78,7 @@ export class PurgePolicyClient {
   async removeLimit(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/purge-policies/limit`)
+    , pathname(`/admin/logger/${id}/purge-policies/limit`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -89,7 +89,7 @@ export class PurgePolicyClient {
   async purge(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
       url(this.options.server)
-    , pathname(`/api/logger/${id}/purge-policies`)
+    , pathname(`/admin/logger/${id}/purge-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

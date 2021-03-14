@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import { badAuth } from '@test/utils'
 
 export const server = setupServer(
-  rest.get('/api/logger-with-tokens', (req, res, ctx) => {
+  rest.get('/admin/logger-with-tokens', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -12,7 +12,7 @@ export const server = setupServer(
     )
   })
 
-, rest.get('/api/logger/:id/tokens', (req, res, ctx) => {
+, rest.get('/admin/logger/:id/tokens', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -28,37 +28,37 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/api/logger/:id/tokens/:token/write', (req, res, ctx) => {
+, rest.put('/admin/logger/:id/tokens/:token/write', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/logger/:id/tokens/:token/write', (req, res, ctx) => {
+, rest.delete('/admin/logger/:id/tokens/:token/write', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/api/logger/:id/tokens/:token/read', (req, res, ctx) => {
+, rest.put('/admin/logger/:id/tokens/:token/read', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/logger/:id/tokens/:token/read', (req, res, ctx) => {
+, rest.delete('/admin/logger/:id/tokens/:token/read', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/api/logger/:id/tokens/:token/delete', (req, res, ctx) => {
+, rest.put('/admin/logger/:id/tokens/:token/delete', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/api/logger/:id/tokens/:token/delete', (req, res, ctx) => {
+, rest.delete('/admin/logger/:id/tokens/:token/delete', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
