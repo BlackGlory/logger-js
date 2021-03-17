@@ -4,9 +4,9 @@ import { get, put, del, post } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import type { ILoggerManagerOptions } from './logger-manager'
-import { LoggerManagerRequestOptions } from './types'
+import { ILoggerManagerRequestOptions } from './types'
 
-interface PurgePolicy {
+interface IPurgePolicy {
   timeToLive: number | null
   limit: number | null
 }
@@ -14,7 +14,7 @@ interface PurgePolicy {
 export class PurgePolicyClient {
   constructor(private options: ILoggerManagerOptions) {}
 
-  async getIds(options: LoggerManagerRequestOptions = {}): Promise<string[]> {
+  async getIds(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/logger-with-purge-policies')
@@ -27,7 +27,7 @@ export class PurgePolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: LoggerManagerRequestOptions = {}): Promise<PurgePolicy> {
+  async get(id: string, options: ILoggerManagerRequestOptions = {}): Promise<IPurgePolicy> {
     const req = get(
       url(this.options.server)
     , pathname(`/admin/logger/${id}/purge-policies`)
@@ -37,10 +37,10 @@ export class PurgePolicyClient {
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as PurgePolicy
+      .then(toJSON) as IPurgePolicy
   }
 
-  async setTimeToLive(id: string, val: number, options: LoggerManagerRequestOptions = {}): Promise<void> {
+  async setTimeToLive(id: string, val: number, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/logger/${id}/purge-policies/time-to-live`)
@@ -52,7 +52,7 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeTimeToLive(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
+  async removeTimeToLive(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/logger/${id}/purge-policies/time-to-live`)
@@ -63,7 +63,7 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async setLimit(id: string, val: number, options: LoggerManagerRequestOptions = {}): Promise<void> {
+  async setLimit(id: string, val: number, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
     , pathname(`/admin/logger/${id}/purge-policies/limit`)
@@ -75,7 +75,7 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeLimit(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
+  async removeLimit(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
     , pathname(`/admin/logger/${id}/purge-policies/limit`)
@@ -86,7 +86,7 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async purge(id: string, options: LoggerManagerRequestOptions = {}): Promise<void> {
+  async purge(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
       url(this.options.server)
     , pathname(`/admin/logger/${id}/purge-policies`)

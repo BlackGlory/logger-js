@@ -1,3 +1,3 @@
-export interface LoggerManagerRequestOptions {
+export interface ILoggerManagerRequestOptions {
   signal?: AbortSignal
 }
