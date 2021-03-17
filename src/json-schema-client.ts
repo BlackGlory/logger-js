@@ -1,5 +1,5 @@
 import { fetch } from 'extra-fetch'
-import { Json } from '@blackglory/types'
+import { Json } from 'justypes'
 import { password } from './utils'
 import { get, put, del } from 'extra-request'
 import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
