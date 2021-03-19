@@ -2438,6 +2438,13 @@ eventemitter3@^4.0.7:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
   integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
 
+eventsource@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eventsource/-/eventsource-1.1.0.tgz#00e8ca7c92109e94b0ddf32dac677d841028cfaf"
+  integrity sha512-VSJjT5oCNrFvCS6igjzPAt5hBzQ2qPBFIbJ03zLI9SE0mxwZpMw6BfJrbFHm1a141AavMEB8JHmBhWAd66PfCg==
+  dependencies:
+    original "^1.0.0"
+
 "eventsource@https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a":
   version "1.0.7"
   resolved "https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a"
@@ -2570,6 +2577,18 @@ extra-fetch@^1.3.0:
     abort-controller "^3.0.0"
     domexception "^2.0.1"
     eventsource "https://github.com/EventSource/eventsource#46fe04e03e54f4129a28bf75b3a1e5f4ab68b52a"
+    fetch-blob "^2.1.1"
+    formdata-node "^2.4.0"
+    node-fetch "3.0.0-beta.9"
+
+extra-fetch@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/extra-fetch/-/extra-fetch-1.3.1.tgz#4f0c12659c38b9f2404fb3d218df6586fe47b73b"
+  integrity sha512-2kgKcTBMWphdMLPtGIHZT45BRskU22Odd4W6WxeOkmpOsfn6RmXk5Yqh6xn70tmCqZzLp5z9HEe11H6kgeVkdg==
+  dependencies:
+    abort-controller "^3.0.0"
+    domexception "^2.0.1"
+    eventsource "^1.1.0"
     fetch-blob "^2.1.1"
     formdata-node "^2.4.0"
     node-fetch "3.0.0-beta.9"
@@ -5493,10 +5512,10 @@ rollup-plugin-terser@^7.0.2:
     serialize-javascript "^4.0.0"
     terser "^5.0.0"
 
-rollup@^2.41.4:
-  version "2.41.4"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.41.4.tgz#2a674d64db4322482d440699acb060dc6dd9e65f"
-  integrity sha512-f9IHfMO8p2Y8OdisI7Oj3oKkPuaQ6cgSwYqAi0TDvP3w2p+oX1VejX/w28a1h8WTnrapzfO5d4Uqhww+gL0b0g==
+rollup@^2.42.0:
+  version "2.42.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.42.0.tgz#444ce20a45614099decdd786f2a6fcd6c2240b08"
+  integrity sha512-P9bJnaZ2P0hawoJo+Jto8YZZqil9URogNVE4KJeyj6wrUSDIbdMvmj7CsyEFwdXu/I5SiWEzB1hfmLeMldH6ww==
   optionalDependencies:
     fsevents "~2.3.1"
 
