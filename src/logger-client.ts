@@ -5,6 +5,7 @@ import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { assert, CustomError } from '@blackglory/errors'
+import { setDynamicTimeoutLoop } from 'extra-timers'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
@@ -98,29 +99,33 @@ export class LoggerClient {
         observer.error(evt)
       })
 
-      let heartbeatTimer: ReturnType<typeof setInterval> | null = null
+      let cancelHeartbeatTimer: (() => void) | null = null
       if (options.heartbeat ?? this.options.heartbeat) {
         const timeout = options.heartbeat.timeout ?? this.options.heartbeat.timeout
         assert(Number.isInteger(timeout), 'timeout must be an integer')
         assert(timeout > 0, 'timeout must greater than zero')
+
         const probes = options.heartbeat.probes ?? this.options.heartbeat.probes
         assert(Number.isInteger(probes), 'probes must be an integer')
         assert(probes >= 0, 'probes must greater than or equal to zero')
 
         let lastHeartbeat = Date.now()
-        heartbeatTimer = setInterval(() => {
+        cancelHeartbeatTimer = setDynamicTimeoutLoop(timeout, () => {
           if (Date.now() - lastHeartbeat > timeout * (probes + 1)) {
             close()
             observer.error(new HeartbeatTimeoutError())
           }
-        }, options.heartbeat.timeout)
+        })
 
-        es.addEventListener('heartbeat', () => lastHeartbeat = Date.now())
+        es.addEventListener('heartbeat', () => {
+          lastHeartbeat = Date.now()
+        })
       }
 
       return close
+
       function close() {
-        if (heartbeatTimer) clearInterval(heartbeatTimer)
+        if (cancelHeartbeatTimer) cancelHeartbeatTimer()
         es.close()
       }
     })

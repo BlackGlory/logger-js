@@ -2634,6 +2634,11 @@ extra-stream@^0.1.1:
   dependencies:
     "@blackglory/types" "^0.4.0"
 
+extra-timers@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/extra-timers/-/extra-timers-0.2.1.tgz#16d75d98b25a3da7b75e05d7818b08717c87fe3f"
+  integrity sha512-DImusSq9MUo+ZyU9GoRwefddJjwKmzIxQpxmW1QTd6Q20GZLo8M8P4pOLylLfQFlY2VAoobkVtfIA4cT1VgaZQ==
+
 extsprintf@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
