@@ -60,7 +60,6 @@ interface ILoggerClientObserveOptions {
 ```ts
 interface IHeartbeatOptions {
   timeout: number
-  probes: number
 }
 ```
 
