@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.5](https://github.com/BlackGlory/logger-js/compare/v0.4.4...v0.4.5) (2021-04-20)
+
+
+### Features
+
+* remove IHeartbeatOptions.probes ([cfa3c4e](https://github.com/BlackGlory/logger-js/commit/cfa3c4e1486b014ae066c45c67be0e5794363c65))
+
 ### [0.4.4](https://github.com/BlackGlory/logger-js/compare/v0.4.3...v0.4.4) (2021-04-20)
 
 ### [0.4.3](https://github.com/BlackGlory/logger-js/compare/v0.4.2...v0.4.3) (2021-03-19)
