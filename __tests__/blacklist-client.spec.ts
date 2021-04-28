@@ -8,32 +8,32 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('BlacklistClient', () => {
-  it('getIds(): Promise<string[]>', async () => {
+  it('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getIds()
+    const result = client.getNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('add(id: string): Promise<void>', async () => {
+  it('add(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.add(id)
+    const result = client.add(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('remove(id: string): Promise<void>', async () => {
+  it('remove(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.remove(id)
+    const result = client.remove(namespace)
     const proResult = await result
 
     expect(result).toBePromise()

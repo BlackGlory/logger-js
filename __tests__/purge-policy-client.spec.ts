@@ -8,21 +8,21 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('PurgePolicyClient', () => {
-  it('getIds(): Promise<string[]>', async () => {
+  it('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getIds()
+    const result = client.getNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('get(id: string): Promise<{ timeToLive: number | null; limit: number | null }>', async () => {
+  it('get(namespace: string): Promise<{ timeToLive: number | null; limit: number | null }>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.get(id)
+    const result = client.get(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
@@ -32,57 +32,57 @@ describe('PurgePolicyClient', () => {
     })
   })
 
-  it('setTimeToLive(id: string, val: number): Promise<void>', async () => {
+  it('setTimeToLive(namespace: string, val: number): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = 100
 
-    const result = client.setTimeToLive(id, val)
+    const result = client.setTimeToLive(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeTimeToLive(id: string): Promise<void>', async () => {
+  it('removeTimeToLive(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeTimeToLive(id)
+    const result = client.removeTimeToLive(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('setLimit(id: string, val: number): Promise<void>', async () => {
+  it('setLimit(namespace: string, val: number): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = 100
 
-    const result = client.setLimit(id, val)
+    const result = client.setLimit(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeLimit(id: string): Promise<void>', async () => {
+  it('removeLimit(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeLimit(id)
+    const result = client.removeLimit(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('purge(id: string): Promise<void>', async () => {
+  it('purge(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.purge(id)
+    const result = client.purge(namespace)
     const proResult = await result
 
     expect(result).toBePromise()

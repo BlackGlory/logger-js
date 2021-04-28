@@ -8,11 +8,11 @@ export const server = setupServer(
 
     return res(
       ctx.status(200)
-    , ctx.json(['id'])
+    , ctx.json(['namespace'])
     )
   })
 
-, rest.get('/admin/logger/:id/token-policies', (req, res, ctx) => {
+, rest.get('/admin/logger/:namespace/token-policies', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -25,40 +25,40 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/admin/logger/:id/token-policies/write-token-required', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/token-policies/write-token-required', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
     if (badJson(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/token-policies/write-token-required', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/token-policies/write-token-required', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/admin/logger/:id/token-policies/read-token-required', (req, res, ctx) => {
-    if (badAuth(req)) return res(ctx.status(401))
-    if (badJson(req)) return res(ctx.status(400))
-
-    return res(ctx.status(204))
-  })
-
-, rest.delete('/admin/logger/:id/token-policies/read-token-required', (req, res, ctx) => {
-    if (badAuth(req)) return res(ctx.status(401))
-
-    return res(ctx.status(204))
-  })
-
-, rest.put('/admin/logger/:id/token-policies/delete-token-required', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/token-policies/read-token-required', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
     if (badJson(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/token-policies/delete-token-required', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/token-policies/read-token-required', (req, res, ctx) => {
+    if (badAuth(req)) return res(ctx.status(401))
+
+    return res(ctx.status(204))
+  })
+
+, rest.put('/admin/logger/:namespace/token-policies/delete-token-required', (req, res, ctx) => {
+    if (badAuth(req)) return res(ctx.status(401))
+    if (badJson(req)) return res(ctx.status(400))
+
+    return res(ctx.status(204))
+  })
+
+, rest.delete('/admin/logger/:namespace/token-policies/delete-token-required', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))

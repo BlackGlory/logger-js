@@ -8,44 +8,44 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('JsonSchemaClient', () => {
-  it('getIds(): Promise<string[]>', async () => {
+  it('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getIds()
+    const result = client.getNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('get(id: string): Promise<Json>', async () => {
+  it('get(namespace: string): Promise<Json>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.get(id)
+    const result = client.get(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeJson()
   })
 
-  it('set(id: string, schema: Json): Promise<void>', async () => {
+  it('set(namespace: string, schema: Json): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const schema = {}
 
-    const result = client.set(id, schema)
+    const result = client.set(namespace, schema)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('remove(id: string): Promise<void>', async () => {
+  it('remove(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.remove(id)
+    const result = client.remove(namespace)
     const proResult = await result
 
     expect(result).toBePromise()

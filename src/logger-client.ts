@@ -57,14 +57,14 @@ export class LoggerClient {
   constructor(private options: ILoggerClientOptions) {}
 
   async write(
-    id: string
+    namespace: string
   , val: string
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const token = options.token ?? this.options.token
     const req = post(
       url(this.options.server)
-    , pathname(`/logger/${id}`)
+    , pathname(`/logger/${namespace}`)
     , token && searchParam('token', token)
     , text(val)
     , options.signal && signal(options.signal)
@@ -75,20 +75,20 @@ export class LoggerClient {
   }
 
   async writeJSON<T>(
-    id: string
+    namespace: string
   , val: T
   , options?: ILoggerClientRequestOptions
   ): Promise<void> {
-    return await this.write(id, JSON.stringify(val), options)
+    return await this.write(namespace, JSON.stringify(val), options)
   }
 
   /**
    * @throws {HeartbeatTimeoutError} from Observable
    */
-  follow(id: string, options: ILoggerClientObserveOptions = {}): Observable<ILog> {
+  follow(namespace: string, options: ILoggerClientObserveOptions = {}): Observable<ILog> {
     return new Observable(observer => {
       const token = options.token ?? this.options.token
-      const url = new URL(`/logger/${id}`, this.options.server)
+      const url = new URL(`/logger/${namespace}`, this.options.server)
       if (token) url.searchParams.append('token', token)
 
       const es = new EventSource(url.href)
@@ -136,8 +136,11 @@ export class LoggerClient {
   /**
    * @throws {HeartbeatTimeoutError} from Observable
    */
-  followJSON<T>(id: string, options?: ILoggerClientObserveOptions): Observable<IJsonLog<T>> {
-    return this.follow(id, options).pipe(
+  followJSON<T>(
+    namespace: string
+  , options?: ILoggerClientObserveOptions
+  ): Observable<IJsonLog<T>> {
+    return this.follow(namespace, options).pipe(
       map(x => {
         return {
           id: x.id
@@ -148,14 +151,14 @@ export class LoggerClient {
   }
 
   async query(
-    id: string
+    namespace: string
   , query: IQuery
   , options: ILoggerClientRequestOptions = {}
   ): Promise<ILog[]> {
     const token = options.token ?? this.options.token
     const req = get(
       url(this.options.server)
-    , pathname(`/logger/${id}/logs`)
+    , pathname(`/logger/${namespace}/logs`)
     , query.from && searchParam('from', query.from)
     , query.to && searchParam('to', query.to)
     , query.head && searchParam('head', query.head.toString())
@@ -202,7 +205,9 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
-  async getAllLoggerIds(options: ILoggerClientRequestOptionsWithoutToken = {}): Promise<string[]> {
+  async getAllNamespaces(
+    options: ILoggerClientRequestOptionsWithoutToken = {}
+  ): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/logger')

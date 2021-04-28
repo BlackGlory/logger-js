@@ -6,11 +6,16 @@ import './follow.mock'
 jest.mock('eventsource', () => require('mocksse').EventSource)
 
 describe('LoggerClient', () => {
-  it('follow(id: string, options?: { token?: string }): Observable<Log>', async done => {
-    const id = 'id'
+  it(`
+    follow(
+      namespace: string
+    , options?: { token?: string }
+    ): Observable<ILog>
+  `, async done => {
+    const namespace = 'namespace'
     const client = createClient()
 
-    const observable = client.follow(id)
+    const observable = client.follow(namespace)
     observable.subscribe(data => {
       expect(data).toStrictEqual({ id: 'id', payload: 'null' })
       done()
@@ -19,11 +24,16 @@ describe('LoggerClient', () => {
     expect(observable).toBeInstanceOf(Observable)
   })
 
-  it('followJSON(id: string, options?: { token?: string }): Observable<JsonLog>', async done => {
-    const id = 'id'
+  it(`
+    followJSON(
+      namespace: string
+    , options?: { token?: string }
+    ): Observable<IJsonLog>
+  `, async done => {
+    const namespace = 'namespace'
     const client = createClient()
 
-    const observable = client.followJSON(id)
+    const observable = client.followJSON(namespace)
     observable.subscribe(data => {
       expect(data).toStrictEqual({ id: 'id', payload: null })
       done()

@@ -16,7 +16,7 @@ interface ITokenInfo {
 export class TokenClient {
   constructor(private options: ILoggerManagerOptions) {}
 
-  async getIds(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
+  async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/logger-with-tokens')
@@ -29,10 +29,13 @@ export class TokenClient {
       .then(toJSON) as string[]
   }
 
-  async getTokens(id: string, options: ILoggerManagerRequestOptions = {}): Promise<ITokenInfo[]> {
+  async getTokens(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<ITokenInfo[]> {
     const req = get(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens`)
+    , pathname(`/admin/logger/${namespace}/tokens`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -42,10 +45,14 @@ export class TokenClient {
       .then(toJSON) as ITokenInfo[]
   }
 
-  async addWriteToken(id: string, token: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async addWriteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens/${token}/write`)
+    , pathname(`/admin/logger/${namespace}/tokens/${token}/write`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -53,10 +60,14 @@ export class TokenClient {
     await fetch(req).then(ok)
   }
 
-  async removeWriteToken(id: string, token: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async removeWriteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens/${token}/write`)
+    , pathname(`/admin/logger/${namespace}/tokens/${token}/write`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -64,10 +75,14 @@ export class TokenClient {
     await fetch(req).then(ok)
   }
 
-  async addReadToken(id: string, token: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async addReadToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens/${token}/read`)
+    , pathname(`/admin/logger/${namespace}/tokens/${token}/read`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -75,10 +90,14 @@ export class TokenClient {
     await fetch(req).then(ok)
   }
 
-  async removeReadToken(id: string, token: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async removeReadToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens/${token}/read`)
+    , pathname(`/admin/logger/${namespace}/tokens/${token}/read`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -86,10 +105,14 @@ export class TokenClient {
     await fetch(req).then(ok)
   }
 
-  async addDeleteToken(id: string, token: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async addDeleteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens/${token}/delete`)
+    , pathname(`/admin/logger/${namespace}/tokens/${token}/delete`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -97,10 +120,14 @@ export class TokenClient {
     await fetch(req).then(ok)
   }
 
-  async removeDeleteToken(id: string, token: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async removeDeleteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/tokens/${token}/delete`)
+    , pathname(`/admin/logger/${namespace}/tokens/${token}/delete`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

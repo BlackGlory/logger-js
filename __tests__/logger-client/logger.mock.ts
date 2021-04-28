@@ -3,14 +3,14 @@ import { rest } from 'msw'
 import { badText, badToken } from '@test/utils'
 
 export const server = setupServer(
-  rest.post('/logger/:id', (req, res, ctx) => {
+  rest.post('/logger/:namespace', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
     if (badText(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.get('/logger/:id/logs', (req, res, ctx) => {
+, rest.get('/logger/:namespace/logs', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     const result = [
@@ -30,7 +30,7 @@ export const server = setupServer(
     }
   })
 
-, rest.delete('/logger/:id/logs', (req, res, ctx) => {
+, rest.delete('/logger/:namespace/logs', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
@@ -39,7 +39,7 @@ export const server = setupServer(
 , rest.get('/logger', (req, res, ctx) => {
     return res(
       ctx.status(200)
-    , ctx.json(['id'])
+    , ctx.json(['namespace'])
     )
   })
 )

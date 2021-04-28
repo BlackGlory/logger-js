@@ -8,11 +8,11 @@ export const server = setupServer(
 
     return res(
       ctx.status(200)
-    , ctx.json(['id'])
+    , ctx.json(['namespace'])
     )
   })
 
-, rest.get('/admin/logger/:id/purge-policies', (req, res, ctx) => {
+, rest.get('/admin/logger/:namespace/purge-policies', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -24,33 +24,33 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/admin/logger/:id/purge-policies/time-to-live', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/purge-policies/time-to-live', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
     if (badJson(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/purge-policies/time-to-live', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/purge-policies/time-to-live', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/admin/logger/:id/purge-policies/limit', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/purge-policies/limit', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
     if (badJson(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/purge-policies/limit', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/purge-policies/limit', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.post('/admin/logger/:id/purge-policies', (req, res, ctx) => {
+, rest.post('/admin/logger/:namespace/purge-policies', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))

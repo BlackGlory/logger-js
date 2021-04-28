@@ -10,7 +10,7 @@ import { ILoggerManagerRequestOptions } from './types'
 export class JsonSchemaClient {
   constructor(private options: ILoggerManagerOptions) {}
 
-  async getIds(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
+  async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/logger-with-json-schema')
@@ -23,10 +23,10 @@ export class JsonSchemaClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: ILoggerManagerRequestOptions = {}): Promise<unknown> {
+  async get(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<unknown> {
     const req = get(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/json-schema`)
+    , pathname(`/admin/logger/${namespace}/json-schema`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -36,10 +36,14 @@ export class JsonSchemaClient {
       .then(toJSON)
   }
 
-  async set(id: string, schema: Json, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async set(
+    namespace: string
+  , schema: Json
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/json-schema`)
+    , pathname(`/admin/logger/${namespace}/json-schema`)
     , password(this.options.adminPassword)
     , json(schema)
     , options.signal && signal(options.signal)
@@ -48,10 +52,10 @@ export class JsonSchemaClient {
     await fetch(req).then(ok)
   }
 
-  async remove(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async remove(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/json-schema`)
+    , pathname(`/admin/logger/${namespace}/json-schema`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

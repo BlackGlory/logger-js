@@ -14,7 +14,7 @@ interface IPurgePolicy {
 export class PurgePolicyClient {
   constructor(private options: ILoggerManagerOptions) {}
 
-  async getIds(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
+  async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/logger-with-purge-policies')
@@ -27,10 +27,13 @@ export class PurgePolicyClient {
       .then(toJSON) as string[]
   }
 
-  async get(id: string, options: ILoggerManagerRequestOptions = {}): Promise<IPurgePolicy> {
+  async get(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<IPurgePolicy> {
     const req = get(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/purge-policies`)
+    , pathname(`/admin/logger/${namespace}/purge-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -40,10 +43,14 @@ export class PurgePolicyClient {
       .then(toJSON) as IPurgePolicy
   }
 
-  async setTimeToLive(id: string, val: number, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async setTimeToLive(
+    namespace: string
+  , val: number
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/purge-policies/time-to-live`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -52,10 +59,13 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeTimeToLive(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async removeTimeToLive(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/purge-policies/time-to-live`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -63,10 +73,14 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async setLimit(id: string, val: number, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async setLimit(
+    namespace: string
+  , val: number
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/purge-policies/limit`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
     , password(this.options.adminPassword)
     , json(val)
     , options.signal && signal(options.signal)
@@ -75,10 +89,13 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async removeLimit(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async removeLimit(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/purge-policies/limit`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -86,10 +103,10 @@ export class PurgePolicyClient {
     await fetch(req).then(ok)
   }
 
-  async purge(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async purge(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
       url(this.options.server)
-    , pathname(`/admin/logger/${id}/purge-policies`)
+    , pathname(`/admin/logger/${namespace}/purge-policies`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

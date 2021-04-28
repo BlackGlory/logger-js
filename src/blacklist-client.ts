@@ -9,7 +9,7 @@ import { ILoggerManagerRequestOptions } from './types'
 export class BlacklistClient {
   constructor(private options: ILoggerManagerOptions) {}
 
-  async getIds(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
+  async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       url(this.options.server)
     , pathname('/admin/blacklist')
@@ -22,10 +22,10 @@ export class BlacklistClient {
       .then(toJSON) as string[]
   }
 
-  async add(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       url(this.options.server)
-    , pathname(`/admin/blacklist/${id}`)
+    , pathname(`/admin/blacklist/${namespace}`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )
@@ -33,10 +33,10 @@ export class BlacklistClient {
     await fetch(req).then(ok)
   }
 
-  async remove(id: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+  async remove(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = del(
       url(this.options.server)
-    , pathname(`/admin/blacklist/${id}`)
+    , pathname(`/admin/blacklist/${namespace}`)
     , password(this.options.adminPassword)
     , options.signal && signal(options.signal)
     )

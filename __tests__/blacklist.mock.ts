@@ -8,17 +8,17 @@ export const server = setupServer(
 
     return res(
       ctx.status(200)
-    , ctx.json(['id'])
+    , ctx.json(['namespace'])
     )
   })
 
-, rest.put('/admin/blacklist/:id', (req, res, ctx) => {
+, rest.put('/admin/blacklist/:namespace', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/blacklist/:id', (req, res, ctx) => {
+, rest.delete('/admin/blacklist/:namespace', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))

@@ -8,11 +8,11 @@ export const server = setupServer(
 
     return res(
       ctx.status(200)
-    , ctx.json(['id'])
+    , ctx.json(['namespace'])
     )
   })
 
-, rest.get('/admin/logger/:id/json-schema', (req, res, ctx) => {
+, rest.get('/admin/logger/:namespace/json-schema', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -21,14 +21,14 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/admin/logger/:id/json-schema', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/json-schema', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
     if (badJson(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/json-schema', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/json-schema', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))

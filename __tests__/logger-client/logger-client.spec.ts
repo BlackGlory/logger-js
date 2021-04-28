@@ -9,35 +9,53 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('LoggerClient', () => {
-  it('write(id: string, val: string, options?: { token?: string }): Promise<void>', async () => {
+  it(`
+    write(
+      namespace: string
+    , val: string
+    , options?: { token?: string }
+    ): Promise<void>
+  `, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = 'null'
 
-    const result = client.write(id, val)
+    const result = client.write(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('writeJSON(id: string, val: Json, options?: { token?: string }): Promise<void>', async () => {
+  it(`
+    writeJSON(
+      namespace: string
+    , val: Json
+    , options?: { token?: string }
+    ): Promise<void>
+  `, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = null
 
-    const result = client.writeJSON(id, val)
+    const result = client.writeJSON(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('query(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): Promise<Log[]>', async () => {
+  it(`
+    query(
+      namespace: string
+    , query: { from?: string; to?: string; head?: number; tail?: number }
+    , options?: { token?: string }
+    ): Promise<ILog[]>
+  `, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.query(id, {})
+    const result = client.query(namespace, {})
     const proResult = await result
 
     expect(proResult).toStrictEqual([
@@ -45,11 +63,17 @@ describe('LoggerClient', () => {
     ])
   })
 
-  it('queryJSON(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): Promise<Array<JsonLog>>', async () => {
+  it(`
+    queryJSON(
+      namespace: string
+    , query: { from?: string; to?: string; head?: number; tail?: number }
+    , options?: { token?: string }
+    ): Promise<Array<IJsonLog>>
+  `, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.queryJSON(id, {})
+    const result = client.queryJSON(namespace, {})
     const proResult = await result
 
     expect(proResult).toStrictEqual([
@@ -57,25 +81,30 @@ describe('LoggerClient', () => {
     ])
   })
 
-  it('del(id: string, query: { from?: string; to?: string; head?: number; tail?: number }, options?: { token?: string }): Promise<void>', async () => {
+  it(`
+    del(
+      namespace: string
+    , query: { from?: string; to?: string; head?: number; tail?: number }
+    , options?: { token?: string }
+    ): Promise<void>`, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.del(id, {})
+    const result = client.del(namespace, {})
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('getAllLoggerIds(): Promise<string[]>', async () => {
+  it('getAllNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getAllLoggerIds()
+    const result = client.getAllNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 })
 

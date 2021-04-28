@@ -8,21 +8,28 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('TokenPolicyClient', () => {
-  it('getIds(): Promise<string[]>', async () => {
+  it('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getIds()
+    const result = client.getNamespaces()
     const proResult = await result
 
     expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['id'])
+    expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('get(id: string): Promise<{ writeTokenRequired: boolean | null; readTokenRequired: boolean | null }>', async () => {
+  it(`
+    get(
+      namespace: string
+    ): Promise<{
+      writeTokenRequired: boolean | null
+      readTokenRequired: boolean | null
+    }>
+  `, async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.get(id)
+    const result = client.get(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
@@ -33,69 +40,69 @@ describe('TokenPolicyClient', () => {
     })
   })
 
-  it('setWriteTokenRequired(id: string, val: boolean): Promise<void>', async () => {
+  it('setWriteTokenRequired(namespace: string, val: boolean): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = true
 
-    const result = client.setWriteTokenRequired(id, val)
+    const result = client.setWriteTokenRequired(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeWriteTokenRequired(id: string): Promise<void>', async () => {
+  it('removeWriteTokenRequired(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeWriteTokenRequired(id)
+    const result = client.removeWriteTokenRequired(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('setReadTokenRequired(id: string, val: boolean): Promise<void>', async () => {
+  it('setReadTokenRequired(namespace: string, val: boolean): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = true
 
-    const result = client.setReadTokenRequired(id, val)
+    const result = client.setReadTokenRequired(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeReadTokenRequired(id: string): Promise<void>', async () => {
+  it('removeReadTokenRequired(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeReadTokenRequired(id)
+    const result = client.removeReadTokenRequired(namespace)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('setDeleteTokenRequired(id: string, val: boolean): Promise<void>', async () => {
+  it('setDeleteTokenRequired(namespace: string, val: boolean): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
     const val = true
 
-    const result = client.setDeleteTokenRequired(id, val)
+    const result = client.setDeleteTokenRequired(namespace, val)
     const proResult = await result
 
     expect(result).toBePromise()
     expect(proResult).toBeUndefined()
   })
 
-  it('removeDeleteTokenRequired(id: string): Promise<void>', async () => {
+  it('removeDeleteTokenRequired(namespace: string): Promise<void>', async () => {
     const client = createClient()
-    const id = 'id'
+    const namespace = 'namespace'
 
-    const result = client.removeDeleteTokenRequired(id)
+    const result = client.removeDeleteTokenRequired(namespace)
     const proResult = await result
 
     expect(result).toBePromise()

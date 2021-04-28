@@ -8,11 +8,11 @@ export const server = setupServer(
 
     return res(
       ctx.status(200)
-    , ctx.json(['id'])
+    , ctx.json(['namespace'])
     )
   })
 
-, rest.get('/admin/logger/:id/tokens', (req, res, ctx) => {
+, rest.get('/admin/logger/:namespace/tokens', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(
@@ -28,37 +28,37 @@ export const server = setupServer(
     )
   })
 
-, rest.put('/admin/logger/:id/tokens/:token/write', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/tokens/:token/write', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/tokens/:token/write', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/tokens/:token/write', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/admin/logger/:id/tokens/:token/read', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/tokens/:token/read', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/tokens/:token/read', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/tokens/:token/read', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.put('/admin/logger/:id/tokens/:token/delete', (req, res, ctx) => {
+, rest.put('/admin/logger/:namespace/tokens/:token/delete', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.delete('/admin/logger/:id/tokens/:token/delete', (req, res, ctx) => {
+, rest.delete('/admin/logger/:namespace/tokens/:token/delete', (req, res, ctx) => {
     if (badAuth(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
