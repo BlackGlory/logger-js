@@ -8,7 +8,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('whitelist', () => {
-  it('getNamespaces(): Promise<string[]>', async () => {
+  test('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
     const result = client.getNamespaces()
@@ -18,7 +18,7 @@ describe('whitelist', () => {
     expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('add(namespace: string): Promise<void>', async () => {
+  test('add(namespace: string): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
@@ -29,7 +29,7 @@ describe('whitelist', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('remove(namespace: string): Promise<void>', async () => {
+  test('remove(namespace: string): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 

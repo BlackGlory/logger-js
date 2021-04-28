@@ -8,7 +8,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('JsonSchemaClient', () => {
-  it('getNamespaces(): Promise<string[]>', async () => {
+  test('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
     const result = client.getNamespaces()
@@ -18,7 +18,7 @@ describe('JsonSchemaClient', () => {
     expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('get(namespace: string): Promise<Json>', async () => {
+  test('get(namespace: string): Promise<Json>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
@@ -29,7 +29,7 @@ describe('JsonSchemaClient', () => {
     expect(proResult).toBeJson()
   })
 
-  it('set(namespace: string, schema: Json): Promise<void>', async () => {
+  test('set(namespace: string, schema: Json): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
     const schema = {}
@@ -41,7 +41,7 @@ describe('JsonSchemaClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('remove(namespace: string): Promise<void>', async () => {
+  test('remove(namespace: string): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 

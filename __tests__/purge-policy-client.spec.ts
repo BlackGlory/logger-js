@@ -8,7 +8,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('PurgePolicyClient', () => {
-  it('getNamespaces(): Promise<string[]>', async () => {
+  test('getNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
     const result = client.getNamespaces()
@@ -18,7 +18,7 @@ describe('PurgePolicyClient', () => {
     expect(proResult).toStrictEqual(['namespace'])
   })
 
-  it('get(namespace: string): Promise<{ timeToLive: number | null; limit: number | null }>', async () => {
+  test('get(namespace: string): Promise<{ timeToLive: number | null; limit: number | null }>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
@@ -32,7 +32,7 @@ describe('PurgePolicyClient', () => {
     })
   })
 
-  it('setTimeToLive(namespace: string, val: number): Promise<void>', async () => {
+  test('setTimeToLive(namespace: string, val: number): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
     const val = 100
@@ -44,7 +44,7 @@ describe('PurgePolicyClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('removeTimeToLive(namespace: string): Promise<void>', async () => {
+  test('removeTimeToLive(namespace: string): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
@@ -55,7 +55,7 @@ describe('PurgePolicyClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('setLimit(namespace: string, val: number): Promise<void>', async () => {
+  test('setLimit(namespace: string, val: number): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
     const val = 100
@@ -67,7 +67,7 @@ describe('PurgePolicyClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('removeLimit(namespace: string): Promise<void>', async () => {
+  test('removeLimit(namespace: string): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 
@@ -78,7 +78,7 @@ describe('PurgePolicyClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('purge(namespace: string): Promise<void>', async () => {
+  test('purge(namespace: string): Promise<void>', async () => {
     const client = createClient()
     const namespace = 'namespace'
 

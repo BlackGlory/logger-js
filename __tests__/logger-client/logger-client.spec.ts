@@ -97,7 +97,7 @@ describe('LoggerClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it('getAllNamespaces(): Promise<string[]>', async () => {
+  test('getAllNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
     const result = client.getAllNamespaces()
