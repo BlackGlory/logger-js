@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/BlackGlory/logger-js/compare/v0.4.5...v0.5.0) (2021-04-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename
+
+* name ([aacbbe0](https://github.com/BlackGlory/logger-js/commit/aacbbe08911c0ee9de5f776604c3cdbda18a939a))
+
 ### [0.4.5](https://github.com/BlackGlory/logger-js/compare/v0.4.4...v0.4.5) (2021-04-20)
 
 
