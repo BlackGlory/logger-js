@@ -9,7 +9,7 @@ beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
 describe('LoggerClient', () => {
-  it(`
+  test(`
     write(
       namespace: string
     , val: string
@@ -27,7 +27,7 @@ describe('LoggerClient', () => {
     expect(proResult).toBeUndefined()
   })
 
-  it(`
+  test(`
     writeJSON(
       namespace: string
     , val: Json
@@ -63,7 +63,7 @@ describe('LoggerClient', () => {
     ])
   })
 
-  it(`
+  test(`
     queryJSON(
       namespace: string
     , query: { from?: string; to?: string; head?: number; tail?: number }
@@ -81,7 +81,7 @@ describe('LoggerClient', () => {
     ])
   })
 
-  it(`
+  test(`
     del(
       namespace: string
     , query: { from?: string; to?: string; head?: number; tail?: number }

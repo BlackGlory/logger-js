@@ -2,44 +2,49 @@ import { LoggerClient } from '@src/logger-client'
 import { Observable } from 'rxjs'
 import { TOKEN } from '@test/utils'
 import './follow.mock'
+import { go } from '@blackglory/go'
 
 jest.mock('eventsource', () => require('mocksse').EventSource)
 
 describe('LoggerClient', () => {
-  it(`
+  test(`
     follow(
       namespace: string
     , options?: { token?: string }
     ): Observable<ILog>
-  `, async done => {
-    const namespace = 'namespace'
-    const client = createClient()
+  `, done => {
+    go(async () => {
+      const namespace = 'namespace'
+      const client = createClient()
 
-    const observable = client.follow(namespace)
-    observable.subscribe(data => {
-      expect(data).toStrictEqual({ id: 'id', payload: 'null' })
-      done()
+      const observable = client.follow(namespace)
+      observable.subscribe(data => {
+        expect(data).toStrictEqual({ id: 'id', payload: 'null' })
+        done()
+      })
+
+      expect(observable).toBeInstanceOf(Observable)
     })
-
-    expect(observable).toBeInstanceOf(Observable)
   })
 
-  it(`
+  test(`
     followJSON(
       namespace: string
     , options?: { token?: string }
     ): Observable<IJsonLog>
-  `, async done => {
-    const namespace = 'namespace'
-    const client = createClient()
+  `, done => {
+    go(async () => {
+      const namespace = 'namespace'
+      const client = createClient()
 
-    const observable = client.followJSON(namespace)
-    observable.subscribe(data => {
-      expect(data).toStrictEqual({ id: 'id', payload: null })
-      done()
+      const observable = client.followJSON(namespace)
+      observable.subscribe(data => {
+        expect(data).toStrictEqual({ id: 'id', payload: null })
+        done()
+      })
+
+      expect(observable).toBeInstanceOf(Observable)
     })
-
-    expect(observable).toBeInstanceOf(Observable)
   })
 })
 
