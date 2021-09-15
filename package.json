@@ -71,6 +71,7 @@
     "@blackglory/errors": "^1.1.2",
     "@blackglory/http-status": "^1.0.0",
     "extra-fetch": "^1.7.2",
+    "extra-promise": "^0.18.4",
     "extra-request": "^3.0.0",
     "extra-response": "^0.3.6",
     "extra-timers": "^0.2.1",

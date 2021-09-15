@@ -1,11 +1,14 @@
 import { fetch, EventSource } from 'extra-fetch'
-import { post, get, del } from 'extra-request'
-import { url, pathname, text, searchParam, signal, keepalive } from 'extra-request/lib/es2018/transformers'
+import { post, get, del, IHTTPOptionsTransformer } from 'extra-request'
+import { url, pathname, text, searchParam, searchParams, signal, keepalive }
+  from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { assert, CustomError } from '@blackglory/errors'
 import { setTimeout } from 'extra-timers'
+import { Falsy } from 'justypes'
+import { timeoutSignal, raceAbortSignals } from 'extra-promise'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
@@ -31,17 +34,20 @@ export interface ILoggerClientOptions {
   token?: string
   keepalive?: boolean
   heartbeat?: IHeartbeatOptions
+  timeout?: number
 }
 
 export interface ILoggerClientRequestOptions {
   signal?: AbortSignal
   token?: string
   keepalive?: boolean
+  timeout?: number | false
 }
 
 export interface ILoggerClientRequestOptionsWithoutToken {
   signal?: AbortSignal
   keepalive?: boolean
+  timeout?: number | false
 }
 
 export interface ILoggerClientObserveOptions {
@@ -56,19 +62,36 @@ export interface IHeartbeatOptions {
 export class LoggerClient {
   constructor(private options: ILoggerClientOptions) {}
 
+  private getCommonTransformers(
+    options: ILoggerClientRequestOptions | ILoggerClientRequestOptionsWithoutToken
+  ): Array<IHTTPOptionsTransformer | Falsy> {
+    const token = 'token' in options
+                  ? (options.token ?? this.options.token)
+                  : this.options.token
+
+    return [
+      url(this.options.server)
+    , token && searchParams({ token })
+    , signal(raceAbortSignals([
+        options.signal
+      , options.timeout !== false && (
+          (options.timeout && timeoutSignal(options.timeout)) ??
+          (this.options.timeout && timeoutSignal(this.options.timeout))
+        )
+      ]))
+    , keepalive(options.keepalive ?? this.options.keepalive)
+    ]
+  }
+
   async write(
     namespace: string
   , val: string
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
-    const token = options.token ?? this.options.token
     const req = post(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/logger/${namespace}`)
-    , token && searchParam('token', token)
     , text(val)
-    , options.signal && signal(options.signal)
-    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -85,7 +108,10 @@ export class LoggerClient {
   /**
    * @throws {HeartbeatTimeoutError} from Observable
    */
-  follow(namespace: string, options: ILoggerClientObserveOptions = {}): Observable<ILog> {
+  follow(
+    namespace: string
+  , options: ILoggerClientObserveOptions = {}
+  ): Observable<ILog> {
     return new Observable(observer => {
       const token = options.token ?? this.options.token
       const url = new URL(`/logger/${namespace}`, this.options.server)
@@ -155,17 +181,13 @@ export class LoggerClient {
   , query: IQuery
   , options: ILoggerClientRequestOptions = {}
   ): Promise<ILog[]> {
-    const token = options.token ?? this.options.token
     const req = get(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/logger/${namespace}/logs`)
     , query.from && searchParam('from', query.from)
     , query.to && searchParam('to', query.to)
     , query.head && searchParam('head', query.head.toString())
     , query.tail && searchParam('tail', query.tail.toString())
-    , token && searchParam('token', token)
-    , options.signal && signal(options.signal)
-    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)
@@ -190,16 +212,13 @@ export class LoggerClient {
   , query: IQuery
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
-    const token = options.token ?? this.options.token
     const req = del(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/logger/${id}/logs`)
     , query.from && searchParam('from', query.from)
     , query.to && searchParam('to', query.to)
     , query.head && searchParam('head', query.head.toString())
     , query.tail && searchParam('tail', query.tail.toString())
-    , token && searchParam('token', token)
-    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     await fetch(req).then(ok)
@@ -209,10 +228,8 @@ export class LoggerClient {
     options: ILoggerClientRequestOptionsWithoutToken = {}
   ): Promise<string[]> {
     const req = get(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname('/logger')
-    , options.signal && signal(options.signal)
-    , keepalive(options.keepalive ?? this.options.keepalive)
     )
 
     return await fetch(req)

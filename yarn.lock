@@ -2912,7 +2912,7 @@ extra-promise@^0.17.5:
     reflect-metadata "^0.1.13"
     return-style "^0.12.3"
 
-extra-promise@^0.18.2:
+extra-promise@^0.18.2, extra-promise@^0.18.4:
   version "0.18.4"
   resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.18.4.tgz#9401443595f7a0a7687dea3c3e9ee901e7d6dfed"
   integrity sha512-KkJj5VPxeAHKLcDaWM99luYDkBTVCGOfCOdw17vPi+9CPtXtkFRIBnjBrPXSMwJXLNOcko4HUnJxKCbOAJZ4Sw==

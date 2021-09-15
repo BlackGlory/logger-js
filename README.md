@@ -31,6 +31,7 @@ new LoggerClient({
   server: string
 , token?: string
 , keepalive?: boolean
+, timeout?: number
 , heartbeat?: IHeartbeatOptions
 })
 ```
@@ -40,6 +41,7 @@ interface ILoggerClientRequestOptions {
   signal?: AbortSignal
   token?: string
   keepalive?: boolean
+  timeout?: number | false
 }
 ```
 
@@ -47,6 +49,7 @@ interface ILoggerClientRequestOptions {
 interface ILoggerClientRequestOptionsWithoutToken {
   signal?: AbortSignal
   keepalive?: booolean
+  timeout?: number | false
 }
 ```
 
@@ -158,12 +161,16 @@ LoggerClient#getAllNamespaces(options?: ILoggerClientRequestOptionsWithoutToken)
 new LoggerManager({
   server: string
 , adminPassword: string
+, keepalive?: boolean
+, timeout?: number
 })
 ```
 
 ```ts
 interface ILoggerManagerRequestOptions {
   signal?: AbortSignal
+  keepalive?: boolean
+  timeout?: number | false
 }
 ```
 

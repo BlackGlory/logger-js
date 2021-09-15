@@ -8,6 +8,8 @@ import { PurgePolicyClient } from './purge-policy-client'
 export interface ILoggerManagerOptions {
   server: string
   adminPassword: string
+  keepalive?: boolean
+  timeout?: number
 }
 
 export class LoggerManager {

@@ -1,25 +1,19 @@
 import { fetch } from 'extra-fetch'
-import { password } from './utils'
 import { get, put, del, post } from 'extra-request'
-import { url, pathname, json, signal } from 'extra-request/lib/es2018/transformers'
+import { pathname, json } from 'extra-request/lib/es2018/transformers'
 import { ok, toJSON } from 'extra-response'
-import type { ILoggerManagerOptions } from './logger-manager'
-import { ILoggerManagerRequestOptions } from './types'
+import { ILoggerManagerRequestOptions, LoggerManagerBase } from './utils'
 
 interface IPurgePolicy {
   timeToLive: number | null
   limit: number | null
 }
 
-export class PurgePolicyClient {
-  constructor(private options: ILoggerManagerOptions) {}
-
+export class PurgePolicyClient extends LoggerManagerBase {
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname('/admin/logger-with-purge-policies')
-    , password(this.options.adminPassword)
-    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -32,10 +26,8 @@ export class PurgePolicyClient {
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<IPurgePolicy> {
     const req = get(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/admin/logger/${namespace}/purge-policies`)
-    , password(this.options.adminPassword)
-    , options.signal && signal(options.signal)
     )
 
     return await fetch(req)
@@ -49,11 +41,9 @@ export class PurgePolicyClient {
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
-    , password(this.options.adminPassword)
     , json(val)
-    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
@@ -64,10 +54,8 @@ export class PurgePolicyClient {
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
-    , password(this.options.adminPassword)
-    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
@@ -79,11 +67,9 @@ export class PurgePolicyClient {
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
-    , password(this.options.adminPassword)
     , json(val)
-    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
@@ -94,10 +80,8 @@ export class PurgePolicyClient {
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
-    , password(this.options.adminPassword)
-    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
@@ -105,10 +89,8 @@ export class PurgePolicyClient {
 
   async purge(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
-      url(this.options.server)
+      ...this.getCommonTransformers(options)
     , pathname(`/admin/logger/${namespace}/purge-policies`)
-    , password(this.options.adminPassword)
-    , options.signal && signal(options.signal)
     )
 
     await fetch(req).then(ok)
