@@ -70,11 +70,11 @@
   "dependencies": {
     "@blackglory/errors": "^1.1.2",
     "@blackglory/http-status": "^1.0.0",
-    "extra-fetch": "^1.7.2",
+    "extra-fetch": "^1.7.4",
     "extra-promise": "^0.18.4",
-    "extra-request": "^3.0.0",
-    "extra-response": "^0.3.6",
-    "extra-timers": "^0.2.1",
+    "extra-request": "^3.0.1",
+    "extra-response": "^0.3.7",
+    "extra-timers": "^0.2.2",
     "justypes": "^0.1.5",
     "rxjs": "^7.3.0"
   }
