@@ -1,7 +1,7 @@
 import { fetch, EventSource } from 'extra-fetch'
 import { post, get, del, IHTTPOptionsTransformer } from 'extra-request'
 import { url, pathname, text, searchParam, searchParams, signal, keepalive }
-  from 'extra-request/lib/es2018/transformers'
+  from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'

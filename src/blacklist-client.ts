@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { pathname } from 'extra-request/lib/es2018/transformers'
+import { pathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { ILoggerManagerRequestOptions, LoggerManagerBase } from './utils'
 
