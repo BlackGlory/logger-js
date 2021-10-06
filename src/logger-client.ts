@@ -83,6 +83,9 @@ export class LoggerClient {
     ]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async write(
     namespace: string
   , val: string
@@ -97,6 +100,9 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async writeJSON<T>(
     namespace: string
   , val: T
@@ -176,6 +182,9 @@ export class LoggerClient {
     )
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async query(
     namespace: string
   , query: IQuery
@@ -195,6 +204,9 @@ export class LoggerClient {
       .then(toJSON) as ILog[]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async queryJSON<T>(
     id: string
   , query: IQuery
@@ -207,6 +219,9 @@ export class LoggerClient {
     }))
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async del(
     id: string
   , query: IQuery
@@ -224,6 +239,9 @@ export class LoggerClient {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async getAllNamespaces(
     options: ILoggerClientRequestOptionsWithoutToken = {}
   ): Promise<string[]> {

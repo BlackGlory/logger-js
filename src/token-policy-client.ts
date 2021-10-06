@@ -11,6 +11,9 @@ interface ITokenPolicy {
 }
 
 export class TokenPolicyClient extends LoggerManagerBase {
+  /**
+   * @throws {AbortError}
+   */
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
@@ -22,6 +25,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
       .then(toJSON) as string[]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async get(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
@@ -36,6 +42,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
       .then(toJSON) as ITokenPolicy
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setWriteTokenRequired(
     namespace: string
   , val: boolean
@@ -50,6 +59,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async removeWriteTokenRequired(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
@@ -62,6 +74,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setReadTokenRequired(
     namespace: string
   , val: boolean
@@ -76,6 +91,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async removeReadTokenRequired(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
@@ -88,6 +106,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setDeleteTokenRequired(
     namespace: string
   , val: boolean
@@ -102,6 +123,9 @@ export class TokenPolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async removeDeleteTokenRequired(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}

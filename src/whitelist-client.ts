@@ -5,6 +5,9 @@ import { ok, toJSON } from 'extra-response'
 import { ILoggerManagerRequestOptions, LoggerManagerBase } from './utils'
 
 export class WhitelistClient extends LoggerManagerBase {
+  /**
+   * @throws {AbortError}
+   */
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
@@ -16,6 +19,9 @@ export class WhitelistClient extends LoggerManagerBase {
       .then(toJSON) as string[]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
@@ -25,6 +31,9 @@ export class WhitelistClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async remove(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}

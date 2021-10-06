@@ -10,6 +10,9 @@ interface IPurgePolicy {
 }
 
 export class PurgePolicyClient extends LoggerManagerBase {
+  /**
+   * @throws {AbortError}
+   */
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
@@ -21,6 +24,9 @@ export class PurgePolicyClient extends LoggerManagerBase {
       .then(toJSON) as string[]
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async get(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
@@ -35,6 +41,9 @@ export class PurgePolicyClient extends LoggerManagerBase {
       .then(toJSON) as IPurgePolicy
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setTimeToLive(
     namespace: string
   , val: number
@@ -49,6 +58,9 @@ export class PurgePolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async removeTimeToLive(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
@@ -61,6 +73,9 @@ export class PurgePolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async setLimit(
     namespace: string
   , val: number
@@ -75,6 +90,9 @@ export class PurgePolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async removeLimit(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
@@ -87,6 +105,9 @@ export class PurgePolicyClient extends LoggerManagerBase {
     await fetch(req).then(ok)
   }
 
+  /**
+   * @throws {AbortError}
+   */
   async purge(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
       ...this.getCommonTransformers(options)
