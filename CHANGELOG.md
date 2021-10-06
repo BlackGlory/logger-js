@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.5](https://github.com/BlackGlory/logger-js/compare/v0.5.4...v0.5.5) (2021-10-06)
+
+
+### Features
+
+* export AbortError ([552203a](https://github.com/BlackGlory/logger-js/commit/552203a122cef67c9e82d9fff9ee0d63b84b185c))
+
 ### [0.5.4](https://github.com/BlackGlory/logger-js/compare/v0.5.3...v0.5.4) (2021-09-18)
 
 
