@@ -11,9 +11,6 @@
   , "baseUrl": "."
   , "paths": {
       "@src/*": ["src/*"]
-    , "@error": ["src/shared/error"]
-    , "@functions/*": ["src/functions/*"]
-    , "@classes/*": ["src/classes/*"]
     , "@test/*": ["__tests__/*"]
     , "extra-request/transformers/*": ["node_modules/extra-request/lib/es2018/transformers/*"]
     }
