@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/BlackGlory/logger-js/compare/v0.5.6...v0.6.0) (2021-12-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* - The minimum version is Node.js v16
+
+* update dependencies ([bfd0dac](https://github.com/BlackGlory/logger-js/commit/bfd0dacb062adbc44b9cb45a37399b8d6470658a))
+
 ### [0.5.6](https://github.com/BlackGlory/logger-js/compare/v0.5.5...v0.5.6) (2021-10-14)
 
 ### [0.5.5](https://github.com/BlackGlory/logger-js/compare/v0.5.4...v0.5.5) (2021-10-06)
