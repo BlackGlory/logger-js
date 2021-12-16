@@ -2,7 +2,6 @@ import { server } from './logger.mock'
 import { LoggerClient } from '@src/logger-client'
 import { TOKEN } from '@test/utils'
 import '@blackglory/jest-matchers'
-import 'jest-extended'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
