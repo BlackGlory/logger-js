@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators'
 import { assert, CustomError } from '@blackglory/errors'
 import { setTimeout } from 'extra-timers'
 import { Falsy } from 'justypes'
-import { timeoutSignal, raceAbortSignals } from 'extra-promise'
+import { timeoutSignal, raceAbortSignals } from 'extra-abort'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
