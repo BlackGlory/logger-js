@@ -208,11 +208,11 @@ export class LoggerClient {
    * @throws {AbortError}
    */
   async queryJSON<T>(
-    id: string
+    namespace: string
   , query: IQuery
   , options?: ILoggerClientRequestOptions
   ): Promise<Array<IJsonLog<T>>> {
-    const logs = await this.query(id, query, options)
+    const logs = await this.query(namespace, query, options)
     return logs.map<IJsonLog<T>>(x => ({
       id: x.id
     , payload: JSON.parse(x.payload)
@@ -223,13 +223,13 @@ export class LoggerClient {
    * @throws {AbortError}
    */
   async del(
-    id: string
+    namespace: string
   , query: IQuery
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/logger/${id}/logs`)
+    , pathname(`/logger/${namespace}/logs`)
     , query.from && searchParam('from', query.from)
     , query.to && searchParam('to', query.to)
     , query.head && searchParam('head', query.head.toString())
