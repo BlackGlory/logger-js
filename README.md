@@ -30,6 +30,10 @@ interface IJsonLog {
 new LoggerClient({
   server: string
 , token?: string
+, basicAuth?: {
+    username: string
+  , password: string
+  }
 , keepalive?: boolean
 , timeout?: number
 , heartbeat?: IHeartbeatOptions

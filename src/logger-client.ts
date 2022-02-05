@@ -1,6 +1,6 @@
 import { fetch, EventSource } from 'extra-fetch'
 import { post, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, pathname, text, searchParam, searchParams, signal, keepalive }
+import { url, pathname, text, searchParam, searchParams, signal, keepalive, basicAuth }
   from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
@@ -32,6 +32,10 @@ export interface IJsonLog<T> {
 export interface ILoggerClientOptions {
   server: string
   token?: string
+  basicAuth?: {
+    username: string
+    password: string
+  }
   keepalive?: boolean
   heartbeat?: IHeartbeatOptions
   timeout?: number
@@ -68,9 +72,11 @@ export class LoggerClient {
     const token = 'token' in options
                   ? (options.token ?? this.options.token)
                   : this.options.token
+    const auth = this.options.basicAuth
 
     return [
       url(this.options.server)
+    , auth && basicAuth(auth.username, auth.password)
     , token && searchParams({ token })
     , signal(raceAbortSignals([
         options.signal
