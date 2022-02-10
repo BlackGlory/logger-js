@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.3](https://github.com/BlackGlory/logger-js/compare/v0.7.2...v0.7.3) (2022-02-10)
+
+
+### Features
+
+* add Accept-Version to LoggerClient ([ec146b4](https://github.com/BlackGlory/logger-js/commit/ec146b4befcf35b4e68326ebe9d893586ff3e614))
+
 ### [0.7.2](https://github.com/BlackGlory/logger-js/compare/v0.7.1...v0.7.2) (2022-02-05)
 
 
