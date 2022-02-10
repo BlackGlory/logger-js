@@ -1,6 +1,6 @@
 import { fetch, EventSource } from 'extra-fetch'
 import { post, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, pathname, text, searchParam, searchParams, signal, keepalive, basicAuth }
+import { url, pathname, text, searchParam, searchParams, signal, keepalive, basicAuth, header }
   from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
@@ -9,6 +9,7 @@ import { assert, CustomError } from '@blackglory/errors'
 import { setTimeout } from 'extra-timers'
 import { Falsy } from 'justypes'
 import { timeoutSignal, raceAbortSignals } from 'extra-abort'
+import { expectedVersion } from './utils'
 
 export { HTTPClientError } from '@blackglory/http-status'
 
@@ -86,6 +87,7 @@ export class LoggerClient {
         )
       ]))
     , keepalive(options.keepalive ?? this.options.keepalive)
+    , header('Accept-Version', expectedVersion)
     ]
   }
 

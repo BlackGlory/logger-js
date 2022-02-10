@@ -9,6 +9,8 @@ export interface ILoggerManagerRequestOptions {
   timeout?: number | false
 }
 
+export const expectedVersion = '0.4.0'
+
 export class LoggerManagerBase {
   constructor(private options: ILoggerManagerOptions) {}
 
@@ -26,7 +28,7 @@ export class LoggerManagerBase {
         )
       ]))
     , keepalive(options.keepalive ?? this.options.keepalive)
-    , header('Accept-Version', '0.4.0')
+    , header('Accept-Version', expectedVersion)
     ]
   }
 }
