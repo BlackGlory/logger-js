@@ -86,7 +86,7 @@ export class LoggerClient {
           (this.options.timeout && timeoutSignal(this.options.timeout))
         )
       ]))
-    , keepalive(options.keepalive ?? this.options.keepalive)
+    , (options.keepalive ?? this.options.keepalive) && keepalive()
     , header('Accept-Version', expectedVersion)
     ]
   }
