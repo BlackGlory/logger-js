@@ -1,7 +1,5 @@
 # logger-js
-
 ## Install
-
 ```sh
 npm install --save @blackglory/logger-js
 # or
@@ -9,497 +7,289 @@ yarn add @blackglory/logger-js
 ```
 
 ## API
-
+### LoggerClient
 ```ts
+interface IQuery {
+  from?: string
+  to?: string
+  head?: number
+  tail?: number
+}
+
 interface ILog {
   id: string
   payload: string
 }
-```
 
-```ts
-interface IJsonLog {
+interface IJsonLog<T> {
   id: string
-  payload: Json
+  payload: T
 }
-```
 
-### LoggerClient
-
-```ts
-new LoggerClient({
+interface ILoggerClientOptions {
   server: string
-, token?: string
-, basicAuth?: {
+  token?: string
+  basicAuth?: {
     username: string
-  , password: string
+    password: string
   }
-, keepalive?: boolean
-, timeout?: number
-, heartbeat?: IHeartbeatOptions
-})
-```
+  keepalive?: boolean
+  heartbeat?: IHeartbeatOptions
+  timeout?: number
+}
 
-```ts
 interface ILoggerClientRequestOptions {
   signal?: AbortSignal
   token?: string
   keepalive?: boolean
   timeout?: number | false
 }
-```
 
-```ts
 interface ILoggerClientRequestOptionsWithoutToken {
-  signal?: AbortSignal
-  keepalive?: booolean
-  timeout?: number | false
-}
-```
-
-```ts
-interface ILoggerClientObserveOptions {
-  token?: string
-  heartbeat?: IHeartbeatOptions
-}
-```
-
-```ts
-interface IHeartbeatOptions {
-  timeout: number
-}
-```
-
-#### write
-
-```ts
-LoggerClient#write(
-  namespace: string
-, val: string
-, options?: ILoggerClientRequestOptions
-): Promise<void>
-```
-
-#### writeJSON
-
-```ts
-LoggerClient#writeJSON(
-  namespace: string
-, val: Json
-, options?: ILoggerClientRequestOptions
-): Promise<void>
-```
-
-#### follow
-
-```ts
-LoggerClient#follow(
-  namespace: string
-, options?: ILoggerClientObserveOptions
-): Observable<ILog>
-```
-
-#### followJSON
-
-```ts
-LoggerClient#followJSON(
-  namespace: string
-, options?: ILoggerClientObserveOptions
-): Observable<IJsonLog>
-```
-
-#### query
-
-```ts
-LoggerClient#query(
-  namespace: string
-, query: {
-    from?: string
-    to?: string
-    head?: number
-    tail?: number
-  }
-, options?: ILoggerClientRequestOptions
-): Promise<ILog[]>
-```
-
-#### queryJSON
-
-```ts
-LoggerClient#queryJSON(
-  namespace: string
-, query: {
-    from?: string
-    to?: string
-    head?: number
-    tail?: number
-  }
-, options?: ILoggerClientRequestOptions
-): Promise<Array<IJsonLog>>
-```
-
-#### del
-
-```ts
-LoggerClient#del(
-  namespace: string
-, query: {
-    from?: string
-    to?: string
-    head?: number
-    tail?: number
-  }
-, options?: ILoggerClientRequestOptions
-): Promise<void>
-```
-
-#### getAllNamespaces
-
-```ts
-LoggerClient#getAllNamespaces(options?: ILoggerClientRequestOptionsWithoutToken): Promise<string[]>
-```
-
-### LoggerManager
-
-```ts
-new LoggerManager({
-  server: string
-, adminPassword: string
-, keepalive?: boolean
-, timeout?: number
-})
-```
-
-```ts
-interface ILoggerManagerRequestOptions {
   signal?: AbortSignal
   keepalive?: boolean
   timeout?: number | false
 }
+
+interface ILoggerClientObserveOptions {
+  token?: string
+  heartbeat?: IHeartbeatOptions
+}
+
+interface IHeartbeatOptions {
+  timeout: number
+}
+
+class LoggerClient {
+  constructor(options: ILoggerClientOptions)
+
+  write(
+    namespace: string
+  , val: string
+  , options: ILoggerClientRequestOptions = {}
+  ): Promise<void>
+
+  writeJSON<T>(
+    namespace: string
+  , val: T
+  , options?: ILoggerClientRequestOptions
+  ): Promise<void>
+
+  follow(
+    namespace: string
+  , options: ILoggerClientObserveOptions = {}
+  ): Observable<ILog>
+
+  followJSON<T>(
+    namespace: string
+  , options?: ILoggerClientObserveOptions
+  ): Observable<IJsonLog<T>>
+
+  query(
+    namespace: string
+  , query: IQuery
+  , options: ILoggerClientRequestOptions = {}
+  ): Promise<ILog[]>
+
+  queryJSON<T>(
+    namespace: string
+  , query: IQuery
+  , options?: ILoggerClientRequestOptions
+  ): Promise<Array<IJsonLog<T>>>
+
+  del(
+    namespace: string
+  , query: IQuery
+  , options: ILoggerClientRequestOptions = {}
+  ): Promise<void>
+
+  getAllNamespaces(
+    options: ILoggerClientRequestOptionsWithoutToken = {}
+  ): Promise<string[]>
+}
+
+class HeartbeatTimeoutError extends CustomError {}
 ```
 
-#### JsonSchema
-
-##### getNamespaces
-
+### LoggerManager
 ```ts
-LoggerManager#JsonSchema.getNamespaces(
-  options?: ILoggerManagerRequestOptions
-): Promise<string[]>
+interface ILoggerManagerOptions {
+  server: string
+  adminPassword: string
+  keepalive?: boolean
+  timeout?: number
+}
+
+class LoggerManager {
+  constructor(options: ILoggerManagerOptions)
+
+  JsonSchema: JsonSchemaClient
+  Blacklist: BlacklistClient
+  Whitelist: WhitelistClient
+  TokenPolicy: TokenPolicyClient
+  Token: TokenClient
+  PurgePolicy: PurgePolicyClient
+}
 ```
 
-##### get
-
+#### JsonSchemaClient
 ```ts
-LoggerManager#JsonSchema.get(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<Json>
+class JsonSchemaClient {
+  getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
+  get(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<unknown>
+  set(
+    namespace: string
+  , schema: Json
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  remove(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
+}
 ```
 
-##### set
-
+#### BlacklistClient
 ```ts
-LoggerManager#JsonSchema.set(
-  namespace: string
-, schema: Json
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
+class BlacklistClient {
+  getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
+  add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
+  remove(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
+}
 ```
 
-##### remove
-
+#### WhitelistClient
 ```ts
-LoggerManager#JsonSchema.remove(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
+class WhitelistClient {
+  getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
+  add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
+  remove(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-#### PurgePolicy
-
-##### getNamespaces
-
+#### TokenPolicyClient
 ```ts
-LoggerManager#PurgePolicy.getNamespaces(
-  options?: ILoggerManagerRequestOptions
-): Promise<string[]>
-```
-
-##### get
-
-```ts
-LoggerManager#PurgePolicy.get(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<{
-  timeToLive: number | null
-  limit: number | null
-}>
-```
-
-##### setTimeToLive
-
-```ts
-LoggerManager#PurgePolicy.setTimeToLive(
-  namespace: string
-, val: number
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeTimeToLive
-
-```ts
-LoggerManager#PurgePolicy.removeTimeToLive(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### setLimit
-
-```ts
-LoggerManager#PurgePolicy.setLimit(
-  namespace: string
-, val: boolean
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeLimit
-
-```ts
-LoggerManager#PurgePolicy.removeLimit(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### purge
-
-```ts
-LoggerManager#PurgePolicy.purge(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-#### Blacklist
-
-##### getNamespaces
-
-```ts
-LoggerManager#Blacklist.getNamespaces(
-  options?: ILoggerManagerRequestOptions
-): Promise<string[]>
-```
-
-##### add
-
-```ts
-LoggerManager#Blacklist.add(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### remove
-
-```ts
-LoggerManager#Blacklist.remove(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-#### Whitelist
-
-##### getNamespaces
-
-```ts
-LoggerManager#Whitelist.getNamespaces(
-  options?: ILoggerManagerRequestOptions
-): Promise<string[]>
-```
-
-##### add
-
-```ts
-LoggerManager#Whitelist.add(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### remove
-
-```ts
-LoggerManager#Whitelist.remove(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-#### TokenPolicy
-
-##### getNamespaces
-
-```ts
-LoggerManager#TokenPolicy.getNamespaces(
-  options?: ILoggerManagerRequestOptions
-): Promise<string[]>
-```
-
-##### get
-
-```ts
-LoggerManager#TokenPolicy.get(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<{
+interface ITokenPolicy {
   writeTokenRequired: boolean | null
   readTokenRequired: boolean | null
   deleteTokenRequired: boolean | null
-}>
+}
+
+class TokenPolicyClient {
+  getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
+  get(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<ITokenPolicy>
+  setWriteTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeWriteTokenRequired(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  setReadTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeReadTokenRequired(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  setDeleteTokenRequired(
+    namespace: string
+  , val: boolean
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteTokenRequired(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### setWriteTokenRequired
-
+#### TokenClient
 ```ts
-LoggerManager#TokenPolicy.setWriteTokenRequired(
-  namespace: string
-, val: boolean
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeWriteTokenRequired
-
-```ts
-LoggerManager#TokenPolicy.removeWriteTokenRequired(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### setReadTokenRequired
-
-
-```ts
-LoggerManager#TokenPolicy.setReadTokenRequired(
-  namespace: string
-, val: boolean
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeReadTokenRequired
-
-```ts
-LoggerManager#TokenPolicy.removeReadTokenRequired(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### setDeleteTokenRequired
-
-```ts
-LoggerManager#TokenPolicy.setDeleteTokenRequired(
-  namespace: string
-, val: boolean
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteTokenRequired
-
-```ts
-LoggerManager#TokenPolicy.removeDeleteTokenRequired(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-#### Token
-
-##### getNamespaces
-
-```ts
-LoggerManager#Token.getNamespaces(options?: ILoggerManagerRequestOptions): Promise<string[]>
-```
-
-##### getTokens
-
-```ts
-LoggerManager#Token.getTokens(
-  namespace: string
-, options?: ILoggerManagerRequestOptions
-): Promise<Array<{
+interface ITokenInfo {
   token: string
   write: boolean
   read: boolean
   delete: boolean
-}>>
+}
+
+class TokenClient {
+  getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
+  getTokens(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<ITokenInfo[]>
+  addWriteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeWriteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  addReadToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeReadToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  addDeleteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeDeleteToken(
+    namespace: string
+  , token: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+}
 ```
 
-##### addWriteToken
-
+#### PurgePolicyClient
 ```ts
-LoggerManager#Token.addWriteToken(
-  namespace: string
-, token: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
+interface IPurgePolicy {
+  timeToLive: number | null
+  limit: number | null
+}
 
-##### removeWriteToken
-
-```ts
-LoggerManager#Token.removeWriteToken(
-  namespace: string
-, token: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### addReadToken
-
-```ts
-LoggerManager#Token.addReadToken(
-  namespace: string
-, token: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeReadToken
-
-```ts
-LoggerManager#Token.removeReadToken(
-  namespace: string
-, token: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### addDeleteToken
-
-```ts
-LoggerManager#Token.addDeleteToken(
-  namespace: string
-, token: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
-```
-
-##### removeDeleteToken
-
-```ts
-LoggerManager#Token.removeDeleteToken(
-  namespace: string
-, token: string
-, options?: ILoggerManagerRequestOptions
-): Promise<void>
+class PurgePolicyClient {
+  getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
+  get(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<IPurgePolicy>
+  setTimeToLive(
+    namespace: string
+  , val: number
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeTimeToLive(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  setLimit(
+    namespace: string
+  , val: number
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  removeLimit(
+    namespace: string
+  , options: ILoggerManagerRequestOptions = {}
+  ): Promise<void>
+  purge(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
+}
 ```
