@@ -1,5 +1,5 @@
-import { server } from '@test/blacklist.mock'
-import { BlacklistClient } from '@src/blacklist-client'
+import { server } from './whitelist-manager.mock'
+import { WhitelistManager } from '@manager/whitelist-manager'
 import { ADMIN_PASSWORD } from '@test/utils'
 import '@blackglory/jest-matchers'
 
@@ -7,9 +7,9 @@ beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-describe('BlacklistClient', () => {
+describe('whitelist', () => {
   test('getNamespaces(): Promise<string[]>', async () => {
-    const client = createClient()
+    const client = createManager()
 
     const result = client.getNamespaces()
     const proResult = await result
@@ -19,7 +19,7 @@ describe('BlacklistClient', () => {
   })
 
   test('add(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.add(namespace)
@@ -30,7 +30,7 @@ describe('BlacklistClient', () => {
   })
 
   test('remove(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.remove(namespace)
@@ -41,8 +41,8 @@ describe('BlacklistClient', () => {
   })
 })
 
-function createClient() {
-  return new BlacklistClient({
+function createManager() {
+  return new WhitelistManager({
     server: 'http://localhost'
   , adminPassword: ADMIN_PASSWORD
   })

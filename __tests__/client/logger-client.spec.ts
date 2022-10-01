@@ -1,5 +1,5 @@
-import { server } from './logger.mock'
-import { LoggerClient } from '@src/logger-client'
+import { server } from './client.mock'
+import { LoggerClient } from '@src/client'
 import { TOKEN } from '@test/utils'
 import '@blackglory/jest-matchers'
 

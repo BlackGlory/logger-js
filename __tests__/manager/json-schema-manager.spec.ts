@@ -1,5 +1,5 @@
-import { server } from '@test/whitelist.mock'
-import { WhitelistClient } from '@src/whitelist-client'
+import { server } from './json-schema-manager.mock'
+import { JsonSchemaManager } from '@manager/json-schema-manager'
 import { ADMIN_PASSWORD } from '@test/utils'
 import '@blackglory/jest-matchers'
 
@@ -7,9 +7,9 @@ beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-describe('whitelist', () => {
+describe('JsonSchemaManager', () => {
   test('getNamespaces(): Promise<string[]>', async () => {
-    const client = createClient()
+    const client = createManager()
 
     const result = client.getNamespaces()
     const proResult = await result
@@ -18,11 +18,23 @@ describe('whitelist', () => {
     expect(proResult).toStrictEqual(['namespace'])
   })
 
-  test('add(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+  test('get(namespace: string): Promise<Json>', async () => {
+    const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.add(namespace)
+    const result = client.get(namespace)
+    const proResult = await result
+
+    expect(result).toBePromise()
+    expect(proResult).toBeJson()
+  })
+
+  test('set(namespace: string, schema: Json): Promise<void>', async () => {
+    const client = createManager()
+    const namespace = 'namespace'
+    const schema = {}
+
+    const result = client.set(namespace, schema)
     const proResult = await result
 
     expect(result).toBePromise()
@@ -30,7 +42,7 @@ describe('whitelist', () => {
   })
 
   test('remove(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.remove(namespace)
@@ -41,8 +53,8 @@ describe('whitelist', () => {
   })
 })
 
-function createClient() {
-  return new WhitelistClient({
+function createManager() {
+  return new JsonSchemaManager({
     server: 'http://localhost'
   , adminPassword: ADMIN_PASSWORD
   })

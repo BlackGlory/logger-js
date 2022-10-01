@@ -1,4 +1,4 @@
-import { LoggerClient } from '@src/logger-client'
+import { LoggerClient } from '@src/client'
 import { Observable } from 'rxjs'
 import { TOKEN } from '@test/utils'
 import './follow.mock'

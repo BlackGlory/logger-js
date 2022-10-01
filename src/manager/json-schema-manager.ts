@@ -3,9 +3,9 @@ import { Json } from 'justypes'
 import { get, put, del } from 'extra-request'
 import { pathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { ILoggerManagerRequestOptions, LoggerManagerBase } from './utils'
+import { ILoggerManagerRequestOptions, Base } from './base'
 
-export class JsonSchemaClient extends LoggerManagerBase {
+export class JsonSchemaManager extends Base {
   /**
    * @throws {AbortError}
    */

@@ -2,7 +2,7 @@ import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
 import { pathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { ILoggerManagerRequestOptions, LoggerManagerBase } from './utils'
+import { ILoggerManagerRequestOptions, Base } from './base'
 
 interface ITokenPolicy {
   writeTokenRequired: boolean | null
@@ -10,7 +10,7 @@ interface ITokenPolicy {
   deleteTokenRequired: boolean | null
 }
 
-export class TokenPolicyClient extends LoggerManagerBase {
+export class TokenPolicyManager extends Base {
   /**
    * @throws {AbortError}
    */

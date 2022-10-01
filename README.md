@@ -113,6 +113,12 @@ class HeartbeatTimeoutError extends CustomError {}
 
 ### LoggerManager
 ```ts
+interface ILoggerManagerRequestOptions {
+  signal?: AbortSignal
+  keepalive?: boolean
+  timeout?: number | false
+}
+
 interface ILoggerManagerOptions {
   server: string
   adminPassword: string
@@ -123,18 +129,18 @@ interface ILoggerManagerOptions {
 class LoggerManager {
   constructor(options: ILoggerManagerOptions)
 
-  JsonSchema: JsonSchemaClient
-  Blacklist: BlacklistClient
-  Whitelist: WhitelistClient
-  TokenPolicy: TokenPolicyClient
-  Token: TokenClient
-  PurgePolicy: PurgePolicyClient
+  JsonSchema: JsonSchemaManager
+  Blacklist: BlacklistManager
+  Whitelist: WhitelistManager
+  TokenPolicy: TokenPolicyManager
+  Token: TokenManager
+  PurgePolicy: PurgePolicyManager
 }
 ```
 
-#### JsonSchemaClient
+#### JsonSchemaManager
 ```ts
-class JsonSchemaClient {
+class JsonSchemaManager {
   getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
   get(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<unknown>
   set(
@@ -146,18 +152,18 @@ class JsonSchemaClient {
 }
 ```
 
-#### BlacklistClient
+#### BlacklistManager
 ```ts
-class BlacklistClient {
+class BlacklistManager {
   getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
   add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
   remove(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
 }
 ```
 
-#### WhitelistClient
+#### WhitelistManager
 ```ts
-class WhitelistClient {
+class WhitelistManager {
   getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
   add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>
   remove(
@@ -167,7 +173,7 @@ class WhitelistClient {
 }
 ```
 
-#### TokenPolicyClient
+#### TokenPolicyManager
 ```ts
 interface ITokenPolicy {
   writeTokenRequired: boolean | null
@@ -175,7 +181,7 @@ interface ITokenPolicy {
   deleteTokenRequired: boolean | null
 }
 
-class TokenPolicyClient {
+class TokenPolicyManager {
   getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
   get(
     namespace: string
@@ -211,7 +217,7 @@ class TokenPolicyClient {
 }
 ```
 
-#### TokenClient
+#### TokenManager
 ```ts
 interface ITokenInfo {
   token: string
@@ -220,7 +226,7 @@ interface ITokenInfo {
   delete: boolean
 }
 
-class TokenClient {
+class TokenManager {
   getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
   getTokens(
     namespace: string
@@ -259,14 +265,14 @@ class TokenClient {
 }
 ```
 
-#### PurgePolicyClient
+#### PurgePolicyManager
 ```ts
 interface IPurgePolicy {
   timeToLive: number | null
   limit: number | null
 }
 
-class PurgePolicyClient {
+class PurgePolicyManager {
   getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]>
   get(
     namespace: string

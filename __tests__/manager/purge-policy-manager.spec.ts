@@ -1,5 +1,5 @@
-import { server } from '@test/purge-policy.mock'
-import { PurgePolicyClient } from '@src/purge-policy-client'
+import { server } from './purge-policy-manager.mock'
+import { PurgePolicyManager } from '@manager/purge-policy-manager'
 import { ADMIN_PASSWORD } from '@test/utils'
 import '@blackglory/jest-matchers'
 
@@ -7,9 +7,9 @@ beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
 afterAll(() => server.close())
 
-describe('PurgePolicyClient', () => {
+describe('PurgePolicyManager', () => {
   test('getNamespaces(): Promise<string[]>', async () => {
-    const client = createClient()
+    const client = createManager()
 
     const result = client.getNamespaces()
     const proResult = await result
@@ -19,7 +19,7 @@ describe('PurgePolicyClient', () => {
   })
 
   test('get(namespace: string): Promise<{ timeToLive: number | null; limit: number | null }>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.get(namespace)
@@ -33,7 +33,7 @@ describe('PurgePolicyClient', () => {
   })
 
   test('setTimeToLive(namespace: string, val: number): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
     const val = 100
 
@@ -45,7 +45,7 @@ describe('PurgePolicyClient', () => {
   })
 
   test('removeTimeToLive(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.removeTimeToLive(namespace)
@@ -56,7 +56,7 @@ describe('PurgePolicyClient', () => {
   })
 
   test('setLimit(namespace: string, val: number): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
     const val = 100
 
@@ -68,7 +68,7 @@ describe('PurgePolicyClient', () => {
   })
 
   test('removeLimit(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.removeLimit(namespace)
@@ -79,7 +79,7 @@ describe('PurgePolicyClient', () => {
   })
 
   test('purge(namespace: string): Promise<void>', async () => {
-    const client = createClient()
+    const client = createManager()
     const namespace = 'namespace'
 
     const result = client.purge(namespace)
@@ -90,8 +90,8 @@ describe('PurgePolicyClient', () => {
   })
 })
 
-function createClient() {
-  return new PurgePolicyClient({
+function createManager() {
+  return new PurgePolicyManager({
     server: 'http://localhost'
   , adminPassword: ADMIN_PASSWORD
   })

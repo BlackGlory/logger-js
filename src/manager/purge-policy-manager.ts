@@ -1,24 +1,22 @@
 import { fetch } from 'extra-fetch'
-import { get, put, del } from 'extra-request'
-import { pathname } from 'extra-request/transformers/index.js'
+import { get, put, del, post } from 'extra-request'
+import { pathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
-import { ILoggerManagerRequestOptions, LoggerManagerBase } from './utils'
+import { ILoggerManagerRequestOptions, Base } from './base'
 
-interface ITokenInfo {
-  token: string
-  write: boolean
-  read: boolean
-  delete: boolean
+interface IPurgePolicy {
+  timeToLive: number | null
+  limit: number | null
 }
 
-export class TokenClient extends LoggerManagerBase {
+export class PurgePolicyManager extends Base {
   /**
    * @throws {AbortError}
    */
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/logger-with-tokens')
+    , pathname('/admin/logger-with-purge-policies')
     )
 
     return await fetch(req)
@@ -29,31 +27,32 @@ export class TokenClient extends LoggerManagerBase {
   /**
    * @throws {AbortError}
    */
-  async getTokens(
+  async get(
     namespace: string
   , options: ILoggerManagerRequestOptions = {}
-  ): Promise<ITokenInfo[]> {
+  ): Promise<IPurgePolicy> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens`)
+    , pathname(`/admin/logger/${namespace}/purge-policies`)
     )
 
     return await fetch(req)
       .then(ok)
-      .then(toJSON) as ITokenInfo[]
+      .then(toJSON) as IPurgePolicy
   }
 
   /**
    * @throws {AbortError}
    */
-  async addWriteToken(
+  async setTimeToLive(
     namespace: string
-  , token: string
+  , val: number
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens/${token}/write`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
+    , json(val)
     )
 
     await fetch(req).then(ok)
@@ -62,14 +61,13 @@ export class TokenClient extends LoggerManagerBase {
   /**
    * @throws {AbortError}
    */
-  async removeWriteToken(
+  async removeTimeToLive(
     namespace: string
-  , token: string
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens/${token}/write`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
     )
 
     await fetch(req).then(ok)
@@ -78,14 +76,15 @@ export class TokenClient extends LoggerManagerBase {
   /**
    * @throws {AbortError}
    */
-  async addReadToken(
+  async setLimit(
     namespace: string
-  , token: string
+  , val: number
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens/${token}/read`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
+    , json(val)
     )
 
     await fetch(req).then(ok)
@@ -94,14 +93,13 @@ export class TokenClient extends LoggerManagerBase {
   /**
    * @throws {AbortError}
    */
-  async removeReadToken(
+  async removeLimit(
     namespace: string
-  , token: string
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens/${token}/read`)
+    , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
     )
 
     await fetch(req).then(ok)
@@ -110,30 +108,10 @@ export class TokenClient extends LoggerManagerBase {
   /**
    * @throws {AbortError}
    */
-  async addDeleteToken(
-    namespace: string
-  , token: string
-  , options: ILoggerManagerRequestOptions = {}
-  ): Promise<void> {
-    const req = put(
+  async purge(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
+    const req = post(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens/${token}/delete`)
-    )
-
-    await fetch(req).then(ok)
-  }
-
-  /**
-   * @throws {AbortError}
-   */
-  async removeDeleteToken(
-    namespace: string
-  , token: string
-  , options: ILoggerManagerRequestOptions = {}
-  ): Promise<void> {
-    const req = del(
-      ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/tokens/${token}/delete`)
+    , pathname(`/admin/logger/${namespace}/purge-policies`)
     )
 
     await fetch(req).then(ok)
