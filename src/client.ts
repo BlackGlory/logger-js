@@ -11,8 +11,6 @@ import { Falsy } from 'justypes'
 import { timeoutSignal, raceAbortSignals } from 'extra-abort'
 import { expectedVersion } from './utils'
 
-export { HTTPClientError } from '@blackglory/http-status'
-
 interface IQuery {
   from?: string
   to?: string
