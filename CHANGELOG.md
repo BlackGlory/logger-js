@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/BlackGlory/logger-js/compare/v0.7.6...v0.8.0) (2022-10-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed `HTTPClientError`, `HTTPError`, `AbortError`
+
+* remove `HTTPClientError`, `HTTPError`, `AbortError` ([a211f6a](https://github.com/BlackGlory/logger-js/commit/a211f6a54608b3867985159bee22178656e29b95))
+
 ### [0.7.6](https://github.com/BlackGlory/logger-js/compare/v0.7.5...v0.7.6) (2022-09-30)
 
 
