@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { pathname } from 'extra-request/transformers/index.js'
+import { appendPathname } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { ILoggerManagerRequestOptions, Base } from './base'
 
@@ -11,7 +11,7 @@ export class WhitelistManager extends Base {
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/whitelist')
+    , appendPathname('/admin/whitelist')
     )
 
     return await fetch(req)
@@ -25,7 +25,7 @@ export class WhitelistManager extends Base {
   async add(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/whitelist/${namespace}`)
+    , appendPathname(`/admin/whitelist/${namespace}`)
     )
 
     await fetch(req).then(ok)
@@ -40,7 +40,7 @@ export class WhitelistManager extends Base {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/whitelist/${namespace}`)
+    , appendPathname(`/admin/whitelist/${namespace}`)
     )
 
     await fetch(req).then(ok)

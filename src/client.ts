@@ -1,6 +1,6 @@
 import { fetch, EventSource } from 'extra-fetch'
 import { post, get, del, IHTTPOptionsTransformer } from 'extra-request'
-import { url, pathname, text, searchParam, searchParams, signal, keepalive, basicAuth, header }
+import { url, appendPathname, text, searchParam, searchParams, signal, keepalive, basicAuth, header }
   from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
@@ -99,7 +99,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = post(
       ...this.getCommonTransformers(options)
-    , pathname(`/logger/${namespace}`)
+    , appendPathname(`/logger/${namespace}`)
     , text(val)
     )
 
@@ -198,7 +198,7 @@ export class LoggerClient {
   ): Promise<ILog[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/logger/${namespace}/logs`)
+    , appendPathname(`/logger/${namespace}/logs`)
     , query.from && searchParam('from', query.from)
     , query.to && searchParam('to', query.to)
     , query.head && searchParam('head', query.head.toString())
@@ -235,7 +235,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/logger/${namespace}/logs`)
+    , appendPathname(`/logger/${namespace}/logs`)
     , query.from && searchParam('from', query.from)
     , query.to && searchParam('to', query.to)
     , query.head && searchParam('head', query.head.toString())
@@ -253,7 +253,7 @@ export class LoggerClient {
   ): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/logger')
+    , appendPathname('/logger')
     )
 
     return await fetch(req)

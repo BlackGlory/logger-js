@@ -1,6 +1,6 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del, post } from 'extra-request'
-import { pathname, json } from 'extra-request/transformers/index.js'
+import { appendPathname, json } from 'extra-request/transformers/index.js'
 import { ok, toJSON } from 'extra-response'
 import { ILoggerManagerRequestOptions, Base } from './base'
 
@@ -16,7 +16,7 @@ export class PurgePolicyManager extends Base {
   async getNamespaces(options: ILoggerManagerRequestOptions = {}): Promise<string[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname('/admin/logger-with-purge-policies')
+    , appendPathname('/admin/logger-with-purge-policies')
     )
 
     return await fetch(req)
@@ -33,7 +33,7 @@ export class PurgePolicyManager extends Base {
   ): Promise<IPurgePolicy> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/purge-policies`)
+    , appendPathname(`/admin/logger/${namespace}/purge-policies`)
     )
 
     return await fetch(req)
@@ -51,7 +51,7 @@ export class PurgePolicyManager extends Base {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
+    , appendPathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
     , json(val)
     )
 
@@ -67,7 +67,7 @@ export class PurgePolicyManager extends Base {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
+    , appendPathname(`/admin/logger/${namespace}/purge-policies/time-to-live`)
     )
 
     await fetch(req).then(ok)
@@ -83,7 +83,7 @@ export class PurgePolicyManager extends Base {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
+    , appendPathname(`/admin/logger/${namespace}/purge-policies/limit`)
     , json(val)
     )
 
@@ -99,7 +99,7 @@ export class PurgePolicyManager extends Base {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/purge-policies/limit`)
+    , appendPathname(`/admin/logger/${namespace}/purge-policies/limit`)
     )
 
     await fetch(req).then(ok)
@@ -111,7 +111,7 @@ export class PurgePolicyManager extends Base {
   async purge(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void> {
     const req = post(
       ...this.getCommonTransformers(options)
-    , pathname(`/admin/logger/${namespace}/purge-policies`)
+    , appendPathname(`/admin/logger/${namespace}/purge-policies`)
     )
 
     await fetch(req).then(ok)
