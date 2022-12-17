@@ -1,7 +1,6 @@
 import { server } from './client.mock'
 import { LoggerClient } from '@src/client'
 import { TOKEN } from '@test/utils'
-import '@blackglory/jest-matchers'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -19,11 +18,9 @@ describe('LoggerClient', () => {
     const namespace = 'namespace'
     const val = 'null'
 
-    const result = client.write(namespace, val)
-    const proResult = await result
+    const result = await client.write(namespace, val)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test(`
@@ -37,11 +34,9 @@ describe('LoggerClient', () => {
     const namespace = 'namespace'
     const val = null
 
-    const result = client.writeJSON(namespace, val)
-    const proResult = await result
+    const result = await client.writeJSON(namespace, val)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   it(`
@@ -89,21 +84,17 @@ describe('LoggerClient', () => {
     const client = createClient()
     const namespace = 'namespace'
 
-    const result = client.del(namespace, {})
-    const proResult = await result
+    const result = await client.del(namespace, {})
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('getAllNamespaces(): Promise<string[]>', async () => {
     const client = createClient()
 
-    const result = client.getAllNamespaces()
-    const proResult = await result
+    const result = await client.getAllNamespaces()
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['namespace'])
+    expect(result).toStrictEqual(['namespace'])
   })
 })
 

@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@blackglory/go": "^1.1.2",
-    "@blackglory/jest-matchers": "^0.2.1",
+    "@blackglory/prelude": "^0.1.8",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@rollup/plugin-commonjs": "^22.0.2",

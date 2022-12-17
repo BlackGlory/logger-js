@@ -1,7 +1,6 @@
 import { server } from './purge-policy-manager.mock'
 import { PurgePolicyManager } from '@manager/purge-policy-manager'
 import { ADMIN_PASSWORD } from '@test/utils'
-import '@blackglory/jest-matchers'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -11,22 +10,18 @@ describe('PurgePolicyManager', () => {
   test('getNamespaces(): Promise<string[]>', async () => {
     const client = createManager()
 
-    const result = client.getNamespaces()
-    const proResult = await result
+    const result = await client.getNamespaces()
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['namespace'])
+    expect(result).toStrictEqual(['namespace'])
   })
 
   test('get(namespace: string): Promise<{ timeToLive: number | null; limit: number | null }>', async () => {
     const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.get(namespace)
-    const proResult = await result
+    const result = await client.get(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual({
+    expect(result).toStrictEqual({
       timeToLive: 100
     , limit: 200
     })
@@ -37,22 +32,18 @@ describe('PurgePolicyManager', () => {
     const namespace = 'namespace'
     const val = 100
 
-    const result = client.setTimeToLive(namespace, val)
-    const proResult = await result
+    const result = await client.setTimeToLive(namespace, val)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('removeTimeToLive(namespace: string): Promise<void>', async () => {
     const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.removeTimeToLive(namespace)
-    const proResult = await result
+    const result = await client.removeTimeToLive(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('setLimit(namespace: string, val: number): Promise<void>', async () => {
@@ -60,33 +51,27 @@ describe('PurgePolicyManager', () => {
     const namespace = 'namespace'
     const val = 100
 
-    const result = client.setLimit(namespace, val)
-    const proResult = await result
+    const result = await client.setLimit(namespace, val)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('removeLimit(namespace: string): Promise<void>', async () => {
     const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.removeLimit(namespace)
-    const proResult = await result
+    const result = await client.removeLimit(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('purge(namespace: string): Promise<void>', async () => {
     const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.purge(namespace)
-    const proResult = await result
+    const result = await client.purge(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 })
 

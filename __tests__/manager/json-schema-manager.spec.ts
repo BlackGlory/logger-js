@@ -1,7 +1,7 @@
+import { assert, isJson } from '@blackglory/prelude'
 import { server } from './json-schema-manager.mock'
 import { JsonSchemaManager } from '@manager/json-schema-manager'
 import { ADMIN_PASSWORD } from '@test/utils'
-import '@blackglory/jest-matchers'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -11,22 +11,18 @@ describe('JsonSchemaManager', () => {
   test('getNamespaces(): Promise<string[]>', async () => {
     const client = createManager()
 
-    const result = client.getNamespaces()
-    const proResult = await result
+    const result = await client.getNamespaces()
 
-    expect(result).toBePromise()
-    expect(proResult).toStrictEqual(['namespace'])
+    expect(result).toStrictEqual(['namespace'])
   })
 
   test('get(namespace: string): Promise<Json>', async () => {
     const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.get(namespace)
-    const proResult = await result
+    const result = await client.get(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeJson()
+    assert(isJson(result), 'result is not JSON')
   })
 
   test('set(namespace: string, schema: Json): Promise<void>', async () => {
@@ -34,22 +30,18 @@ describe('JsonSchemaManager', () => {
     const namespace = 'namespace'
     const schema = {}
 
-    const result = client.set(namespace, schema)
-    const proResult = await result
+    const result = await client.set(namespace, schema)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 
   test('remove(namespace: string): Promise<void>', async () => {
     const client = createManager()
     const namespace = 'namespace'
 
-    const result = client.remove(namespace)
-    const proResult = await result
+    const result = await client.remove(namespace)
 
-    expect(result).toBePromise()
-    expect(proResult).toBeUndefined()
+    expect(result).toBeUndefined()
   })
 })
 
