@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/BlackGlory/logger-js/compare/v0.8.2...v0.9.0) (2023-01-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* - CommonJS => ESM.
+- The minimal version of Node.js is 16.
+- It requires Logger^0.5.0.
+- Renamed `IJsonLog` => `IJSONLog`.
+
+### Features
+
+* upgrade ([d54fac7](https://github.com/BlackGlory/logger-js/commit/d54fac777e607f7091dfe07788ade811b0b7986d))
+
 ### [0.8.2](https://github.com/BlackGlory/logger-js/compare/v0.8.1...v0.8.2) (2022-10-31)
 
 ### [0.8.1](https://github.com/BlackGlory/logger-js/compare/v0.8.0...v0.8.1) (2022-10-23)
