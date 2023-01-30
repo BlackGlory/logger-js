@@ -1,6 +1,6 @@
-import { server } from './client.mock'
-import { LoggerClient } from '@src/client'
-import { TOKEN } from '@test/utils'
+import { server } from './client.mock.js'
+import { LoggerClient } from '@src/client.js'
+import { TOKEN } from '@test/utils.js'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())

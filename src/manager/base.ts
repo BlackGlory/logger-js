@@ -1,8 +1,8 @@
-import { IHTTPOptionsTransformer } from 'extra-request'
-import { url, signal, keepalive, bearerAuth, header } from 'extra-request/transformers/index.js'
+import { IRequestOptionsTransformer } from 'extra-request'
+import { url, signal, keepalive, bearerAuth, header } from 'extra-request/transformers'
 import { timeoutSignal, raceAbortSignals } from 'extra-abort'
-import { ILoggerManagerOptions } from './index'
-import { expectedVersion } from '@src/utils'
+import { ILoggerManagerOptions } from './index.js'
+import { expectedVersion } from '@src/utils.js'
 import { Falsy } from 'justypes'
 
 export interface ILoggerManagerRequestOptions {
@@ -16,7 +16,7 @@ export class Base {
 
   protected getCommonTransformers(
     options: ILoggerManagerRequestOptions
-  ): Array<IHTTPOptionsTransformer | Falsy> {
+  ): Array<IRequestOptionsTransformer | Falsy> {
     return [
       url(this.options.server)
     , bearerAuth(this.options.adminPassword)

@@ -1,9 +1,9 @@
-import { JsonSchemaManager } from './json-schema-manager'
-import { BlacklistManager } from './blacklist-manager'
-import { WhitelistManager } from './whitelist-manager'
-import { TokenPolicyManager } from './token-policy-manager'
-import { TokenManager } from './token-manager'
-import { PurgePolicyManager } from './purge-policy-manager'
+import { JsonSchemaManager } from './json-schema-manager.js'
+import { BlacklistManager } from './blacklist-manager.js'
+import { WhitelistManager } from './whitelist-manager.js'
+import { TokenPolicyManager } from './token-policy-manager.js'
+import { TokenManager } from './token-manager.js'
+import { PurgePolicyManager } from './purge-policy-manager.js'
 
 export interface ILoggerManagerOptions {
   server: string

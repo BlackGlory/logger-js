@@ -1,7 +1,7 @@
 import { fetch, EventSource } from 'extra-fetch'
-import { post, get, del, IHTTPOptionsTransformer } from 'extra-request'
+import { post, get, del, IRequestOptionsTransformer } from 'extra-request'
 import { url, appendPathname, text, searchParam, searchParams, signal, keepalive, basicAuth, header }
-  from 'extra-request/transformers/index.js'
+  from 'extra-request/transformers'
 import { ok, toJSON } from 'extra-response'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
@@ -9,7 +9,7 @@ import { assert, CustomError } from '@blackglory/errors'
 import { setTimeout } from 'extra-timers'
 import { Falsy } from 'justypes'
 import { timeoutSignal, raceAbortSignals } from 'extra-abort'
-import { expectedVersion } from './utils'
+import { expectedVersion } from './utils.js'
 
 interface IQuery {
   from?: string
@@ -23,7 +23,7 @@ export interface ILog {
   payload: string
 }
 
-export interface IJsonLog<T> {
+export interface IJSONLog<T> {
   id: string
   payload: T
 }
@@ -66,8 +66,9 @@ export class LoggerClient {
   constructor(private options: ILoggerClientOptions) {}
 
   private getCommonTransformers(
-    options: ILoggerClientRequestOptions | ILoggerClientRequestOptionsWithoutToken
-  ): Array<IHTTPOptionsTransformer | Falsy> {
+    options: ILoggerClientRequestOptions
+           | ILoggerClientRequestOptionsWithoutToken
+  ): Array<IRequestOptionsTransformer | Falsy> {
     const token = 'token' in options
                   ? (options.token ?? this.options.token)
                   : this.options.token
@@ -141,7 +142,10 @@ export class LoggerClient {
 
       let cancelHeartbeatTimeout: (() => void) | null = null
       if (options.heartbeat ?? this.options.heartbeat) {
-        const timeout = options.heartbeat.timeout ?? this.options.heartbeat.timeout
+        const timeout = (
+          options.heartbeat?.timeout ??
+          this.options.heartbeat?.timeout
+        )!
         assert(Number.isInteger(timeout), 'timeout must be an integer')
         assert(timeout > 0, 'timeout must greater than zero')
 
@@ -177,7 +181,7 @@ export class LoggerClient {
   followJSON<T>(
     namespace: string
   , options?: ILoggerClientObserveOptions
-  ): Observable<IJsonLog<T>> {
+  ): Observable<IJSONLog<T>> {
     return this.follow(namespace, options).pipe(
       map(x => {
         return {
@@ -217,9 +221,9 @@ export class LoggerClient {
     namespace: string
   , query: IQuery
   , options?: ILoggerClientRequestOptions
-  ): Promise<Array<IJsonLog<T>>> {
+  ): Promise<Array<IJSONLog<T>>> {
     const logs = await this.query(namespace, query, options)
-    return logs.map<IJsonLog<T>>(x => ({
+    return logs.map<IJSONLog<T>>(x => ({
       id: x.id
     , payload: JSON.parse(x.payload)
     }))

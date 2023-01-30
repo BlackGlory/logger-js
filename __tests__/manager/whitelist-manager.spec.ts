@@ -1,6 +1,6 @@
-import { server } from './whitelist-manager.mock'
-import { WhitelistManager } from '@manager/whitelist-manager'
-import { ADMIN_PASSWORD } from '@test/utils'
+import { server } from './whitelist-manager.mock.js'
+import { WhitelistManager } from '@manager/whitelist-manager.js'
+import { ADMIN_PASSWORD } from '@test/utils.js'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())

@@ -21,7 +21,7 @@ interface ILog {
   payload: string
 }
 
-interface IJsonLog<T> {
+interface IJSONLog<T> {
   id: string
   payload: T
 }
@@ -83,7 +83,7 @@ class LoggerClient {
   followJSON<T>(
     namespace: string
   , options?: ILoggerClientObserveOptions
-  ): Observable<IJsonLog<T>>
+  ): Observable<IJSONLog<T>>
 
   query(
     namespace: string
@@ -95,7 +95,7 @@ class LoggerClient {
     namespace: string
   , query: IQuery
   , options?: ILoggerClientRequestOptions
-  ): Promise<Array<IJsonLog<T>>>
+  ): Promise<Array<IJSONLog<T>>>
 
   del(
     namespace: string
@@ -145,7 +145,7 @@ class JsonSchemaManager {
   get(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<unknown>
   set(
     namespace: string
-  , schema: Json
+  , schema: JSONValue
   , options: ILoggerManagerRequestOptions = {}
   ): Promise<void>
   remove(namespace: string, options: ILoggerManagerRequestOptions = {}): Promise<void>

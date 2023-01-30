@@ -1,6 +1,6 @@
-import { server } from './token-policy-manager.mock'
-import { TokenPolicyManager } from '@manager/token-policy-manager'
-import { ADMIN_PASSWORD } from '@test/utils'
+import { server } from './token-policy-manager.mock.js'
+import { TokenPolicyManager } from '@manager/token-policy-manager.js'
+import { ADMIN_PASSWORD } from '@test/utils.js'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())

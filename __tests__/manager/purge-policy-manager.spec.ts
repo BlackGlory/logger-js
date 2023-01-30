@@ -1,6 +1,6 @@
-import { server } from './purge-policy-manager.mock'
-import { PurgePolicyManager } from '@manager/purge-policy-manager'
-import { ADMIN_PASSWORD } from '@test/utils'
+import { server } from './purge-policy-manager.mock.js'
+import { PurgePolicyManager } from '@manager/purge-policy-manager.js'
+import { ADMIN_PASSWORD } from '@test/utils.js'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())

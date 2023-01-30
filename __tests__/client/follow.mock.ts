@@ -1,5 +1,6 @@
+// @ts-ignore
 import { MockEvent } from 'mocksse'
-import { TOKEN } from '@test/utils'
+import { TOKEN } from '@test/utils.js'
 
 const namespace = 'namespace'
 new MockEvent({

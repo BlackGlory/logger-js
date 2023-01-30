@@ -1,6 +1,6 @@
-import { server } from './blacklist-manager.mock'
-import { BlacklistManager } from '@manager/blacklist-manager'
-import { ADMIN_PASSWORD } from '@test/utils'
+import { server } from './blacklist-manager.mock.js'
+import { BlacklistManager } from '@manager/blacklist-manager.js'
+import { ADMIN_PASSWORD } from '@test/utils.js'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())

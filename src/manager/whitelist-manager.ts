@@ -1,8 +1,8 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del } from 'extra-request'
-import { appendPathname } from 'extra-request/transformers/index.js'
+import { appendPathname } from 'extra-request/transformers'
 import { ok, toJSON } from 'extra-response'
-import { ILoggerManagerRequestOptions, Base } from './base'
+import { ILoggerManagerRequestOptions, Base } from './base.js'
 
 export class WhitelistManager extends Base {
   /**

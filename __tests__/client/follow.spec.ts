@@ -1,50 +1,42 @@
-import { LoggerClient } from '@src/client'
+import { IJSONLog, ILog, LoggerClient } from '@src/client.js'
 import { Observable } from 'rxjs'
-import { TOKEN } from '@test/utils'
+import { TOKEN } from '@test/utils.js'
 import './follow.mock'
-import { go } from '@blackglory/go'
 
-jest.mock('eventsource', () => require('mocksse').EventSource)
+vi.mock('extra-fetch', () => {
+  const actual = vi.importActual('extra-fetch')
+  const EventSource = require('mocksse').EventSource
+  return {
+    ...actual
+  , EventSource
+  }
+})
 
 describe('LoggerClient', () => {
-  test(`
-    follow(
-      namespace: string
-    , options?: { token?: string }
-    ): Observable<ILog>
-  `, done => {
-    go(async () => {
-      const namespace = 'namespace'
-      const client = createClient()
+  test('follow', async () => {
+    const namespace = 'namespace'
+    const client = createClient()
 
-      const observable = client.follow(namespace)
-      observable.subscribe(data => {
-        expect(data).toStrictEqual({ id: 'id', payload: 'null' })
-        done()
-      })
-
-      expect(observable).toBeInstanceOf(Observable)
+    const observable = client.follow(namespace)
+    const data = await new Promise<ILog>(resolve => {
+      observable.subscribe(resolve)
     })
+
+    expect(observable).toBeInstanceOf(Observable)
+    expect(data).toStrictEqual({ id: 'id', payload: 'null' })
   })
 
-  test(`
-    followJSON(
-      namespace: string
-    , options?: { token?: string }
-    ): Observable<IJsonLog>
-  `, done => {
-    go(async () => {
-      const namespace = 'namespace'
-      const client = createClient()
+  test('followJSON', async () => {
+    const namespace = 'namespace'
+    const client = createClient()
 
-      const observable = client.followJSON(namespace)
-      observable.subscribe(data => {
-        expect(data).toStrictEqual({ id: 'id', payload: null })
-        done()
-      })
-
-      expect(observable).toBeInstanceOf(Observable)
+    const observable = client.followJSON(namespace)
+    const data = await new Promise<IJSONLog<unknown>>(resolve => {
+      observable.subscribe(resolve)
     })
+
+    expect(data).toStrictEqual({ id: 'id', payload: null })
+    expect(observable).toBeInstanceOf(Observable)
   })
 })
 

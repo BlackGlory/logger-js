@@ -1,8 +1,8 @@
 import { fetch } from 'extra-fetch'
 import { get, put, del, post } from 'extra-request'
-import { appendPathname, json } from 'extra-request/transformers/index.js'
+import { appendPathname, json } from 'extra-request/transformers'
 import { ok, toJSON } from 'extra-response'
-import { ILoggerManagerRequestOptions, Base } from './base'
+import { ILoggerManagerRequestOptions, Base } from './base.js'
 
 interface IPurgePolicy {
   timeToLive: number | null

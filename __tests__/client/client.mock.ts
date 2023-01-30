@@ -1,16 +1,16 @@
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
-import { badText, badToken } from '@test/utils'
+import { badText, badToken } from '@test/utils.js'
 
 export const server = setupServer(
-  rest.post('/logger/:namespace', (req, res, ctx) => {
+  rest.post('http://localhost/logger/:namespace', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
     if (badText(req)) return res(ctx.status(400))
 
     return res(ctx.status(204))
   })
 
-, rest.get('/logger/:namespace/logs', (req, res, ctx) => {
+, rest.get('http://localhost/logger/:namespace/logs', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     const result = [
@@ -30,13 +30,13 @@ export const server = setupServer(
     }
   })
 
-, rest.delete('/logger/:namespace/logs', (req, res, ctx) => {
+, rest.delete('http://localhost/logger/:namespace/logs', (req, res, ctx) => {
     if (badToken(req)) return res(ctx.status(401))
 
     return res(ctx.status(204))
   })
 
-, rest.get('/logger', (req, res, ctx) => {
+, rest.get('http://localhost/logger', (req, res, ctx) => {
     return res(
       ctx.status(200)
     , ctx.json(['namespace'])
