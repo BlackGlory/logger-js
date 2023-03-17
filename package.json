@@ -32,7 +32,6 @@
     }
   },
   "devDependencies": {
-    "@blackglory/prelude": "^0.3.1",
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
@@ -43,6 +42,7 @@
     "mocksse": "^1.0.3",
     "msw": "^1.1.0",
     "npm-run-all": "^4.1.5",
+    "return-style": "^2.0.3",
     "rimraf": "^3.0.2",
     "standard-version": "^9.3.2",
     "ts-patch": "^2.1.0",
@@ -56,12 +56,14 @@
   "dependencies": {
     "@blackglory/errors": "^3.0.0",
     "@blackglory/http-status": "^2.0.1",
+    "@blackglory/prelude": "^0.3.1",
     "extra-abort": "^0.3.2",
     "extra-fetch": "^4.0.4",
     "extra-request": "^8.1.7",
     "extra-response": "^0.5.1",
     "extra-timers": "^0.2.5",
     "justypes": "^4.2.0",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "url-operator": "^0.3.0"
   }
 }

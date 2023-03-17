@@ -1,2 +1,1 @@
-export * from './client.js'
-export * from './manager/index.js'
+export * from './logger-client.js'
