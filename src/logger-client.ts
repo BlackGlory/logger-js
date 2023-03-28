@@ -29,7 +29,7 @@ export enum Order {
 , Desc = 'desc'
 }
 
-export interface ILoggerConfiguration extends JSONObject {
+export interface ILoggerConfig extends JSONObject {
   timeToLive: number | null
   limit: number | null
 }
@@ -81,7 +81,7 @@ export class LoggerClient {
 
   async setLogger(
     loggerId: string
-  , config: ILoggerConfiguration
+  , config: ILoggerConfig
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const req = put(
@@ -96,7 +96,7 @@ export class LoggerClient {
   async getLogger(
     loggerId: string
   , options: ILoggerClientRequestOptions = {}
-  ): Promise<ILoggerConfiguration | null> {
+  ): Promise<ILoggerConfig | null> {
     const req = get(
       ...this.getCommonTransformers(options)
     , appendPathname(`/loggers/${loggerId}`)
@@ -105,7 +105,7 @@ export class LoggerClient {
     try {
       return await fetch(req)
         .then(ok)
-        .then(toJSON) as ILoggerConfiguration
+        .then(toJSON) as ILoggerConfig
     } catch (e) {
       if (e instanceof NotFound) return null
 

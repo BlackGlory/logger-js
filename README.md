@@ -34,14 +34,19 @@ interface IHeartbeatOptions {
   timeout: number
 }
 
+interface ILoggerConfig extends JSONObject {
+  timeToLive: number | null
+  limit: number | null
+}
+
 class HeartbeatTimeoutError extends CustomError {}
 class LoggerNotFound extends CustomError {}
 
 class LoggerClient {
   getAllLoggerIds(): Promise<string[]>
 
-  setLogger(loggerId: string, config: ILoggerConfiguration): Promise<void>
-  getLogger(loggerId: string): Promise<ILoggerConfiguration | null>
+  setLogger(loggerId: string, config: ILoggerConfig): Promise<void>
+  getLogger(loggerId: string): Promise<ILoggerConfig | null>
   removeLogger(loggerId: string): Promise<void>
 
   /**
