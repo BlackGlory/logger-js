@@ -39,6 +39,26 @@ interface ILoggerConfig extends JSONObject {
   limit: number | null
 }
 
+type LogId = `${number}-${number}`
+
+interface IRange {
+  order: Order
+  from?: LogId
+  to?: LogId
+  skip?: number
+  limit?: number
+}
+
+enum Order {
+  Asc = 'asc'
+, Desc = 'desc'
+}
+
+interface ILog {
+  id: LogId
+  content: JSONValue
+}
+
 class HeartbeatTimeoutError extends CustomError {}
 class LoggerNotFound extends CustomError {}
 
