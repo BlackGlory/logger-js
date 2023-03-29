@@ -56,7 +56,7 @@ enum Order {
 
 interface ILog {
   id: LogId
-  content: JSONValue
+  value: JSONValue
 }
 
 class HeartbeatTimeoutError extends CustomError {}
@@ -85,7 +85,7 @@ class LoggerClient {
 
   log(
     loggerId: string
-  , content: JSONValue
+  , value: JSONValue
   , options?: ILoggerClientRequestOptions
   ): Promise<void>
 

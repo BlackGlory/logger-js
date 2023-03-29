@@ -36,7 +36,7 @@ export interface ILoggerConfig extends JSONObject {
 
 export interface ILog {
   id: LogId
-  content: JSONValue
+  value: JSONValue
 }
 
 export interface ILoggerClientOptions {
@@ -127,13 +127,13 @@ export class LoggerClient {
 
   async log(
     loggerId: string
-  , content: JSONValue
+  , value: JSONValue
   , options: ILoggerClientRequestOptions = {}
   ): Promise<void> {
     const req = post(
       ...this.getCommonTransformers(options)
     , appendPathname(`/loggers/${loggerId}/log`)
-    , json(content)
+    , json(value)
     )
 
     try {
