@@ -63,34 +63,71 @@ class HeartbeatTimeoutError extends CustomError {}
 class LoggerNotFound extends CustomError {}
 
 class LoggerClient {
-  getAllLoggerIds(): Promise<string[]>
+  constructor(options: ILoggerClientOptions)
 
-  setLogger(loggerId: string, config: ILoggerConfig): Promise<void>
-  getLogger(loggerId: string): Promise<ILoggerConfig | null>
-  removeLogger(loggerId: string): Promise<void>
+  getAllLoggerIds(options?: ILoggerClientRequestOptions): Promise<string[]>
+
+  setLogger(
+    loggerId: string
+  , config: ILoggerConfig
+  , options?: ILoggerClientRequestOptions
+  ): Promise<void>
+
+  getLogger(
+    loggerId: string
+  , options?: ILoggerClientRequestOptions
+  ): Promise<ILoggerConfig | null>
+
+  removeLogger(
+    loggerId: string
+  , options?: ILoggerClientRequestOptions
+  ): Promise<void>
+
+  log(
+    loggerId: string
+  , content: JSONValue
+  , options?: ILoggerClientRequestOptions
+  ): Promise<void>
+
+  /**
+   * @throws {HeartbeatTimeoutError} from Observable
+   */
+  follow(
+    loggerId: string
+  , options?: ILoggerClientObserveOptions
+  ): Observable<ILog>
 
   /**
    * @throws {LoggerNotFound}
    */
-  log(loggerId: string, content: JSONValue): void
+  getLogs(
+    loggerId: string
+  , logIds: LogId[]
+  , options?: ILoggerClientRequestOptions
+  ): Promise<Array<JSONValue | null>>
+
+  removeLogs(
+    loggerId: string
+  , logIds: LogId[]
+  , options?: ILoggerClientRequestOptions
+  ): Promise<void>
 
   /**
    * @throws {LoggerNotFound}
    */
-  follow(loggerId: string): Observable<ILog>
+  queryLogs(
+    loggerId: string
+  , range: IRange
+  , options?: ILoggerClientRequestOptions
+  ): Promise<ILog[]>
 
-  /**
-   * @throws {LoggerNotFound}
-   */
-  getLogs(loggerId: string, logIds: LogId[]): Array<ILog | null> | null
-
-  removeLogs(loggerId: string, logIds: LogId[]): void
-
-  /**
-   * @throws {LoggerNotFound}
-   */
-  queryLogs(loggerId: string, range: IRange): ILog[]
-
-  clearLogs(loggerId: string, range: IRange): void
+  clearLogs(
+    loggerId: string
+  , range: IRange
+  , options?: ILoggerClientRequestOptions
+  ): Promise<void>
 }
+
+class HeartbeatTimeoutError extends CustomError {}
+class LoggerNotFound extends CustomError {}
 ```

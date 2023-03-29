@@ -213,7 +213,7 @@ export class LoggerClient {
     loggerId: string
   , logIds: LogId[]
   , options: ILoggerClientRequestOptions = {}
-  ): Promise<Array<ILog | null>> {
+  ): Promise<Array<JSONValue | null>> {
     const req = get(
       ...this.getCommonTransformers(options)
     , appendPathname(`/loggers/${loggerId}/logs/${logIds.join(',')}`)
@@ -222,7 +222,7 @@ export class LoggerClient {
     try {
       return await fetch(req)
         .then(ok)
-        .then(toJSON) as Array<ILog | null>
+        .then(toJSON) as Array<JSONValue | null>
     } catch (e) {
       if (e instanceof NotFound) throw new LoggerNotFound()
 
