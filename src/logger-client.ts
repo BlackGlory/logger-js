@@ -163,15 +163,16 @@ export class LoggerClient {
 
       const es = new EventSource(url.href)
       es.addEventListener('message', (evt: MessageEvent) => {
-        const log = JSON.parse(evt.data)
-        observer.next(log)
+        const id = evt.lastEventId as LogId
+        const value = JSON.parse(evt.data)
+        observer.next({ id, value })
       })
       es.addEventListener('error', evt => {
         close()
         observer.error(evt)
       })
 
-      let cancelHeartbeatTimeout: (() => void) | undefined
+      let cancelHeartbeatTimeout: (() => void) | undefined = undefined
       if (options.heartbeat ?? this.options.heartbeat) {
         const timeout = (
           options.heartbeat?.timeout ??

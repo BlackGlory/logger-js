@@ -19,7 +19,7 @@ describe('LoggerClient', () => {
     const log = await new Promise<ILog>(resolve => observable.subscribe(resolve))
 
     expect(observable).toBeInstanceOf(Observable)
-    expect(log).toStrictEqual({ id: '0-0', content: 'content' })
+    expect(log).toStrictEqual({ id: '0-0', value: 'value' })
   })
 })
 
