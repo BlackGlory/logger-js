@@ -1,6 +1,7 @@
-import { server } from './index.mock.js'
+import { server } from './logger-client.mock.js'
 import { LoggerClient, LoggerNotFound, Order } from '@src/logger-client.js'
 import { getErrorPromise } from 'return-style'
+import { Observable, firstValueFrom } from 'rxjs'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -65,6 +66,16 @@ describe('LoggerClient', () => {
 
       await client.log('found', 'content')
     })
+  })
+
+  test('follow', async () => {
+    const client = createClient()
+
+    const observable = client.follow('id')
+    const log = await firstValueFrom(observable)
+
+    expect(observable).toBeInstanceOf(Observable)
+    expect(log).toStrictEqual({ id: '0-0', value: 'value' })
   })
 
   describe('getLogs', () => {
