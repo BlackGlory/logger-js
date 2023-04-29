@@ -32,12 +32,12 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/config-conventional": "^17.4.4",
-    "@typescript-eslint/eslint-plugin": "^5.57.1",
-    "@typescript-eslint/parser": "^5.57.1",
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.37.0",
+    "eslint": "^8.39.0",
     "husky": "4",
     "mocksse": "^1.0.3",
     "msw": "^1.2.1",
@@ -49,21 +49,21 @@
     "tslib": "^2.5.0",
     "typescript": "4.8",
     "typescript-transform-paths": "^3.4.6",
-    "vite": "^4.2.1",
-    "vite-tsconfig-paths": "^4.0.8",
-    "vitest": "^0.29.8"
+    "vite": "^4.3.3",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.30.1"
   },
   "dependencies": {
     "@blackglory/errors": "^3.0.2",
     "@blackglory/http-status": "^2.0.1",
-    "@blackglory/prelude": "^0.3.2",
+    "@blackglory/prelude": "^0.3.3",
     "extra-abort": "^0.3.6",
-    "extra-fetch": "^4.0.5",
-    "extra-request": "^8.4.0",
+    "extra-fetch": "^4.0.6",
+    "extra-request": "^8.5.0",
     "extra-response": "^0.5.1",
     "extra-timers": "^0.2.5",
     "justypes": "^4.2.0",
-    "rxjs": "^7.8.0",
+    "rxjs": "^7.8.1",
     "url-operator": "^0.3.0"
   }
 }
