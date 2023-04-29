@@ -3403,11 +3403,6 @@ mlly@^1.1.1, mlly@^1.2.0:
     pkg-types "^1.0.2"
     ufo "^1.1.1"
 
-mocksse@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/mocksse/-/mocksse-1.0.4.tgz#281385fd9759b8f6d78643d5116008e1b76e3368"
-  integrity sha512-W5DR/wwmx/EZUgjN1g+pvlhvFFtRJ3CqGRKqsK/B1hTxrjMb/t3JCbk6aomJD4WomrnueqMaTAhcAkIZJYd73w==
-
 modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
