@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.13.0](https://github.com/BlackGlory/logger-js/compare/v0.12.1...v0.13.0) (2023-08-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* - Changed the signature of `LoggerClient#follow`
+- Removed `HeartbeatTimeoutError`
+
+* use extra-sse ([5c9c6db](https://github.com/BlackGlory/logger-js/commit/5c9c6db4077d6befecc0b7c35f7f8001bc6534d2))
+
 ### [0.12.1](https://github.com/BlackGlory/logger-js/compare/v0.12.0...v0.12.1) (2023-06-11)
 
 
