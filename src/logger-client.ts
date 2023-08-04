@@ -1,18 +1,17 @@
-import { go } from '@blackglory/prelude'
-import { fetch, EventSource } from 'extra-fetch'
+import { go, isntUndefined, pass } from '@blackglory/prelude'
+import { fetch } from 'extra-fetch'
 import { post, get, del, IRequestOptionsTransformer, put } from 'extra-request'
 import { url, appendPathname, json, searchParam, signal, keepalive, basicAuth, header }
   from 'extra-request/transformers'
 import { ok, toJSON } from 'extra-response'
-import { Observable } from 'rxjs'
 import { assert, CustomError } from '@blackglory/errors'
 import { setTimeout } from 'extra-timers'
 import { Falsy } from 'justypes'
-import { timeoutSignal, raceAbortSignals } from 'extra-abort'
+import { timeoutSignal, raceAbortSignals, AbortError } from 'extra-abort'
 import { expectedVersion } from './utils.js'
 import { JSONValue, JSONObject } from 'justypes'
 import { NotFound } from '@blackglory/http-status'
-import { appendSearchParam } from 'url-operator'
+import { fetchEvents } from 'extra-sse'
 
 export type LogId = `${number}-${number}`
 
@@ -56,7 +55,7 @@ export interface ILoggerClientRequestOptions {
   timeout?: number | false
 }
 
-export interface ILoggerClientObserveOptions {
+export interface ILoggerClientFollowOptions {
   since?: LogId
   heartbeat?: IHeartbeatOptions
 }
@@ -146,65 +145,78 @@ export class LoggerClient {
   }
 
   /**
-   * @throws {HeartbeatTimeoutError} from Observable
+   * @throws {LoggerNotFound}
    */
-  follow(
+  async * follow(
     loggerId: string
-  , options: ILoggerClientObserveOptions = {}
-  ): Observable<ILog> {
-    return new Observable(observer => {
-      const url = go(() => {
-        let url = new URL(`/loggers/${loggerId}/follow`, this.options.server)
-        if (options.since) {
-          url = appendSearchParam(url, 'since', options.since)
-        }
-        return url
-      })
-
-      const es = new EventSource(url.href)
-      es.addEventListener('message', (evt: MessageEvent) => {
-        const id = evt.lastEventId as LogId
-        const value = JSON.parse(evt.data)
-        observer.next({ id, value })
-      })
-      es.addEventListener('error', evt => {
-        close()
-        observer.error(evt)
-      })
-
-      let cancelHeartbeatTimeout: (() => void) | undefined = undefined
-      if (options.heartbeat ?? this.options.heartbeat) {
-        const timeout = (
-          options.heartbeat?.timeout ??
-          this.options.heartbeat?.timeout
-        )!
-        assert(Number.isInteger(timeout), 'timeout must be an integer')
-        assert(timeout > 0, 'timeout must greater than zero')
-
-        es.addEventListener('open', () => {
-          updateTimeout()
-
-          es.addEventListener('heartbeat', updateTimeout)
-        })
-
-        function updateTimeout() {
-          cancelHeartbeatTimeout?.()
-          cancelHeartbeatTimeout = setTimeout(timeout, heartbeatTimeout)
-        }
+  , options: ILoggerClientFollowOptions = {}
+  ): AsyncIterableIterator<ILog> {
+    const heartbeatTimeout = go(() => {
+      const timeout = options.heartbeat?.timeout ?? this.options.heartbeat?.timeout
+      if (isntUndefined(timeout)) {
+        assert(Number.isInteger(timeout), 'heartbeat.timeout must be an integer')
+        assert(timeout > 0, 'heartbeat.timeout must greater than zero')
       }
 
-      return close
-
-      function close() {
-        cancelHeartbeatTimeout?.()
-        es.close()
-      }
-
-      function heartbeatTimeout() {
-        close()
-        observer.error(new HeartbeatTimeoutError())
-      }
+      return timeout
     })
+    let cancelHeartbeatTimeout: (() => void) | undefined
+
+    while (true) {
+      try {
+        const controller = new AbortController()
+        for await (
+          const { event = 'message', data, id } of fetchEvents(
+            () => get(
+              url(this.options.server)
+            , appendPathname(`/loggers/${loggerId}/follow`)
+            , options.since && searchParam('since', options.since)
+            , signal(controller.signal)
+            )
+          , {
+              onOpen: () => {
+                if (isntUndefined(heartbeatTimeout)) {
+                  resetHeartbeatTimeout(controller, heartbeatTimeout)
+                }
+              }
+            }
+          )
+        ) {
+          switch (event) {
+            case 'message': {
+              if (isntUndefined(data) && isntUndefined(id)) {
+                yield {
+                  id: id as `${number}-${number}`
+                , value: JSON.parse(data)
+                }
+              }
+              break
+            }
+            case 'heartbeat': {
+              if (isntUndefined(heartbeatTimeout)) {
+                resetHeartbeatTimeout(controller, heartbeatTimeout)
+              }
+              break
+            }
+          }
+        }
+      } catch (e) {
+        if (e instanceof AbortError) {
+          pass()
+        } else if (e instanceof NotFound) {
+          throw new LoggerNotFound()
+        } else {
+          throw e
+        }
+      } finally {
+        cancelHeartbeatTimeout?.()
+      }
+    }
+
+    function resetHeartbeatTimeout(controller: AbortController, timeout: number): void {
+      cancelHeartbeatTimeout?.()
+      cancelHeartbeatTimeout = setTimeout(timeout, () => controller.abort())
+    }
   }
 
   /**
@@ -312,5 +324,4 @@ export class LoggerClient {
   }
 }
 
-export class HeartbeatTimeoutError extends CustomError {}
 export class LoggerNotFound extends CustomError {}

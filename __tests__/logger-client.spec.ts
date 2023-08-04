@@ -1,7 +1,8 @@
 import { server } from './logger-client.mock.js'
-import { LoggerClient, LoggerNotFound, Order } from '@src/logger-client.js'
+import { ILog, LoggerClient, LoggerNotFound, Order } from '@src/logger-client.js'
 import { getErrorPromise } from 'return-style'
-import { Observable, firstValueFrom } from 'rxjs'
+import { delay } from 'extra-promise'
+import { firstAsync, toArrayAsync } from 'iterable-operator'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
 beforeEach(() => server.resetHandlers())
@@ -68,14 +69,59 @@ describe('LoggerClient', () => {
     })
   })
 
-  test('follow', async () => {
-    const client = createClient()
+  describe('follow', () => {
+    test('found', async () => {
+      const client = createClient()
 
-    const observable = client.follow('id')
-    const log = await firstValueFrom(observable)
+      const log = await firstAsync(client.follow('found'))
 
-    expect(observable).toBeInstanceOf(Observable)
-    expect(log).toStrictEqual({ id: '0-0', value: 'value' })
+      expect(log).toStrictEqual({ id: '0-0', value: 'value' })
+    })
+
+    test('not found', async () => {
+      const client = createClient()
+
+      const err = await getErrorPromise(toArrayAsync(client.follow('not-found')))
+
+      expect(err).toBeInstanceOf(LoggerNotFound)
+    })
+
+    // 此处的心跳检测测试通过客户端超时来模拟服务器超时, 这是因为msw不支持模拟服务器超时.
+    describe('heartbeat', () => {
+      test('timeout', async () => {
+        const client = createClient()
+        const iter = client.follow('found', { heartbeat: { timeout: 500 }})
+
+        const results: ILog[] = []
+        for await (const message of iter) {
+          results.push(message)
+          if (results.length === 2) break
+          await delay(600)
+        }
+
+        expect(results).toStrictEqual([
+          { id: '0-0', value: 'value' }
+        , { id: '0-0', value: 'value' }
+        ])
+      })
+
+      test('no timeout', async () => {
+        const client = createClient()
+        const iter = client.follow('found', { heartbeat: { timeout: 500 }})
+
+        const results: ILog[] = []
+        for await (const message of iter) {
+          results.push(message)
+          if (results.length === 2) break
+          await delay(400)
+        }
+
+        expect(results).toStrictEqual([
+          { id: '0-0', value: 'value' }
+        , { id: '0-0', value: 'value' }
+        ])
+      })
+    })
   })
 
   describe('getLogs', () => {

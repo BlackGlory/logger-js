@@ -39,7 +39,9 @@
     "@typescript-eslint/parser": "^6.2.1",
     "cross-env": "^7.0.3",
     "eslint": "^8.46.0",
+    "extra-promise": "^6.0.8",
     "husky": "4",
+    "iterable-operator": "^4.0.6",
     "msw": "^1.2.3",
     "npm-run-all": "^4.1.5",
     "return-style": "^3.0.1",
@@ -61,9 +63,8 @@
     "extra-fetch": "^4.0.7",
     "extra-request": "^8.5.1",
     "extra-response": "^0.5.2",
+    "extra-sse": "^0.3.1",
     "extra-timers": "^0.2.6",
-    "justypes": "^4.2.1",
-    "rxjs": "^7.8.1",
-    "url-operator": "^0.3.1"
+    "justypes": "^4.2.1"
   }
 }

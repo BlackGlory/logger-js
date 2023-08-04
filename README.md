@@ -26,7 +26,8 @@ interface ILoggerClientRequestOptions {
   timeout?: number | false
 }
 
-interface ILoggerClientObserveOptions {
+export interface ILoggerClientFollowOptions {
+  since?: LogId
   heartbeat?: IHeartbeatOptions
 }
 
@@ -59,7 +60,6 @@ interface ILog {
   value: JSONValue
 }
 
-class HeartbeatTimeoutError extends CustomError {}
 class LoggerNotFound extends CustomError {}
 
 class LoggerClient {
@@ -90,12 +90,12 @@ class LoggerClient {
   ): Promise<void>
 
   /**
-   * @throws {HeartbeatTimeoutError} from Observable
+   * @throws {LoggerNotFound}
    */
   follow(
     loggerId: string
-  , options?: ILoggerClientObserveOptions
-  ): Observable<ILog>
+  , options?: ILoggerClientFollowOptions
+  ): AsyncIterableIterator<ILog>
 
   /**
    * @throws {LoggerNotFound}

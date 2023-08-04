@@ -1,5 +1,8 @@
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
+import { stringifyEvent } from 'extra-sse'
+import { toArray } from '@blackglory/prelude'
+import { concat } from 'iterable-operator'
 
 export const server = setupServer(
   rest.get('http://localhost/loggers', (req, res, ctx) => {
@@ -50,18 +53,23 @@ export const server = setupServer(
   })
 
 , rest.get('http://localhost/loggers/:id/follow', (req, res, ctx) => {
-    expect(req.params.id).toBe('id')
-
-    return res(
-      ctx.status(200)
-    , ctx.set('Connection', 'keep-alive')
-    , ctx.set('Content-Type', 'text/event-stream')
-    , ctx.body(
-        `data: ${JSON.stringify('value')}` + '\n'
-      + 'id: 0-0' + '\n'
-      + '\n'
-      )
-    )
+    switch (req.params.id) {
+      case 'found': {
+        return res(
+          ctx.status(200)
+        , ctx.set('Connection', 'keep-alive')
+        , ctx.set('Content-Type', 'text/event-stream')
+        , ctx.body(toArray(concat(
+            stringifyEvent({
+              id: '0-0'
+            , data: JSON.stringify('value')
+            })
+          , stringifyEvent({ event: 'heartbeat' })
+          )).join(''))
+        )
+      }
+      default: return res(ctx.status(404))
+    }
   })
 
 , rest.get('http://localhost/loggers/:loggerId/logs/:logIds', (req, res, ctx) => {
