@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.13.2](https://github.com/BlackGlory/logger-js/compare/v0.13.1...v0.13.2) (2023-12-17)
+
+
+### Bug Fixes
+
+* since after reconnect ([8489f92](https://github.com/BlackGlory/logger-js/commit/8489f92afd4cdc046f253d8faf4cab36760dd969))
+
 ### [0.13.1](https://github.com/BlackGlory/logger-js/compare/v0.13.0...v0.13.1) (2023-12-17)
 
 ## [0.13.0](https://github.com/BlackGlory/logger-js/compare/v0.12.1...v0.13.0) (2023-08-04)
