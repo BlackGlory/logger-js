@@ -162,6 +162,7 @@ export class LoggerClient {
     })
     let cancelHeartbeatTimeout: (() => void) | undefined
 
+    let since = options.since
     while (true) {
       try {
         const controller = new AbortController()
@@ -170,7 +171,7 @@ export class LoggerClient {
             () => get(
               url(this.options.server)
             , appendPathname(`/loggers/${loggerId}/follow`)
-            , options.since && searchParam('since', options.since)
+            , since && searchParam('since', since)
             , signal(controller.signal)
             )
           , {
@@ -186,9 +187,10 @@ export class LoggerClient {
             case 'message': {
               if (isntUndefined(data) && isntUndefined(id)) {
                 yield {
-                  id: id as `${number}-${number}`
+                  id: id as LogId
                 , value: JSON.parse(data)
                 }
+                since = id as LogId
               }
               break
             }
