@@ -179,7 +179,6 @@ export class LoggerClient {
                   resetHeartbeatTimeout(controller, heartbeatTimeout)
                 }
               }
-            , autoReconnect: false
             }
           )
         ) {
