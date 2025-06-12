@@ -26,7 +26,7 @@ interface ILoggerClientRequestOptions {
   timeout?: number | false
 }
 
-export interface ILoggerClientFollowOptions {
+export interface ILoggerClientFollowOptions extends ILoggerClientRequestOptions {
   since?: LogId
   heartbeat?: IHeartbeatOptions
 }

@@ -55,7 +55,7 @@ export interface ILoggerClientRequestOptions {
   timeout?: number | false
 }
 
-export interface ILoggerClientFollowOptions {
+export interface ILoggerClientFollowOptions extends ILoggerClientRequestOptions {
   since?: LogId
   heartbeat?: IHeartbeatOptions
 }
@@ -169,10 +169,14 @@ export class LoggerClient {
         for await (
           const { event = 'message', data, id } of fetchEvents(
             () => get(
-              url(this.options.server)
+              ...this.getCommonTransformers({
+                signal: raceAbortSignals([
+                  options.signal
+                , controller.signal
+                ])
+              })
             , appendPathname(`/loggers/${loggerId}/follow`)
             , since && searchParam('since', since)
-            , signal(controller.signal)
             )
           , {
               onOpen: () => {
