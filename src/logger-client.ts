@@ -280,8 +280,8 @@ export class LoggerClient {
     , range.order && searchParam('order', range.order)
     , range.from && searchParam('from', range.from)
     , range.to && searchParam('to', range.to)
-    , range.skip && searchParam('tail', range.skip)
-    , range.limit && searchParam('tail', range.limit)
+    , range.skip && searchParam('skip', range.skip)
+    , range.limit && searchParam('limit', range.limit)
     )
 
     try {
@@ -306,8 +306,8 @@ export class LoggerClient {
     , range.order && searchParam('order', range.order)
     , range.from && searchParam('from', range.from)
     , range.to && searchParam('to', range.to)
-    , range.skip && searchParam('tail', range.skip)
-    , range.limit && searchParam('tail', range.limit)
+    , range.skip && searchParam('skip', range.skip)
+    , range.limit && searchParam('limit', range.limit)
     )
 
     await fetch(req).then(ok)

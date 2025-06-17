@@ -2,6 +2,7 @@ import { fastify } from 'fastify'
 import { stringifyEvent } from 'extra-sse'
 import { toArray } from '@blackglory/prelude'
 import { concat } from 'iterable-operator'
+import { LogId } from '@src/logger-client.js'
 
 export function buildServer() {
   const server = fastify()
@@ -144,11 +145,19 @@ export function buildServer() {
     }
     Querystring: {
       order: string
+      from: LogId
+      to: LogId
+      limit: string
+      skip: string
     }
   }>('/loggers/:id/logs', req => {
     switch (req.params.id) {
       case 'found': {
         expect(req.query.order).toBe('asc')
+        expect(req.query.from).toBe('0-0')
+        expect(req.query.to).toBe('0-1')
+        expect(req.query.limit).toBe('1')
+        expect(req.query.skip).toBe('2')
 
         return Response.json(
           [
@@ -167,10 +176,18 @@ export function buildServer() {
     }
     Querystring: {
       order: string
+      from: LogId
+      to: LogId
+      limit: string
+      skip: string
     }
   }>('/loggers/:id/logs', req => {
     expect(req.params.id).toBe('id')
     expect(req.query.order).toBe('asc')
+    expect(req.query.from).toBe('0-0')
+    expect(req.query.to).toBe('0-1')
+    expect(req.query.limit).toBe('1')
+    expect(req.query.skip).toBe('2')
 
     return new Response(null, { status: 204 })
   })

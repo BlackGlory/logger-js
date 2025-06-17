@@ -168,6 +168,10 @@ describe('LoggerClient', () => {
 
       const result = await client.queryLogs('found', {
         order: Order.Asc
+      , from: '0-0'
+      , to: '0-1'
+      , limit: 1
+      , skip: 2
       })
 
       expect(result).toStrictEqual([
@@ -181,6 +185,10 @@ describe('LoggerClient', () => {
 
     await client.clearLogs('id', {
       order: Order.Asc
+    , from: '0-0'
+    , to: '0-1'
+    , limit: 1
+    , skip: 2
     })
   })
 })
