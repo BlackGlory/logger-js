@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.14.0](https://github.com/BlackGlory/logger-js/compare/v0.13.4...v0.14.0) (2025-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **follow:** Node.js v16 => Node.js v22
+
+### Bug Fixes
+
+* **follow:** `options` support ([720ec1c](https://github.com/BlackGlory/logger-js/commit/720ec1c32ddb49cdc3753662fcbd6862f271c138))
+
 ### [0.13.4](https://github.com/BlackGlory/logger-js/compare/v0.13.3...v0.13.4) (2025-06-12)
 
 
