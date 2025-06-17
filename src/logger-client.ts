@@ -7,7 +7,7 @@ import { ok, toJSON } from 'extra-response'
 import { assert, CustomError } from '@blackglory/errors'
 import { setTimeout } from 'extra-timers'
 import { Falsy } from 'justypes'
-import { timeoutSignal, raceAbortSignals, AbortError } from 'extra-abort'
+import { timeoutSignal, raceAbortSignals } from 'extra-abort'
 import { expectedVersion } from './utils.js'
 import { JSONValue, JSONObject } from 'justypes'
 import { NotFound } from '@blackglory/http-status'
@@ -165,14 +165,15 @@ export class LoggerClient {
     let since = options.since
     while (true) {
       try {
-        const controller = new AbortController()
+        const heartbeatTimeoutController = new AbortController()
         for await (
           const { event = 'message', data, id } of fetchEvents(
             () => get(
               ...this.getCommonTransformers({
-                signal: raceAbortSignals([
+                ...options
+              , signal: raceAbortSignals([
                   options.signal
-                , controller.signal
+                , heartbeatTimeoutController.signal
                 ])
               })
             , appendPathname(`/loggers/${loggerId}/follow`)
@@ -181,7 +182,7 @@ export class LoggerClient {
           , {
               onOpen: () => {
                 if (isntUndefined(heartbeatTimeout)) {
-                  resetHeartbeatTimeout(controller, heartbeatTimeout)
+                  resetHeartbeatTimeout(heartbeatTimeoutController, heartbeatTimeout)
                 }
               }
             }
@@ -200,14 +201,14 @@ export class LoggerClient {
             }
             case 'heartbeat': {
               if (isntUndefined(heartbeatTimeout)) {
-                resetHeartbeatTimeout(controller, heartbeatTimeout)
+                resetHeartbeatTimeout(heartbeatTimeoutController, heartbeatTimeout)
               }
               break
             }
           }
         }
       } catch (e) {
-        if (e instanceof AbortError) {
+        if (e instanceof HeartbeatTimeoutError) {
           pass()
         } else if (e instanceof NotFound) {
           throw new LoggerNotFound()
@@ -221,7 +222,10 @@ export class LoggerClient {
 
     function resetHeartbeatTimeout(controller: AbortController, timeout: number): void {
       cancelHeartbeatTimeout?.()
-      cancelHeartbeatTimeout = setTimeout(timeout, () => controller.abort())
+
+      cancelHeartbeatTimeout = setTimeout(timeout, () => {
+        controller.abort(new HeartbeatTimeoutError())
+      })
     }
   }
 
@@ -330,4 +334,5 @@ export class LoggerClient {
   }
 }
 
+class HeartbeatTimeoutError extends CustomError {}
 export class LoggerNotFound extends CustomError {}

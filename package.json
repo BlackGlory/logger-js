@@ -15,11 +15,11 @@
   "license": "MIT",
   "sideEffects": false,
   "engines": {
-    "node": ">=16"
+    "node": ">=22"
   },
   "scripts": {
     "prepare": "ts-patch install -s",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
+    "lint": "eslint --quiet src __tests__",
     "test": "vitest --run",
     "prepublishOnly": "run-s prepare clean build",
     "clean": "rimraf lib",
@@ -28,43 +28,43 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s prepare lint build test",
+      "pre-commit": "run-s prepare clean lint build test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.7",
-    "@commitlint/config-conventional": "^17.6.7",
-    "@typescript-eslint/eslint-plugin": "^6.2.1",
-    "@typescript-eslint/parser": "^6.2.1",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.29.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.46.0",
-    "extra-promise": "^6.0.8",
+    "eslint": "^9.29.0",
+    "extra-promise": "^7.0.0",
+    "fastify": "^5.4.0",
     "husky": "4",
-    "iterable-operator": "^4.0.6",
-    "msw": "^1.2.3",
+    "iterable-operator": "^5.1.0",
     "npm-run-all": "^4.1.5",
     "return-style": "^3.0.1",
-    "rimraf": "^5.0.1",
+    "rimraf": "^6.0.1",
     "standard-version": "^9.3.2",
-    "ts-patch": "^3.0.2",
-    "tslib": "^2.6.1",
-    "typescript": "5.1.6",
-    "typescript-transform-paths": "^3.4.6",
-    "vite": "^4.4.8",
-    "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1"
+    "ts-patch": "^3.3.0",
+    "tslib": "^2.8.1",
+    "typescript": "5.8.3",
+    "typescript-eslint": "^8.34.0",
+    "typescript-transform-paths": "^3.5.5",
+    "vite": "^6.3.5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.3"
   },
   "dependencies": {
     "@blackglory/errors": "^3.0.3",
     "@blackglory/http-status": "^2.0.2",
-    "@blackglory/prelude": "^0.3.3",
-    "extra-abort": "^0.3.7",
-    "extra-fetch": "^4.0.7",
-    "extra-request": "^8.5.1",
+    "@blackglory/prelude": "^0.4.0",
+    "extra-abort": "^0.4.0",
+    "extra-fetch": "^5.0.1",
+    "extra-request": "^10.0.0",
     "extra-response": "^0.5.2",
-    "extra-sse": "^0.3.1",
+    "extra-sse": "^0.5.0",
     "extra-timers": "^0.2.6",
-    "justypes": "^4.2.1"
+    "justypes": "^4.4.1"
   }
 }

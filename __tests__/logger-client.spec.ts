@@ -1,12 +1,12 @@
-import { server } from './logger-client.mock.js'
+import { buildServer } from './logger-client.mock.js'
 import { ILog, LoggerClient, LoggerNotFound, Order } from '@src/logger-client.js'
 import { getErrorPromise } from 'return-style'
 import { delay } from 'extra-promise'
 import { firstAsync, toArrayAsync } from 'iterable-operator'
+import { getAddress, startService, stopService } from './utils.js'
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }))
-beforeEach(() => server.resetHandlers())
-afterAll(() => server.close())
+beforeAll(() => startService(buildServer))
+afterAll(stopService)
 
 describe('LoggerClient', () => {
   test('getAllLoggerIds', async () => {
@@ -186,5 +186,5 @@ describe('LoggerClient', () => {
 })
 
 function createClient() {
-  return new LoggerClient({ server: 'http://localhost' })
+  return new LoggerClient({ server: getAddress() })
 }

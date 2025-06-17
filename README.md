@@ -128,6 +128,5 @@ class LoggerClient {
   ): Promise<void>
 }
 
-class HeartbeatTimeoutError extends CustomError {}
 class LoggerNotFound extends CustomError {}
 ```
