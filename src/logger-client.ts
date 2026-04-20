@@ -85,7 +85,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = put(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}`)
     , json(config)
     )
 
@@ -98,7 +98,7 @@ export class LoggerClient {
   ): Promise<ILoggerConfig | null> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}`)
     )
 
     try {
@@ -118,7 +118,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}`)
     )
 
     await fetch(req).then(ok)
@@ -131,7 +131,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = post(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}/log`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}/log`)
     , json(value)
     )
 
@@ -176,7 +176,7 @@ export class LoggerClient {
                 , heartbeatTimeoutController.signal
                 ])
               })
-            , appendPathname(`/loggers/${loggerId}/follow`)
+            , appendPathname(`/loggers/${encodeURIComponent(loggerId)}/follow`)
             , since && searchParam('since', since)
             )
           , {
@@ -239,7 +239,7 @@ export class LoggerClient {
   ): Promise<Array<JSONValue | null>> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}/logs/${logIds.join(',')}`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}/logs/${logIds.join(',')}`)
     )
 
     try {
@@ -260,7 +260,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}/logs/${logIds.join(',')}`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}/logs/${logIds.join(',')}`)
     )
 
     await fetch(req).then(ok)
@@ -276,7 +276,7 @@ export class LoggerClient {
   ): Promise<ILog[]> {
     const req = get(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}/logs`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}/logs`)
     , range.order && searchParam('order', range.order)
     , range.from && searchParam('from', range.from)
     , range.to && searchParam('to', range.to)
@@ -302,7 +302,7 @@ export class LoggerClient {
   ): Promise<void> {
     const req = del(
       ...this.getCommonTransformers(options)
-    , appendPathname(`/loggers/${loggerId}/logs`)
+    , appendPathname(`/loggers/${encodeURIComponent(loggerId)}/logs`)
     , range.order && searchParam('order', range.order)
     , range.from && searchParam('from', range.from)
     , range.to && searchParam('to', range.to)
