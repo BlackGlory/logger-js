@@ -56,15 +56,15 @@
     "vitest": "^3.2.3"
   },
   "dependencies": {
-    "@blackglory/errors": "^3.0.3",
-    "@blackglory/http-status": "^2.0.2",
+    "@blackglory/errors": "^3.1.0",
+    "@blackglory/http-status": "^2.0.4",
     "@blackglory/prelude": "^0.4.0",
-    "extra-abort": "^0.4.0",
-    "extra-fetch": "^5.0.1",
-    "extra-request": "^10.0.0",
-    "extra-response": "^0.5.2",
+    "extra-abort": "^0.5.1",
+    "extra-fetch": "^5.2.0",
+    "extra-request": "^11.2.0",
+    "extra-response": "^0.6.1",
     "extra-sse": "^0.5.0",
-    "extra-timers": "^0.2.6",
-    "justypes": "^4.4.1"
+    "extra-timers": "^0.3.1",
+    "justypes": "^4.5.0"
   }
 }
